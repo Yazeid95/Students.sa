@@ -136,13 +136,13 @@ function showError(message) {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.style.cssText = `
-        background: #fee2e2;
-        color: #dc2626;
+        background: #4c1d1d;
+        color: #f87171;
         padding: 12px 16px;
         border-radius: 8px;
         margin: 16px 0;
         font-size: 14px;
-        border: 1px solid #fecaca;
+        border: 1px solid #7f1d1d;
     `;
     errorDiv.textContent = message;
     
@@ -295,13 +295,13 @@ function showSuccess(message) {
     const successDiv = document.createElement('div');
     successDiv.className = 'success-message';
     successDiv.style.cssText = `
-        background: #dcfce7;
-        color: #166534;
+        background: #1e3a2e;
+        color: #d4af37;
         padding: 12px 16px;
         border-radius: 8px;
         margin: 16px 0;
         font-size: 14px;
-        border: 1px solid #bbf7d0;
+        border: 1px solid #2d5a4f;
     `;
     successDiv.textContent = message;
     
