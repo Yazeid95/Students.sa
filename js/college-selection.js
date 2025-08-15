@@ -131,6 +131,13 @@ function finishSelection() {
     const college = majorData[selectedCollege];
     const major = college.majors.find(m => m.id === selectedMajor);
     
+    // Check if Information Technology is selected
+    if (selectedCollege === 'computing' && selectedMajor === 'it') {
+        // Redirect to Information Technology planner
+        window.location.href = 'EN/college-of-computing-and-informatics/information-technology.html';
+        return;
+    }
+    
     alert(`Selection completed!\nCollege: ${college.name}\nMajor: ${major.name}`);
     
     // You can redirect or proceed to the next step here
