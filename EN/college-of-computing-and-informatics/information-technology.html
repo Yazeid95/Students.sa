@@ -25,7 +25,7 @@
             </svg>
         </button>
         
-        <button class="control-btn" id="languageToggle" onclick="toggleLanguage()" title="Switch Language">
+        <button class="control-btn" id="languageToggle" onclick="toggleLanguage()" title="Switch Language" style="display: none;">
             <span class="lang-text" id="langText">ع</span>
         </button>
     </div>
@@ -1103,7 +1103,7 @@
         }
 
         function toggleLanguage() {
-            window.location.href = '../../AR/ar-college-of-computing-and-informatics/information-technology-planner.html';
+            window.location.href = '../../AR/ar-college-of-computing-and-informatics/ar-information-technology.html';
         }
 
         function initializeTheme() {
@@ -2796,12 +2796,6 @@
             
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-        }
-
-        // Language toggle functionality (placeholder)
-        function toggleLanguage() {
-            // Placeholder for language switching
-            console.log('Language toggle clicked');
         }
 
         // Initialize theme functionality (consolidated above)
