@@ -127,46 +127,14 @@ function backToColleges() {
 function finishSelection() {
     if (!selectedCollege || !selectedMajor) return;
     
-    // Define major page mappings
-    const majorPages = {
-        'computing': {
-            'cs': 'EN/college-of-computing-and-informatics/computer-science.html',
-            'ds': 'EN/college-of-computing-and-informatics/data-science.html',
-            'it': 'EN/college-of-computing-and-informatics/information-technology.html'
-        },
-        'administrative': {
-            'management': 'EN/college-of-administrative-and-financial-sciences/management.html',
-            'ecommerce': 'EN/college-of-administrative-and-financial-sciences/e-commerce.html',
-            'accounting': 'EN/college-of-administrative-and-financial-sciences/accounting.html',
-            'finance': 'EN/college-of-administrative-and-financial-sciences/finance.html'
-        },
-        'health': {
-            'health-informatics': 'EN/college-of-health-sciences/health-informatics.html',
-            'public-health': 'EN/college-of-health-sciences/public-health.html'
-        },
-        'science': {
-            'law': 'EN/college-of-science-and-theoretical-studies/law-program.html',
-            'digital-media': 'EN/college-of-science-and-theoretical-studies/digital-media.html',
-            'english': 'EN/college-of-science-and-theoretical-studies/english-language-and-translation.html'
-        }
-    };
-
-    // Get the page URL for the selected major
-    const pageUrl = majorPages[selectedCollege] && majorPages[selectedCollege][selectedMajor];
+    // Here you can handle the final selection
+    const college = majorData[selectedCollege];
+    const major = college.majors.find(m => m.id === selectedMajor);
     
-    if (pageUrl) {
-        // Store the selection in localStorage for future reference
-        localStorage.setItem('selectedCollege', selectedCollege);
-        localStorage.setItem('selectedMajor', selectedMajor);
-        
-        // Redirect to the specific major page
-        window.location.href = pageUrl;
-    } else {
-        // Fallback: show completion message
-        const college = majorData[selectedCollege];
-        const major = college.majors.find(m => m.id === selectedMajor);
-        alert(`Selection completed!\nCollege: ${college.name}\nMajor: ${major.name}\n\nPage coming soon!`);
-    }
+    alert(`Selection completed!\nCollege: ${college.name}\nMajor: ${major.name}`);
+    
+    // You can redirect or proceed to the next step here
+    console.log('Selected:', { college: selectedCollege, major: selectedMajor });
 }
 
 function goBack() {
