@@ -221,7 +221,7 @@
                 { code: "IT487", name: "Advanced Topics in IT", hours: 3, prerequisites: ["IT475"], category: "major" },
                 { code: "IT488", name: "Cyber Forensics", hours: 3, prerequisites: ["IT474"], category: "major" },
                 { code: "IT489", name: "Senior Project II", hours: 3, prerequisites: ["IT479"], category: "major" },
-                { code: "IT499", name: "Practical Training", hours: 3, prerequisites: [], category: "major" }
+                { code: "IT499", name: "Practical Training", hours: 3, prerequisites: [], category: "major", hourRequirement: 86 }
             ]
         };
 
@@ -279,7 +279,21 @@
         }
 
         function isPrerequisitesMet(course) {
-            return course.prerequisites.every(prereq => completedCourses.has(prereq));
+            // Check regular course prerequisites
+            const regularPrereqsMet = course.prerequisites.every(prereq => completedCourses.has(prereq));
+            
+            // Check hour-based requirements (like IT499 requiring 86 hours)
+            if (course.hourRequirement) {
+                const allCoursesFlat = getAllCourses();
+                const completedHours = Array.from(completedCourses).reduce((total, courseCode) => {
+                    const completedCourse = allCoursesFlat.find(c => c.code === courseCode);
+                    return total + (completedCourse ? completedCourse.hours : 0);
+                }, 0);
+                
+                return regularPrereqsMet && completedHours >= course.hourRequirement;
+            }
+            
+            return regularPrereqsMet;
         }
 
         function getAvailableCourses() {
@@ -314,9 +328,9 @@
                             <span class="course-category">${course.category}</span>
                         </div>
                         <div class="course-name">${course.name}</div>
-                        ${course.prerequisites.length > 0 ? 
+                        ${course.prerequisites.length > 0 || course.hourRequirement ? 
                             `<div class="prerequisites">
-                                <small>Prerequisites: ${course.prerequisites.join(', ')}</small>
+                                <small>Prerequisites: ${course.prerequisites.length > 0 ? course.prerequisites.join(', ') : ''}${course.prerequisites.length > 0 && course.hourRequirement ? ', ' : ''}${course.hourRequirement ? `Pass ${course.hourRequirement} hours` : ''}</small>
                             </div>` : ''
                         }
                     </div>
