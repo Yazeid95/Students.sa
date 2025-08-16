@@ -18,16 +18,6 @@
             text-align: right;
         }
         
-        .radio-custom {
-            margin-left: 15px;
-            margin-right: 0;
-        }
-        
-        .checkbox-custom {
-            margin-left: 15px;
-            margin-right: 0;
-        }
-        
         .course-header {
             flex-direction: row-reverse;
         }
@@ -41,7 +31,10 @@
         }
         
         .plan-content {
-            grid-template-columns: 500px 1fr;
+            display: grid;
+            grid-template-columns: 1fr 500px;
+            gap: 30px;
+            margin-bottom: 30px;
         }
         
         .questionnaire-actions {
@@ -53,6 +46,983 @@
             justify-content: flex-end;
             gap: 20px;
             margin-top: 30px;
+        }
+
+        /* Questionnaire Styles - Arabic RTL */
+        .questionnaire-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .questionnaire-card {
+            background: rgba(13, 40, 24, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .questionnaire-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .questionnaire-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .questionnaire-subtitle {
+            font-size: 16px;
+            color: #b8e6cc;
+            margin: 0;
+        }
+
+        .questions-form {
+            margin-bottom: 40px;
+        }
+
+        .question-group {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .question-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .question-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #e8f5f0;
+            margin-bottom: 15px;
+        }
+
+        .question-hint {
+            font-size: 14px;
+            color: #b8e6cc;
+            margin-bottom: 20px;
+        }
+
+        /* Radio Options */
+        .radio-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #ffffff;
+        }
+
+        .radio-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-custom {
+            border-color: #d4af37;
+            background: #d4af37;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-custom::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #0d2818;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Checkbox Grid */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-option input[type="checkbox"]:checked + .checkbox-custom {
+            border-color: #d4af37;
+            background: #d4af37;
+        }
+
+        .checkbox-option input[type="checkbox"]:checked + .checkbox-custom::after {
+            content: '✓';
+            color: #0d2818;
+            font-size: 14px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .questionnaire-course-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .questionnaire-course-code {
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 14px;
+        }
+
+        .questionnaire-course-name {
+            font-size: 12px;
+            color: #b8e6cc;
+        }
+
+        /* Semester Grid */
+        .semester-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 12px;
+        }
+
+        .semester-option {
+            cursor: pointer;
+        }
+
+        .semester-option input[type="radio"] {
+            display: none;
+        }
+
+        .semester-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #e8f5f0;
+            transition: all 0.3s ease;
+        }
+
+        .semester-option:hover .semester-number {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .semester-option input[type="radio"]:checked + .semester-number {
+            background: #d4af37;
+            border-color: #d4af37;
+            color: #0d2818;
+        }
+
+        /* Questionnaire Actions */
+        .questionnaire-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .questionnaire-btn.secondary {
+            background: rgba(0, 0, 0, 0.3);
+            color: #b8e6cc;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .questionnaire-btn.secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .questionnaire-btn.primary {
+            background: #d4af37;
+            color: #0d2818;
+        }
+
+        .questionnaire-btn.primary:hover:not(:disabled) {
+            background: #e6c654;
+            transform: translateY(-2px);
+        }
+
+        .questionnaire-btn:disabled {
+            background: rgba(0, 0, 0, 0.2);
+            color: #666;
+            cursor: not-allowed;
+            border: 1px solid rgba(100, 100, 100, 0.2);
+        }
+
+        .arrow-icon {
+            flex-shrink: 0;
+        }
+
+        /* RTL specific adjustments for radio and checkbox */
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            margin-right: 0;
+        }
+
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #666;
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            margin-right: 0;
+        }
+
+        /* Study Plan Styles */
+        .study-plan-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .plan-header {
+            background: rgba(13, 40, 24, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+        }
+
+        .plan-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #b8e6cc;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+
+        /* Available Courses Section */
+        .available-courses-section {
+            background: rgba(13, 40, 24, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            height: fit-content;
+        }
+
+        .available-courses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .course-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .course-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 5px;
+        }
+        
+        .course-name-container {
+            max-width: 60%;
+            margin-left: 10px;
+        }
+        
+        .course-details {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .course-code-hours {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            gap: 8px;
+        }
+
+        .course-code {
+            font-size: 16px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .course-hours {
+            font-size: 12px;
+            color: #b8e6cc;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .course-category {
+            font-size: 12px;
+            color: #b8e6cc;
+            background: rgba(184, 230, 204, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .course-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e8f5f0;
+            margin-bottom: 4px;
+        }
+
+        .prerequisites {
+            margin-top: 5px;
+        }
+
+        .prerequisites small {
+            color: #b8e6cc;
+            font-size: 12px;
+        }
+        
+        .hour-requirement {
+            margin-top: 5px;
+        }
+        
+        .hour-requirement small {
+            color: #b8e6cc;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 8px;
+            flex-direction: row-reverse;
+        }
+
+        .add-course-btn, .done-course-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-course-btn {
+            background: #d4af37;
+            color: #0d2818;
+        }
+
+        .add-course-btn:hover:not(:disabled) {
+            background: #e6c654;
+            transform: scale(1.1);
+        }
+
+        .add-course-btn:disabled {
+            background: rgba(212, 175, 55, 0.3);
+            color: #b8e6cc;
+            cursor: not-allowed;
+        }
+
+        .done-course-btn {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .done-course-btn:hover {
+            background: rgba(34, 197, 94, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* Term Builder Section */
+        .term-builder-section {
+            background: rgba(13, 40, 24, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            height: fit-content;
+        }
+
+        .term-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: #b8e6cc;
+            margin-bottom: 4px;
+        }
+
+        .summary-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .selected-courses-container {
+            min-height: 200px;
+            margin-bottom: 20px;
+        }
+
+        .selected-course-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .selected-course-info {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .selected-course-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .selected-course-details {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .selected-course-code-hours {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            gap: 8px;
+        }
+
+        .selected-course-code {
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 14px;
+        }
+
+        .selected-course-name {
+            font-size: 16px;
+            color: #e8f5f0;
+            font-weight: 600;
+            max-width: 60%;
+        }
+        
+        .selected-course-category {
+            font-size: 12px;
+            color: #a8c6bc;
+            background-color: rgba(168, 198, 188, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .selected-course-hours {
+            font-size: 11px;
+            color: #a0a6a4;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .course-time-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 120px;
+        }
+
+        .time-select, .day-select, .crn-input {
+            padding: 4px 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            color: #e8f5f0;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .crn-input {
+            font-family: inherit;
+        }
+
+        .crn-input::placeholder {
+            color: #a0a6a4;
+            font-style: italic;
+        }
+        
+        .time-select option, .day-select option {
+            background: #051f12;
+            color: #e8f5f0;
+        }
+        
+        .time-select option:disabled, .day-select option:disabled {
+            background: #333;
+            color: #666;
+            font-style: italic;
+        }
+
+        .remove-course-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #ef4444;
+            background: transparent;
+            color: #ef4444;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .remove-course-btn:hover {
+            background: rgba(248, 113, 113, 0.15);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #b8e6cc;
+        }
+
+        .empty-state p {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .empty-state small {
+            color: #9ca3af;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.secondary {
+            background: rgba(0, 0, 0, 0.3);
+            color: #b8e6cc;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .nav-btn.secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .nav-btn.primary {
+            background: #d4af37;
+            color: #0d2818;
+        }
+
+        .nav-btn.primary:hover {
+            background: #e6c654;
+            transform: translateY(-2px);
+        }
+
+        .empty-courses {
+            text-align: center;
+            padding: 40px 20px;
+            color: #b8e6cc;
+        }
+
+        .empty-courses p {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .empty-courses small {
+            color: #9ca3af;
+        }
+
+        .course-category {
+            font-size: 11px;
+            color: #e8f5f0;
+            background: rgba(13, 40, 24, 0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            text-transform: capitalize;
+        }
+
+        .course-name {
+            font-size: 14px;
+            color: #e8f5f0;
+            margin-bottom: 4px;
+        }
+
+        .prerequisites {
+            font-size: 12px;
+            color: #a0a6a4;
+        }
+
+        .add-course-btn, .done-course-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid;
+            background: transparent;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .add-course-btn {
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+
+        .add-course-btn:hover:not(:disabled) {
+            background: #d4af37;
+            color: #051f12;
+        }
+
+        .add-course-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .done-course-btn {
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+
+        .done-course-btn:hover {
+            background: #22c55e;
+            color: #051f12;
+        }
+
+        /* Term Builder Section */
+        .term-builder-section {
+            background: rgba(13, 40, 24, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .term-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #e8f5f0;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: #d4af37;
+        }
+
+        .selected-courses-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a0a6a4;
+        }
+
+        .empty-state p {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .empty-state small {
+            font-size: 12px;
+        }
+
+        .nav-btn.secondary {
+            background: transparent;
+            border: 1px solid #a0a6a4;
+            color: #a0a6a4;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.secondary:hover {
+            background: rgba(160, 166, 164, 0.1);
+        }
+
+        .empty-courses {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a0a6a4;
+        }
+
+        /* Responsive design for Arabic */
+        @media (max-width: 768px) {
+            .questionnaire-container {
+                margin: 20px auto;
+                padding: 10px;
+            }
+
+            .questionnaire-card {
+                padding: 20px;
+            }
+
+            .questionnaire-title {
+                font-size: 24px;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .semester-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .questionnaire-actions {
+                flex-direction: column;
+            }
+
+            .questionnaire-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Schedule Styles */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(4, 1fr);
+            gap: 2px;
+            width: 100%;
+            direction: rtl;
+        }
+        
+        .schedule-header {
+            display: contents;
+        }
+
+        .time-header, .day-header {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 12px 8px;
+            font-weight: 600;
+            color: #d4af37;
+            text-align: center;
+            font-size: 12px;
+            border-radius: 6px;
+            margin: 2px;
+        }
+
+        .time-row {
+            display: contents;
+        }
+
+        .time-cell {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 4px 2px;
+            font-size: 10px;
+            color: #e8f5f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 6px;
+            margin: 2px;
+            line-height: 1;
+            font-weight: 600;
+        }
+
+        .schedule-cell {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin: 2px;
+        }
+
+        .schedule-cell.occupied {
+            background: rgba(13, 148, 136, 0.2);
+            border-radius: 10px;
+            margin: 2px;
+            border: 1px solid rgba(13, 148, 136, 0.3);
+        }
+
+        .course-block {
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .course-block .course-code {
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 10px;
+        }
+        
+        .course-block .course-name {
+            font-size: 9px;
+            color: #e8f5f0;
+        }
+        
+        .course-block .course-crn {
+            font-size: 8px;
+            color: #a0a6a4;
         }
     </style>
 </head>
@@ -231,7 +1201,7 @@
             </div>
 
             <div class="questionnaire-actions">
-                <a href="../college-selection.html" class="questionnaire-btn secondary">
+                <a href="../../college-selection.html" class="questionnaire-btn secondary">
                     <svg class="arrow-icon" viewBox="0 0 24 24" width="16" height="16">
                         <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
                     </svg>
@@ -273,6 +1243,15 @@
 
         <!-- Main Content Area -->
         <div class="plan-content">
+            <!-- Left Side: Available Courses -->
+            <div class="available-courses-section">
+                <h2 class="section-title">المقررات المتاحة للتسجيل</h2>
+                
+                <div class="available-courses-list" id="availableCoursesList">
+                    <!-- Dynamic content will be generated here -->
+                </div>
+            </div>
+
             <!-- Right Side: Term Builder -->
             <div class="term-builder-section">
                 <h2 class="section-title">منشئ الفصل الدراسي المخصص</h2>
@@ -341,18 +1320,7 @@
                 <!-- Term Actions -->
                 <div class="term-actions">
                     <button class="action-btn secondary" onclick="clearTerm()">مسح الفصل</button>
-                    <button class="action-btn schedule" onclick="generateSchedule()" id="scheduleBtn" disabled>إنشاء الجدول</button>
-                    <button class="action-btn calendar" onclick="generateCalendar()" id="calendarBtn" disabled>عرض التقويم</button>
-                    <button class="action-btn primary" onclick="saveTerm()" id="saveTermBtn" disabled>حفظ الفصل</button>
-                </div>
-            </div>
-
-            <!-- Left Side: Available Courses -->
-            <div class="available-courses-section">
-                <h2 class="section-title">المقررات المتاحة للتسجيل</h2>
-                
-                <div class="available-courses-list" id="availableCoursesList">
-                    <!-- Dynamic content will be generated here -->
+                    <button class="action-btn primary" onclick="generateSchedule()" id="scheduleBtn" disabled>إنشاء الجدول</button>
                 </div>
             </div>
         </div>
@@ -511,7 +1479,11 @@
             const container = document.getElementById('availableCoursesList');
             let availableCourses = getAvailableCourses();
 
-            const coursesToShow = availableCourses.filter(course => !completedCourses.has(course.code));
+            // Filter out completed courses AND courses already in the term
+            const coursesToShow = availableCourses.filter(course => 
+                !completedCourses.has(course.code) && 
+                !selectedTermCourses.has(course.code)
+            );
 
             if (coursesToShow.length === 0) {
                 container.innerHTML = `
@@ -524,28 +1496,36 @@
             }
 
             container.innerHTML = coursesToShow.map(course => {
-                const isInTerm = selectedTermCourses.has(course.code);
+                const categoryText = course.category === 'university' ? 'جامعة' : (course.category === 'college' ? 'كلية' : 'تخصص');
                 
                 return `
                 <div class="course-card" data-course="${course.code}">
                     <div class="course-info">
-                        <div class="course-header">
-                            <span class="course-code">${course.code}</span>
-                            <span class="course-hours">${course.hours} ساعة</span>
-                            <span class="course-category">${course.category === 'university' ? 'جامعة' : course.category === 'college' ? 'كلية' : 'تخصص'}</span>
+                        <div class="course-main">
+                            <div class="course-name-container">
+                                <span class="course-name">${course.name}</span>
+                                ${course.prerequisites.length > 0 ? 
+                                    `<div class="prerequisites">
+                                        <small>المتطلبات: ${course.prerequisites.join(', ')}</small>
+                                    </div>` : ''
+                                }
+                            </div>
+                            <div class="course-details">
+                                <div class="course-code-hours">
+                                    <span class="course-code">${course.code}</span>
+                                    <span class="course-hours">${course.hours} ساعات</span>
+                                </div>
+                                <span class="course-category">${categoryText}</span>
+                            </div>
                         </div>
-                        <div class="course-name">${course.name}</div>
-                        ${course.prerequisites.length > 0 || course.hourRequirement ? 
-                            `<div class="prerequisites">
-                                <small>المتطلبات: ${course.prerequisites.length > 0 ? course.prerequisites.join(', ') : 'لا شيء'}${course.hourRequirement ? `، ${course.hourRequirement} ساعة مكتملة` : ''}</small>
+                        ${course.hourRequirement ? 
+                            `<div class="hour-requirement">
+                                <small>${course.hourRequirement} ساعات مكتملة</small>
                             </div>` : ''
                         }
                     </div>
                     <div class="course-actions">
-                        ${!isInTerm ? 
-                            `<button class="add-course-btn" onclick="addCourseToTerm('${course.code}')" title="إضافة للفصل">+</button>` : 
-                            `<button class="add-course-btn" disabled title="مضاف بالفعل للفصل">مضاف</button>`
-                        }
+                        <button class="add-course-btn" onclick="addCourseToTerm('${course.code}')" title="إضافة للفصل">+</button>
                         <button class="done-course-btn" onclick="markCourseCompleted('${course.code}')" title="تحديد كمكتمل">✓</button>
                     </div>
                 </div>
@@ -568,9 +1548,19 @@
             }
 
             selectedTermCourses.add(courseCode);
+            
+            // Set default time and days for the course if not already set
+            if (!courseSchedule.has(courseCode)) {
+                courseSchedule.set(courseCode, {
+                    days: 'U,T',  // Default to Sunday, Tuesday
+                    time: '3:00-3:50'  // Default time
+                });
+            }
+            
             renderAvailableCourses();
             renderSelectedCourses();
             updateTermSummary();
+            renderScheduleGrid();  // Update the schedule grid
         }
 
         function markCourseCompleted(courseCode) {
@@ -618,6 +1608,7 @@
             renderAvailableCourses();
             renderSelectedCourses();
             updateTermSummary();
+            renderScheduleGrid(); // Update the schedule grid after removing a course
         }
 
         function renderSelectedCourses() {
@@ -637,19 +1628,29 @@
                 return course;
             }).filter(Boolean);
 
-            container.innerHTML = selectedCoursesList.map(course => `
+            container.innerHTML = selectedCoursesList.map(course => {
+                const categoryText = course.category === 'university' ? 'جامعة' : (course.category === 'college' ? 'كلية' : 'تخصص');
+                
+                return `
                 <div class="selected-course-item" data-course="${course.code}">
                     <div class="selected-course-info">
-                        <span class="selected-course-code">${course.code}</span>
-                        <span class="selected-course-name">${course.name}</span>
-                        <span class="selected-course-hours">${course.hours} ساعة</span>
+                        <div class="selected-course-main">
+                            <span class="selected-course-name">${course.name}</span>
+                            <div class="selected-course-details">
+                                <div class="selected-course-code-hours">
+                                    <span class="selected-course-code">${course.code}</span>
+                                    <span class="selected-course-hours">${course.hours} ساعات</span>
+                                </div>
+                                <span class="selected-course-category">${categoryText}</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="course-time-selector">
-                        <select class="time-select" onchange="updateCourseTime('${course.code}', this.value)">
-                            ${getAvailableTimeOptions(course.code)}
-                        </select>
                         <select class="day-select" onchange="updateCourseDays('${course.code}', this.value)">
                             ${getAvailableDayOptions(course.code)}
+                        </select>
+                        <select class="time-select" onchange="updateCourseTime('${course.code}', this.value)">
+                            ${getAvailableTimeOptions(course.code)}
                         </select>
                         <input type="text" class="crn-input" placeholder="رقم CRN" 
                                value="${getCRNValue(course.code)}"
@@ -657,20 +1658,20 @@
                     </div>
                     <button class="remove-course-btn" onclick="removeCourseFromTerm('${course.code}')" title="إزالة من الفصل">×</button>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function getAvailableTimeOptions(currentCourseCode) {
             const timeSlots = [
                 { value: '', label: 'اختر الوقت' },
-                { value: '08:00-09:15', label: '08:00-09:15' },
-                { value: '09:30-10:45', label: '09:30-10:45' },
-                { value: '11:00-12:15', label: '11:00-12:15' },
-                { value: '12:30-13:45', label: '12:30-13:45' },
-                { value: '14:00-15:15', label: '14:00-15:15' },
-                { value: '15:30-16:45', label: '15:30-16:45' },
-                { value: '17:00-18:15', label: '17:00-18:15' },
-                { value: '18:30-19:45', label: '18:30-19:45' }
+                { value: '3:00-3:50', label: '3:00-3:50' },
+                { value: '4:00-4:50', label: '4:00-4:50' },
+                { value: '5:00-5:50', label: '5:00-5:50' },
+                { value: '6:00-6:50', label: '6:00-6:50' },
+                { value: '7:00-7:50', label: '7:00-7:50' },
+                { value: '8:00-8:50', label: '8:00-8:50' },
+                { value: '9:00-9:50', label: '9:00-9:50' }
             ];
             
             const currentCourseSchedule = courseSchedule.get(currentCourseCode);
@@ -686,10 +1687,7 @@
             const dayOptions = [
                 { value: '', label: 'اختر الأيام' },
                 { value: 'U,T', label: 'الأحد والثلاثاء' },
-                { value: 'M,W', label: 'الاثنين والأربعاء' },
-                { value: 'U,T,W', label: 'الأحد والثلاثاء والأربعاء' },
-                { value: 'M,T,W', label: 'الاثنين والثلاثاء والأربعاء' },
-                { value: 'U,M,T,W', label: 'الأحد إلى الأربعاء' }
+                { value: 'M,W', label: 'الإثنين والأربعاء' }
             ];
             
             const currentCourseSchedule = courseSchedule.get(currentCourseCode);
@@ -711,13 +1709,9 @@
             document.getElementById('selectedCoursesCount').textContent = coursesCount;
             document.getElementById('totalHours').textContent = totalHours;
             
-            const saveBtn = document.getElementById('saveTermBtn');
             const scheduleBtn = document.getElementById('scheduleBtn');
-            const calendarBtn = document.getElementById('calendarBtn');
             
-            saveBtn.disabled = coursesCount === 0;
             scheduleBtn.disabled = coursesCount === 0;
-            calendarBtn.disabled = coursesCount === 0;
             
             const hoursElement = document.getElementById('totalHours');
             if (totalHours > 18) {
@@ -743,8 +1737,8 @@
         function renderCalendarGrid() {
             const calendarGrid = document.getElementById('calendarGrid');
             const timeSlots = [
-                '08:00-09:15', '09:30-10:45', '11:00-12:15', '12:30-13:45',
-                '14:00-15:15', '15:30-16:45', '17:00-18:15', '18:30-19:45'
+                '8:00-9:15', '9:30-10:45', '11:00-12:15', '12:30-1:45',
+                '2:00-3:15', '3:30-4:45', '5:00-6:15', '6:30-7:45'
             ];
             const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء'];
             
@@ -767,7 +1761,7 @@
                             <div class="calendar-course-block">
                                 <div class="calendar-course-code">${course.code}</div>
                                 <div class="calendar-course-name">${course.name}</div>
-                                <div class="calendar-course-hours">${course.hours} ساعة</div>
+                                <div class="calendar-course-hours">${course.hours} ساعات</div>
                                 ${courseSchedule.get(course.code)?.crn ? `<div class="calendar-course-crn">CRN: ${courseSchedule.get(course.code).crn}</div>` : ''}
                             </div>
                         `;
@@ -800,8 +1794,8 @@
 
         function renderWeeklySchedule(container) {
             const timeSlots = [
-                '08:00-09:15', '09:30-10:45', '11:00-12:15', '12:30-13:45',
-                '14:00-15:15', '15:30-16:45', '17:00-18:15', '18:30-19:45'
+                '3:00-3:50', '4:00-4:50', '5:00-5:50', '6:00-6:50',
+                '7:00-7:50', '8:00-8:50', '9:00-9:50'
             ];
             const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء'];
             
@@ -866,9 +1860,18 @@
         }
 
         function findCourseForTimeAndDay(timeSlot, day) {
+            // Map Arabic day names to their code letters used in course schedules
+            const dayCodeMap = {
+                'الأحد': 'U',
+                'الاثنين': 'M',
+                'الثلاثاء': 'T',
+                'الأربعاء': 'W'
+            };
+            const dayCode = dayCodeMap[day];
+            
             for (const courseCode of selectedTermCourses) {
                 const schedule = courseSchedule.get(courseCode);
-                if (schedule?.time === timeSlot && schedule?.days?.includes(day.charAt(0))) {
+                if (schedule?.time === timeSlot && schedule?.days?.includes(dayCode)) {
                     return getAllCourses().find(c => c.code === courseCode);
                 }
             }
@@ -902,10 +1905,13 @@
 
         async function exportToJPEG(element) {
             try {
-                const canvas = await html2canvas(element);
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    backgroundColor: '#051f12'  // Match the site's dark green background
+                });
                 const link = document.createElement('a');
                 link.download = 'جدول-المقررات.jpg';
-                link.href = canvas.toDataURL('image/jpeg');
+                link.href = canvas.toDataURL('image/jpeg', 0.9);  // Higher quality JPEG
                 link.click();
             } catch (error) {
                 console.error('خطأ في تصدير JPEG:', error);
@@ -919,6 +1925,7 @@
             }
             courseSchedule.get(courseCode).days = days;
             renderSelectedCourses();
+            renderScheduleGrid(); // Update the schedule grid when days change
         }
 
         function updateCourseTime(courseCode, time) {
@@ -927,6 +1934,7 @@
             }
             courseSchedule.get(courseCode).time = time;
             renderSelectedCourses();
+            renderScheduleGrid(); // Update the schedule grid when time changes
         }
 
         function updateCourseCRN(courseCode, crn) {
