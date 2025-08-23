@@ -138,6 +138,13 @@ function finishSelection() {
         return;
     }
     
+    // Check if Computer Science is selected
+    if (selectedCollege === 'computing' && selectedMajor === 'cs') {
+        // Redirect to Computer Science planner
+        window.location.href = 'EN/college-of-computing-and-informatics/computer-science.html';
+        return;
+    }
+    
     alert(`Selection completed!\nCollege: ${college.name}\nMajor: ${major.name}`);
     
     // You can redirect or proceed to the next step here
