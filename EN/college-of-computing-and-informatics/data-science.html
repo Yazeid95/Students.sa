@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computer Science Study Plan Builder - Students.sa</title>
+    <title>Data Science Study Plan Builder - Students.sa</title>
     <link rel="stylesheet" href="../../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -141,6 +141,14 @@
                                 <span class="questionnaire-course-name">Statistics</span>
                             </div>
                         </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="sharedCourses" value="STAT201">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">STAT201</span>
+                                <span class="questionnaire-course-name">Introduction to Statistics and Probabilities</span>
+                            </div>
+                        </label>
                     </div>
                 </div>
 
@@ -205,7 +213,7 @@
     <div class="study-plan-container" id="studyPlanContainer" style="display: none;">
         <!-- Header Section -->
         <div class="plan-header">
-            <h1 class="plan-title">Computer Science Study Plan</h1>
+            <h1 class="plan-title">Data Science Study Plan</h1>
             <div class="progress-stats">
                 <div class="stat-item">
                     <span class="stat-label">Completed Courses:</span>
@@ -365,35 +373,35 @@
                 { code: "MATH150", name: "Discrete Mathematics", hours: 3, prerequisites: [], category: "college" },
                 { code: "MATH251", name: "Linear Algebra", hours: 3, prerequisites: ["MATH150"], category: "college" },
                 { code: "ENG103", name: "Technical Writing", hours: 3, prerequisites: [], category: "college" },
-                { code: "STAT101", name: "Statistics", hours: 3, prerequisites: [], category: "college" }
+                { code: "STAT201", name: "Introduction to Statistics and Probabilities", hours: 3, prerequisites: ["MATH150"], category: "college" }
             ],
             major: [
-                { code: "CS230", name: "Object Oriented Programming", hours: 3, prerequisites: [], category: "department" },
-                { code: "CS231", name: "Digital Logic Design", hours: 3, prerequisites: [], category: "department" },
-                { code: "CS240", name: "Data Structure", hours: 3, prerequisites: ["CS230"], category: "department" },
-                { code: "CS241", name: "Computer Architecture and Organization", hours: 3, prerequisites: ["CS231"], category: "department" },
-                { code: "CS242", name: "Theory of Computing", hours: 3, prerequisites: ["CS230"], category: "department" },
-                { code: "CS243", name: "Discrete Mathematics for CS", hours: 3, prerequisites: ["MATH150"], category: "department" },
-                { code: "CS350", name: "Introduction to Database", hours: 3, prerequisites: ["CS240"], category: "department" },
-                { code: "CS351", name: "Operating Systems", hours: 3, prerequisites: ["CS241"], category: "department" },
-                { code: "CS352", name: "System Analysis and Design", hours: 3, prerequisites: ["CS230"], category: "department" },
-                { code: "CS353", name: "Design and Analysis of Algorithms", hours: 3, prerequisites: ["CS240", "CS242"], category: "department" },
-                { code: "CS360", name: "Computer Networks", hours: 3, prerequisites: ["CS351"], category: "department" },
-                { code: "CS361", name: "Web Programming", hours: 3, prerequisites: ["CS350"], category: "department" },
-                { code: "CS362", name: "Artificial Intelligence", hours: 3, prerequisites: ["CS353"], category: "department" },
-                { code: "CS363", name: "Principles of Programming Languages", hours: 3, prerequisites: ["CS240"], category: "department" },
-                { code: "CS364", name: "Computing Entrepreneurship and Innovation", hours: 3, prerequisites: ["CS350"], category: "department" },
-                { code: "CS470", name: "Human Computer Interaction", hours: 3, prerequisites: ["CS352"], category: "department" },
-                { code: "CS471", name: "Computer Security", hours: 3, prerequisites: ["CS360"], category: "department" },
-                { code: "CS479", name: "Senior Project 1 in Computer Science", hours: 3, prerequisites: ["CS350", "CS352"], category: "department" },
-                { code: "CS489", name: "Senior Project 2 in Computer Science", hours: 3, prerequisites: ["CS479"], category: "department" },
-                { code: "CS480", name: "Project Management in Computing", hours: 3, prerequisites: ["CS352"], category: "department" },
-                { code: "CS481", name: "Professional Ethics in Computer Science", hours: 3, prerequisites: [], category: "department" },
-                { code: "CS475", name: "Mobile Computing", hours: 3, prerequisites: ["CS363"], category: "track" },
-                { code: "CS476", name: "Parallel and Distributed Computing", hours: 3, prerequisites: ["CS363"], category: "track" },
-                { code: "CS477", name: "Compiler Design", hours: 3, prerequisites: ["CS363"], category: "track" },
-                { code: "CS478", name: "Computer Graphics", hours: 3, prerequisites: ["CS363"], category: "track" },
-                { code: "CS499", name:"Practical Training", hours:3, prerequisites:[], hourRequirement: 86 }
+            { code:"DS230",   name:"Object Oriented Programming", hours:3, prerequisites:[] },
+            { code:"DS231",   name:"Introduction to Data Science Programming", hours:3, prerequisites:[] },
+            { code:"DS240",   name:"Data Structure", hours:3, prerequisites:["DS230"] },
+            { code:"DS242",   name:"Advanced Data Science Programming", hours:3, prerequisites:["DS231"] },
+            { code:"DS243",   name:"Computer Architecture and Organization", hours:3, prerequisites:[] },
+            { code:"DS350",   name:"Introduction to Database", hours:3, prerequisites:["DS240"] },
+            { code:"DS351",   name:"Operating Systems", hours:3, prerequisites:["DS243"] },
+            { code:"DS352",   name:"Design and Analysis of Algorithms", hours:3, prerequisites:["DS240"] },
+            { code:"DS353",   name:"Project Management in Computing", hours:3, prerequisites:[] },
+            { code:"DS360",   name:"Computer Networks", hours:3, prerequisites:["DS243"] },
+            { code:"DS361",   name:"System Analysis and Design", hours:3, prerequisites:["DS240"] },
+            { code:"DS362",   name:"Web Programming", hours:3, prerequisites:["DS350"] },
+            { code:"DS363",   name:"Artificial Intelligence", hours:3, prerequisites:["DS352"] },
+            { code:"DS364",   name:"Data Curation (Management and Organization)", hours:3, prerequisites:["DS350"] },
+            { code:"DS470",   name:"Data Security and Privacy", hours:3, prerequisites:["DS364"] },
+            { code:"DS471",   name:"Machine Learning", hours:3, prerequisites:["DS363"] },
+            { code:"DS472",   name:"Data Mining", hours:3, prerequisites:["DS364"] },
+            { code:"DS473",   name:"Computer Vision", hours:3, prerequisites:["DS363"] },
+            { code:"DS474",   name:"Decision Support Systems", hours:3, prerequisites:["DS363"] },
+            { code:"DS479",   name:"Senior Project 1", hours:3, prerequisites:["DS361","DS362"] },
+            { code:"DS480",   name:"Data Visualization", hours:3, prerequisites:["DS472"] },
+            { code:"DS481",   name:"Professional Ethics in Data Science", hours:3, prerequisites:[] },
+            { code:"DS482",   name:"Deep Learning", hours:3, prerequisites:["DS471"] },
+            { code:"DS483",   name:"Natural Language Processing", hours:3, prerequisites:["DS471"] },
+            { code:"DS489",   name:"Senior Project 2", hours:3, prerequisites:["DS479"] },
+            { code:"DS499",   name:"Practical Training", hours:3, prerequisites:[], hourRequirement: 86 }
             ]
         };
 
@@ -1092,7 +1100,7 @@
         }
 
         function goBack() {
-            window.location.href = 'computer-science.html';
+            window.location.href = '../../college-selection.html';
         }
 
         // Theme and language functions
@@ -1103,7 +1111,7 @@
         }
 
         function toggleLanguage() {
-            window.location.href = '../../AR/college-of-computing-and-informatics/computer-science.html';
+            window.location.href = '../../AR/college-of-computing-and-informatics/information-technology.html';
         }
 
         function initializeTheme() {
@@ -2689,7 +2697,7 @@
                 .map(input => input.value);
 
             // Store in localStorage for future reference
-            localStorage.setItem('csProgressData', JSON.stringify(userProgress));
+            localStorage.setItem('dsProgressData', JSON.stringify(userProgress));
 
             // Mark courses as completed based on answers
             markCoursesBasedOnProgress();
@@ -2721,12 +2729,12 @@
 
             // 3. Mark semester courses as completed based on completed semesters
             const semesterCourses = {
-                3: ['CS230', 'CS231'],
-                4: ['CS240', 'CS241', 'CS242', 'CS243'],
-                5: ['CS350', 'CS351', 'CS352', 'CS353'],
-                6: ['CS360', 'CS361', 'CS362', 'CS363', 'CS364'],
-                7: ['CS470', 'CS471', 'CS475', 'CS476', 'CS479'],
-                8: ['CS477', 'CS478', 'CS480', 'CS481', 'CS489', 'CS499']
+                3: ['DS230', 'DS231'],
+                4: ['DS240', 'DS242', 'DS243'],
+                5: ['DS350', 'DS351', 'DS352', 'DS353'],
+                6: ['DS360', 'DS361', 'DS362', 'DS363', 'DS364'],
+                7: ['DS470', 'DS471', 'DS472', 'DS473', 'DS474', 'DS479'],
+                8: ['DS480', 'DS481', 'DS482', 'DS483', 'DS489', 'DS499']
             };
 
             // Mark courses from completed semesters (starting from semester 3)
@@ -2768,7 +2776,7 @@
 
         // Check if we have saved progress data
         function checkSavedProgress() {
-            const savedData = localStorage.getItem('csProgressData');
+            const savedData = localStorage.getItem('dsProgressData');
             if (savedData) {
                 userProgress = JSON.parse(savedData);
                 // Auto-fill questionnaire if returning user

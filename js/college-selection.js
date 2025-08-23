@@ -145,6 +145,13 @@ function finishSelection() {
         return;
     }
     
+    // Check if Data Science is selected
+    if (selectedCollege === 'computing' && selectedMajor === 'ds') {
+        // Redirect to Data Science planner
+        window.location.href = 'EN/college-of-computing-and-informatics/data-science.html';
+        return;
+    }
+    
     alert(`Selection completed!\nCollege: ${college.name}\nMajor: ${major.name}`);
     
     // You can redirect or proceed to the next step here
