@@ -54,6 +54,8 @@ function selectCollege(college) {
     clickedBtn.classList.add('selected');
     
     selectedCollege = college;
+    // Persist selection so returning users keep their choice
+    try { localStorage.setItem('selectedCollege', college); } catch(e) {}
     
     // Enable continue button
     const continueBtn = document.getElementById('continueBtn');
@@ -130,29 +132,37 @@ function finishSelection() {
     // Here you can handle the final selection
     const college = majorData[selectedCollege];
     const major = college.majors.find(m => m.id === selectedMajor);
+    const isArabic = document.body.classList.contains('rtl');
+    const langFolder = isArabic ? 'AR' : 'EN';
+    const computingBase = `${langFolder}/college-of-computing-and-informatics`;
     
     // Check if Information Technology is selected
     if (selectedCollege === 'computing' && selectedMajor === 'it') {
-        // Redirect to Information Technology planner
-        window.location.href = 'EN/college-of-computing-and-informatics/information-technology.html';
+        // Redirect to Information Technology planner (respect current language)
+        window.location.href = `${computingBase}/information-technology.html`;
         return;
     }
     
     // Check if Computer Science is selected
     if (selectedCollege === 'computing' && selectedMajor === 'cs') {
-        // Redirect to Computer Science planner
-        window.location.href = 'EN/college-of-computing-and-informatics/computer-science.html';
+        // Redirect to Computer Science planner (respect current language)
+        window.location.href = `${computingBase}/computer-science.html`;
         return;
     }
     
     // Check if Data Science is selected
     if (selectedCollege === 'computing' && selectedMajor === 'ds') {
-        // Redirect to Data Science planner
-        window.location.href = 'EN/college-of-computing-and-informatics/data-science.html';
+        // Redirect to Data Science planner (respect current language)
+        window.location.href = `${computingBase}/data-science.html`;
         return;
     }
     
-    alert(`Selection completed!\nCollege: ${college.name}\nMajor: ${major.name}`);
+    // Fallback alert for majors without planners yet
+    if (isArabic) {
+        alert(`تم إكمال الاختيار.\nالكلية: ${college.nameAr}\nالتخصص: ${major.nameAr}`);
+    } else {
+        alert(`Selection completed!\nCollege: ${college.name}\nMajor: ${major.name}`);
+    }
     
     // You can redirect or proceed to the next step here
     console.log('Selected:', { college: selectedCollege, major: selectedMajor });
