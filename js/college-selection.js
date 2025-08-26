@@ -163,6 +163,11 @@ function finishSelection() {
         window.location.href = `${healthBase}/health-informatics.html`;
         return;
     }
+    // Check if Public Health is selected
+    if (selectedCollege === 'health' && selectedMajor === 'public-health') {
+        window.location.href = `${healthBase}/public-health.html`;
+        return;
+    }
     
     // Fallback alert for majors without planners yet
     if (isArabic) {

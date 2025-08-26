@@ -1,0 +1,2890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Health Study Plan Builder - Students.sa</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Export Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../../images/seu-students-logo-dark-green.png" alt="SEU Students Logo" class="header-logo dark-logo">
+        <img src="../../images/seu-students-logo-gold.png" alt="SEU Students Logo" class="header-logo light-logo">
+    </div>
+
+    <div class="top-controls">
+        <button class="control-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode" style="display: none;">
+            <svg class="theme-icon" viewBox="0 0 24 24" width="28" height="28">
+                <path class="sun-icon" fill="currentColor" d="M12 17.5c-1.38 0-2.63-.56-3.54-1.46A4.98 4.98 0 0 1 7 12c0-1.38.56-2.63 1.46-3.54A4.98 4.98 0 0 1 12 6.5c1.38 0 2.63.56 3.54 1.46A4.98 4.98 0 0 1 17 12c0 1.38-.56 2.63-1.46 3.54A4.98 4.98 0 0 1 12 17.5zm5.5-9.5h2v2h-2V8zm0 8h2v2h-2v-2zM8 8H6v2h2V8zm0 8H6v2h2v-2zm8.5-5.5v-2h2v2h-2zm-13 0v-2h2v2h-2zM12 2v2a8 8 0 1 0 0 16v2c-5.52 0-10-4.48-10-10S6.48 2 12 2z"/>
+                <path class="moon-icon" fill="currentColor" style="display: none;" d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>
+            </svg>
+        </button>
+        
+        <button class="control-btn" id="languageToggle" onclick="toggleLanguage()" title="Switch Language">
+            <span class="lang-text" id="langText">ع</span>
+        </button>
+    </div>
+
+    <!-- Progress Questionnaire -->
+    <div class="questionnaire-container" id="questionnaireContainer">
+        <div class="questionnaire-card">
+            <div class="questionnaire-header">
+                <h2 class="questionnaire-title">Academic Progress Assessment</h2>
+                <p class="questionnaire-subtitle">Please answer these questions to customize your study plan</p>
+            </div>
+
+            <div class="questions-form">
+                <!-- Question 1: Common First Year -->
+                <div class="question-group">
+                    <h3 class="question-title">1. Have you completed the common first year?</h3>
+                    <div class="radio-options">
+                        <label class="radio-option">
+                            <input type="radio" name="firstYear" value="yes">
+                            <span class="radio-custom"></span>
+                            Yes, I have completed the common first year
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="firstYear" value="no">
+                            <span class="radio-custom"></span>
+                            No, I haven't completed it yet
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2: Shared Courses -->
+                <div class="question-group">
+                    <h3 class="question-title">2. Which of these shared courses have you completed?</h3>
+                    <p class="question-hint">Select all courses you have completed</p>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="sharedCourses" value="ISLM101">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">ISLM101</span>
+                                <span class="questionnaire-course-name">Islamic Course 1</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="sharedCourses" value="ISLM102">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">ISLM102</span>
+                                <span class="questionnaire-course-name">Islamic Course 2</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="sharedCourses" value="ISLM103">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">ISLM103</span>
+                                <span class="questionnaire-course-name">Islamic Course 3</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="sharedCourses" value="ISLM104">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">ISLM104</span>
+                                <span class="questionnaire-course-name">Islamic Course 4</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3: Track Selection -->
+                <div class="question-group">
+                    <h3 class="question-title">3. Choose one track</h3>
+                    <p class="question-hint">Select the track you plan to follow (only one)</p>
+                    <div class="track-options">
+                        <label class="radio-option track-option">
+                            <input type="radio" name="track" value="track1">
+                            <span class="radio-custom"></span>
+                            <div class="track-info">
+                                <div class="track-title">Track 1: Epidemiology & Biostatistics</div>
+                                <ul class="track-courses-list">
+                                    <li><span class="questionnaire-course-code">PHC 321</span> - Applied Biostatistics</li>
+                                    <li><span class="questionnaire-course-code">PHC 332</span> - Advanced Epidemiology</li>
+                                    <li><span class="questionnaire-course-code">PHC 335</span> - Cancer Risk and Prevention</li>
+                                </ul>
+                            </div>
+                        </label>
+                        <label class="radio-option track-option">
+                            <input type="radio" name="track" value="track2">
+                            <span class="radio-custom"></span>
+                            <div class="track-info">
+                                <div class="track-title">Track 2: Environmental & Occupational Health</div>
+                                <ul class="track-courses-list">
+                                    <li><span class="questionnaire-course-code">PHC 351</span> - Health and Environmental Risk Assessment</li>
+                                    <li><span class="questionnaire-course-code">PHC 361</span> - Safety Fundamentals</li>
+                                    <li><span class="questionnaire-course-code">PHC 362</span> - Workplace Health Promotion</li>
+                                </ul>
+                            </div>
+                        </label>
+                        <label class="radio-option track-option">
+                            <input type="radio" name="track" value="track3">
+                            <span class="radio-custom"></span>
+                            <div class="track-info">
+                                <div class="track-title">Track 3: Health Education & Promotion</div>
+                                <ul class="track-courses-list">
+                                    <li><span class="questionnaire-course-code">PHC 315</span> - Public Health Program Evaluation</li>
+                                    <li><span class="questionnaire-course-code">PHC 375</span> - Promoting Physical Activity and Health</li>
+                                    <li><span class="questionnaire-course-code">PHC 376</span> - Health Promotion and Later Life</li>
+                                </ul>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4: Completed Semesters -->
+                <div class="question-group">
+                    <h3 class="question-title">4. How many semesters have you completed?</h3>
+                    <p class="question-hint">Select the number of completed semesters (1-8)</p>
+                    <div class="semester-grid">
+                        <label class="semester-option">
+                            <input type="radio" name="semesters" value="1">
+                            <span class="semester-number">1</span>
+                        </label>
+                        <label class="semester-option">
+                            <input type="radio" name="semesters" value="2">
+                            <span class="semester-number">2</span>
+                        </label>
+                        <label class="semester-option">
+                            <input type="radio" name="semesters" value="3">
+                            <span class="semester-number">3</span>
+                        </label>
+                        <label class="semester-option">
+                            <input type="radio" name="semesters" value="4">
+                            <span class="semester-number">4</span>
+                        </label>
+                        <label class="semester-option">
+                            <input type="radio" name="semesters" value="5">
+                            <span class="semester-number">5</span>
+                        </label>
+                        <label class="semester-option">
+                            <input type="radio" name="semesters" value="6">
+                            <span class="semester-number">6</span>
+                        </label>
+                        <label class="semester-option">
+                            <input type="radio" name="semesters" value="7">
+                            <span class="semester-number">7</span>
+                        </label>
+                        <label class="semester-option">
+                            <input type="radio" name="semesters" value="8">
+                            <span class="semester-number">8</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="questionnaire-actions">
+                <button class="questionnaire-btn secondary" onclick="goBackToSelection()">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                    Back to Selection
+                </button>
+                <button class="questionnaire-btn primary" onclick="submitQuestionnaire()" id="submitBtn" disabled>
+                    Continue to Study Plan
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="study-plan-container" id="studyPlanContainer" style="display: none;">
+        <!-- Header Section -->
+        <div class="plan-header">
+            <h1 class="plan-title">Public Health Study Plan</h1>
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Completed Courses:</span>
+                    <span class="stat-value" id="completedCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Completed Hours:</span>
+                    <span class="stat-value" id="completedHours">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Remaining Courses:</span>
+                    <span class="stat-value" id="remainingCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Remaining Hours:</span>
+                    <span class="stat-value" id="remainingHours">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+    <div class="plan-content">
+            <!-- Left Side: Available Courses -->
+            <div class="available-courses-section">
+                <h2 class="section-title">Courses Available for Registration</h2>
+                
+                <div class="available-courses-list" id="availableCoursesList">
+                    <!-- Dynamic content will be generated here -->
+                </div>
+            </div>
+
+            <!-- Right Side: Term Builder -->
+            <div class="term-builder-section">
+                <h2 class="section-title">Custom Term Builder</h2>
+                
+                <!-- Term Summary -->
+                <div class="term-summary">
+                    <div class="summary-item">
+                        <span class="summary-label">Selected Courses:</span>
+                        <span class="summary-value" id="selectedCoursesCount">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Total Hours:</span>
+                        <span class="summary-value" id="totalHours">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Max Hours:</span>
+                        <span class="summary-value">18</span>
+                    </div>
+                </div>
+
+                <!-- Selected Courses List -->
+                <div class="selected-courses-container">
+                    <div class="empty-state" id="emptyState">
+                        <p>No courses selected yet</p>
+                        <small>Click the + button next to courses you can register for to add them</small>
+                    </div>
+                    <div class="selected-courses-list" id="selectedCoursesList">
+                        <!-- Selected courses will be added here -->
+                    </div>
+                </div>
+
+                <!-- Schedule Builder -->
+                <div class="schedule-builder" id="scheduleBuilder" style="display: none;">
+                    <h3>Course Schedule</h3>
+                    <div class="schedule-options">
+                        <label class="schedule-option">
+                            <input type="radio" name="scheduleView" value="weekly" checked>
+                            Weekly View
+                        </label>
+                        <label class="schedule-option">
+                            <input type="radio" name="scheduleView" value="daily">
+                            Daily View
+                        </label>
+                    </div>
+                    
+                    <div class="schedule-grid" id="scheduleGrid">
+                        <!-- Schedule will be generated here -->
+                    </div>
+                    
+                    <div class="export-buttons">
+                        <button class="export-btn" onclick="exportSchedule('pdf')">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="currentColor" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                            Export PDF
+                        </button>
+                        <button class="export-btn" onclick="exportSchedule('jpeg')">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"/>
+                            </svg>
+                            Export JPEG
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="term-actions">
+                    <button class="action-btn secondary" onclick="clearTerm()">Clear All</button>
+                    <button class="action-btn schedule" onclick="generateSchedule()" id="scheduleBtn" disabled>Create Schedule</button>
+                    <button class="action-btn primary" onclick="saveTerm()" id="saveTermBtn" disabled>Save Term</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation-buttons">
+            <button class="nav-btn secondary" onclick="goBack()">
+                <svg class="arrow-icon" viewBox="0 0 24 24" width="16" height="16">
+                    <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+                Back to Questionnaire
+            </button>
+        </div>
+
+        <!-- Calendar Modal -->
+        <div class="calendar-modal" id="calendarModal" style="display: none;">
+            <div class="calendar-content">
+                <div class="calendar-header">
+                    <h2>Course Schedule Calendar</h2>
+                    <button class="close-calendar" onclick="closeCalendar()">×</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be generated here -->
+                </div>
+                <div class="calendar-actions">
+                    <button class="export-calendar-btn" onclick="exportCalendar()">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"/>
+                        </svg>
+                        Export as JPEG
+                    </button>
+                    <button class="close-calendar-btn" onclick="closeCalendar()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // All course data with prerequisites
+        const allCourses = {
+            university: [
+                { code: "ENG001", name: "English Skills 1", hours: 8, prerequisites: [], category: "university" },
+                { code: "ENG002", name: "English Skills 2", hours: 8, prerequisites: [], category: "university" },
+                { code: "CS001", name: "Computer Essentials", hours: 3, prerequisites: [], category: "university" },
+                { code: "MATH001", name: "Fundamentals of Mathematics", hours: 3, prerequisites: [], category: "university" },
+                { code: "COMM001", name: "Communication Skills", hours: 2, prerequisites: [], category: "university" },
+                { code: "CI001", name: "Academic Skills", hours: 2, prerequisites: [], category: "university" }
+            ],
+            shared: [
+                { code: "ISLM101", name: "Islamic Course 1", hours: 2, prerequisites: [], category: "university" },
+                { code: "ISLM102", name: "Islamic Course 2", hours: 2, prerequisites: [], category: "university" },
+                { code: "ISLM103", name: "Islamic Course 3", hours: 2, prerequisites: [], category: "university" },
+                { code: "ISLM104", name: "Islamic Course 4", hours: 2, prerequisites: [], category: "university" },
+            ],
+            major: [
+                // BIOL
+                { code: "BIOL 101", name: "Basic Medical Terminology", hours: 3, prerequisites: ["PYP"], category: "core" },
+                { code: "BIOL 102", name: "Introduction to Anatomy and Physiology", hours: 3, prerequisites: ["BIOL 101"], category: "core" },
+                { code: "BIOL 103", name: "Principles of Microbiology for Public Health", hours: 3, prerequisites: ["BIOL 101"], category: "core" },
+
+                // HCM
+                { code: "HCM 101", name: "Health Care Management", hours: 3, prerequisites: [], category: "core" },
+                { code: "HCM 102", name: "Organizational Behavior", hours: 3, prerequisites: [], category: "core" },
+                { code: "HCM 113", name: "Health Policy & Saudi Healthcare System", hours: 3, prerequisites: ["HCM 101"], category: "core" },
+                { code: "HCM 213", name: "Financial Management for Healthcare", hours: 3, prerequisites: ["HCM 101"], category: "core" },
+
+                // PHC
+                { code: "PHC 101", name: "Introduction to Public Health", hours: 3, prerequisites: [], category: "core" },
+                { code: "PHC 121", name: "Introduction to Biostatistics", hours: 3, prerequisites: [], category: "core" },
+                { code: "PHC 131", name: "Introduction to Epidemiology", hours: 3, prerequisites: ["PHC 121"], category: "core" },
+                { code: "PHC 151", name: "Environmental Health", hours: 3, prerequisites: ["PHC 101"], category: "core" },
+                { code: "PHC 181", name: "Sociology of Health, Illness and Healthcare", hours: 3, prerequisites: [], category: "core" },
+
+                { code: "PHC 212", name: "Concepts of Health Education and Promotion", hours: 3, prerequisites: ["BIOL 101"], category: "core" },
+                { code: "PHC 215", name: "Healthcare Research Methods and Analysis", hours: 3, prerequisites: ["PHC 131"], category: "core" },
+                { code: "PHC 216", name: "Ethics and Regulation in Health Care", hours: 3, prerequisites: ["HCM 113"], category: "core" },
+                { code: "PHC 231", name: "Introduction to Hospital Epidemiology", hours: 3, prerequisites: ["PHC 131"], category: "core" },
+                { code: "PHC 241", name: "Fundamental Concepts in Food and Nutrition", hours: 3, prerequisites: ["PHC 101"], category: "core" },
+                { code: "PHC 261", name: "Occupational Health", hours: 3, prerequisites: ["PHC 151"], category: "core" },
+                { code: "PHC 271", name: "Introduction to Disease", hours: 3, prerequisites: ["BIOL 103"], category: "core" },
+                { code: "PHC 273", name: "Introduction to Mental Health", hours: 3, prerequisites: ["PHC 281"], category: "core" },
+                { code: "PHC 274", name: "Health Planning", hours: 3, prerequisites: ["PHC 212"], category: "core" },
+                { code: "PHC 281", name: "Health Behavior", hours: 3, prerequisites: ["PHC 181"], category: "core" },
+
+                { code: "PHC 311", name: "Global Health", hours: 3, prerequisites: ["PHC 101"], category: "core" },
+                { code: "PHC 312", name: "Health Communication", hours: 3, prerequisites: ["PHC 216"], category: "core" },
+                { code: "PHC 313", name: "Road Traffic Injuries and Disability Prevention", hours: 3, prerequisites: ["PHC 281"], category: "core" },
+                { code: "PHC 314", name: "Society and Addiction", hours: 3, prerequisites: ["PHC 312","PHC 273"], category: "core" },
+                { code: "PHC 331", name: "Chronic Disease Epidemiology and Prevention", hours: 3, prerequisites: ["PHC 131"], category: "core" },
+                { code: "PHC 372", name: "Public Health Outbreak and Disaster Management", hours: 3, prerequisites: ["PHC 231"], category: "core" },
+                { code: "PHC 373", name: "Maternal and Child Health", hours: 3, prerequisites: ["PHC 271","PHC 281"], category: "core" },
+                { code: "PHC 374", name: "Oral Health Promotion", hours: 3, prerequisites: ["PHC 281","PHC 212"], category: "core" },
+            ],
+            tracks: [
+                            // Track 1: Epidemiology and Biostatistics (all unlocked after completing 7 semesters)
+                                { code: "PHC 321", name: "Applied Biostatistics", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+                                { code: "PHC 332", name: "Advanced Epidemiology", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+                                { code: "PHC 335", name: "Cancer Risk and Prevention", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+
+                            // Track 2: Environmental and Occupational Health (all unlocked after completing 7 semesters)
+                                { code: "PHC 351", name: "Health and Environmental Risk Assessment", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+                                { code: "PHC 361", name: "Safety Fundamentals", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+                                { code: "PHC 362", name: "Workplace Health Promotion", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+
+                            // Track 3: Health Education and Promotion (all unlocked after completing 7 semesters)
+                                { code: "PHC 315", name: "Public Health Program Evaluation", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+                                { code: "PHC 375", name: "Promoting Physical Activity and Health", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+                                { code: "PHC 376", name: "Health Promotion and Later Life", hours: 3, prerequisites: ["LEVEL 7"], category: "track" },
+            ]
+        };
+
+        // State management
+        let completedCourses = new Set();
+        let selectedTermCourses = new Set();
+        let courseSchedule = new Map(); // Store course schedule info
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize theme first
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            
+            // Check for saved progress and decide which view to show
+            if (!checkSavedProgress()) {
+                // Show questionnaire if no saved progress
+                document.getElementById('questionnaireContainer').style.display = 'block';
+                document.getElementById('studyPlanContainer').style.display = 'none';
+            } else {
+                // Show study plan if there's saved progress
+                updateStats();
+                renderAvailableCourses();
+                initializeTheme();
+            }
+            
+            // Add event listeners for questionnaire
+            document.querySelectorAll('input[name="firstYear"], input[name="semesters"]').forEach(input => {
+                input.addEventListener('change', checkQuestionnaireCompletion);
+            });
+            
+            // Checkbox buttons (shared courses)
+            document.querySelectorAll('input[name="sharedCourses"]').forEach(input => {
+                input.addEventListener('change', checkQuestionnaireCompletion);
+            });
+
+            // Track selection listener
+            document.querySelectorAll('input[name="track"]').forEach(r => {
+                r.addEventListener('change', () => {
+                    checkQuestionnaireCompletion();
+                    updateTrackSelectionVisual();
+                });
+            });
+            
+            // Add event listeners for schedule view options
+            document.querySelectorAll('input[name="scheduleView"]').forEach(radio => {
+                radio.addEventListener('change', renderScheduleGrid);
+            });
+            
+            // Initialize questionnaire state
+            checkQuestionnaireCompletion();
+        });
+
+        function getAllCourses() {
+            const base = [...allCourses.university, ...allCourses.shared, ...allCourses.major];
+            const trackMap = {
+                track1: ['PHC 321','PHC 332','PHC 335'],
+                track2: ['PHC 351','PHC 361','PHC 362'],
+                track3: ['PHC 315','PHC 375','PHC 376']
+            };
+            if (userProgress.selectedTrack && trackMap[userProgress.selectedTrack]) {
+                return [...base, ...allCourses.tracks.filter(c => trackMap[userProgress.selectedTrack].includes(c.code))];
+            }
+            return base;
+        }
+
+        function isPrerequisitesMet(course) {
+            // Enhanced prerequisite handling:
+            // 1. Literal course codes -> must be in completedCourses
+            // 2. LEVEL X sentinel (e.g., "LEVEL 8") -> satisfied if user has completed >= X semesters
+            const prereqsMet = course.prerequisites.every(prereq => {
+                if (/^LEVEL\s+\d+$/i.test(prereq)) {
+                    const levelNum = parseInt(prereq.match(/\d+/)[0], 10);
+                    return userProgress.semesters >= levelNum; // user has reached required level (semester count)
+                }
+                return completedCourses.has(prereq);
+            });
+
+            // Hour-based requirements (none presently, but keep logic future-proof)
+            if (course.hourRequirement) {
+                const allCoursesFlat = getAllCourses();
+                const completedHours = Array.from(completedCourses).reduce((total, courseCode) => {
+                    const completedCourse = allCoursesFlat.find(c => c.code === courseCode);
+                    return total + (completedCourse ? completedCourse.hours : 0);
+                }, 0);
+                return prereqsMet && completedHours >= course.hourRequirement;
+            }
+
+            return prereqsMet;
+        }
+
+        function getAvailableCourses() {
+            const allCoursesFlat = getAllCourses();
+            return allCoursesFlat.filter(course => 
+                !completedCourses.has(course.code) && 
+                !selectedTermCourses.has(course.code) &&
+                isPrerequisitesMet(course)
+            );
+        }
+
+        function renderAvailableCourses() {
+            const container = document.getElementById('availableCoursesList');
+            let availableCourses = getAvailableCourses();
+
+            // Show only courses that are truly available: NOT completed AND prerequisites met
+            const coursesToShow = availableCourses.filter(course => !completedCourses.has(course.code));
+
+            if (coursesToShow.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-courses">
+                        <p>📚 No courses available for registration</p>
+                        <small>Complete more prerequisite courses to unlock new options, or you may have completed all available courses!</small>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = coursesToShow.map(course => {
+                const isInTerm = selectedTermCourses.has(course.code);
+                
+                return `
+                <div class="course-card" data-course="${course.code}">
+                    <div class="course-info">
+                        <div class="course-header">
+                            <span class="course-code">${course.code}</span>
+                            <span class="course-hours">${course.hours} hrs</span>
+                            <span class="course-category">${course.category}</span>
+                        </div>
+                        <div class="course-name">${course.name}</div>
+                        ${course.prerequisites.length > 0 || course.hourRequirement ? 
+                            `<div class="prerequisites">
+                                <small>Prerequisites: ${course.prerequisites.length > 0 ? course.prerequisites.join(', ') : 'None'}${course.hourRequirement ? `, ${course.hourRequirement} hours completed` : ''}</small>
+                            </div>` : ''
+                        }
+                    </div>
+                    <div class="course-actions">
+                        ${!isInTerm ? 
+                            `<button class="add-course-btn" onclick="addCourseToTerm('${course.code}')" title="Add to term">+</button>` : 
+                            `<button class="add-course-btn" disabled title="Already in term">Added</button>`
+                        }
+                        <button class="done-course-btn" onclick="markCourseCompleted('${course.code}')" title="Mark as completed">✓</button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function addCourseToTerm(courseCode) {
+            const course = getAllCourses().find(c => c.code === courseCode);
+            if (!course) return;
+
+            // Check if total hours would exceed limit
+            const currentHours = Array.from(selectedTermCourses).reduce((total, code) => {
+                const c = getAllCourses().find(course => course.code === code);
+                return total + (c ? c.hours : 0);
+            }, 0);
+
+            if (currentHours + course.hours > 18) {
+                alert(`Cannot add ${course.code}. Total hours would exceed 18 hour limit (current: ${currentHours}, would be: ${currentHours + course.hours})`);
+                return;
+            }
+
+            selectedTermCourses.add(courseCode);
+            renderAvailableCourses();
+            renderSelectedCourses();
+            updateTermSummary();
+        }
+
+        function markCourseCompleted(courseCode) {
+            const course = getAllCourses().find(c => c.code === courseCode);
+            if (!course) return;
+
+            // Confirm the action
+            if (confirm(`Mark "${course.code} - ${course.name}" as completed?\n\nThis will unlock courses that require this as a prerequisite.`)) {
+                // Add to completed courses
+                completedCourses.add(courseCode);
+                
+                // Remove from selected term if it was there
+                selectedTermCourses.delete(courseCode);
+                courseSchedule.delete(courseCode);
+                
+                // Update displays
+                renderAvailableCourses();
+                renderSelectedCourses();
+                updateTermSummary();
+                updateStats();
+                
+                // Show notification
+                showNotification(`${course.code} marked as completed! New courses may now be available.`);
+            }
+        }
+
+        function showNotification(message) {
+            // Create and show a temporary notification
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: rgba(212, 175, 55, 0.9);
+                color: #051f12;
+                padding: 16px 24px;
+                border-radius: 8px;
+                font-weight: 600;
+                z-index: 1000;
+                max-width: 300px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function removeCourseFromTerm(courseCode) {
+            selectedTermCourses.delete(courseCode);
+            courseSchedule.delete(courseCode);
+            renderAvailableCourses();
+            renderSelectedCourses();
+            updateTermSummary();
+        }
+
+        function renderSelectedCourses() {
+            const container = document.getElementById('selectedCoursesList');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (selectedTermCourses.size === 0) {
+                emptyState.style.display = 'block';
+                container.innerHTML = '';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            const selectedCoursesList = Array.from(selectedTermCourses).map(courseCode => {
+                const course = getAllCourses().find(c => c.code === courseCode);
+                return course;
+            }).filter(Boolean);
+
+            container.innerHTML = selectedCoursesList.map(course => `
+                <div class="selected-course-item">
+                    <div class="selected-course-info">
+                        <span class="selected-course-code">${course.code}</span>
+                        <span class="selected-course-name">${course.name}</span>
+                        <span class="selected-course-hours">${course.hours} hrs</span>
+                    </div>
+                    <div class="course-time-selector">
+                        <select class="day-select" onchange="updateCourseDays('${course.code}', this.value)">
+                            <option value="">Select Days</option>
+                            ${getAvailableDayOptions(course.code)}
+                        </select>
+                        <select class="time-select" onchange="updateCourseTime('${course.code}', this.value)">
+                            <option value="">Select Time</option>
+                            ${getAvailableTimeOptions(course.code)}
+                        </select>
+                        <input type="text" class="crn-input" placeholder="CRN Number" 
+                               onchange="updateCourseCRN('${course.code}', this.value)"
+                               value="${getCRNValue(course.code)}">
+                    </div>
+                    <button class="remove-course-btn" onclick="removeCourseFromTerm('${course.code}')">
+                        <span class="remove-icon">×</span>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function getAvailableTimeOptions(currentCourseCode) {
+            const timeSlots = [
+                '3:00-3:50', '4:00-4:50', '5:00-5:50', 
+                '6:00-6:50', '7:00-7:50', '8:00-8:50', '9:00-9:50'
+            ];
+            
+            const currentCourseSchedule = courseSchedule.get(currentCourseCode);
+            const currentTime = currentCourseSchedule?.time;
+            const currentDays = currentCourseSchedule?.days;
+            
+            return timeSlots.map(timeSlot => {
+                // Check if this time slot conflicts with another course that has the SAME days
+                const isConflict = currentDays && Array.from(selectedTermCourses).some(courseCode => {
+                    if (courseCode === currentCourseCode) return false; // Skip current course
+                    
+                    const schedule = courseSchedule.get(courseCode);
+                    if (!schedule || !schedule.time || !schedule.days) return false;
+                    
+                    // Conflict only if BOTH same time AND same days
+                    return schedule.time === timeSlot && schedule.days === currentDays;
+                });
+                
+                const isSelected = currentTime === timeSlot;
+                const isDisabled = isConflict && !isSelected;
+                
+                return `<option value="${timeSlot}" ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled style="color: #666;"' : ''}>
+                    ${timeSlot}${isDisabled ? ' (Occupied)' : ''}
+                </option>`;
+            }).join('');
+        }
+
+        function getAvailableDayOptions(currentCourseCode) {
+            const dayOptions = [
+                { value: 'ST', label: 'Sunday & Tuesday' },
+                { value: 'MW', label: 'Monday & Wednesday' }
+            ];
+            
+            const currentCourseSchedule = courseSchedule.get(currentCourseCode);
+            const currentDays = currentCourseSchedule?.days;
+            
+            // Days are always available - no conflicts for day selection alone
+            return dayOptions.map(dayOption => {
+                const isSelected = currentDays === dayOption.value;
+                
+                return `<option value="${dayOption.value}" ${isSelected ? 'selected' : ''}>
+                    ${dayOption.label}
+                </option>`;
+            }).join('');
+        }
+
+        function updateTermSummary() {
+            const coursesCount = selectedTermCourses.size;
+            const totalHours = Array.from(selectedTermCourses).reduce((total, courseCode) => {
+                const course = getAllCourses().find(c => c.code === courseCode);
+                return total + (course ? course.hours : 0);
+            }, 0);
+
+            document.getElementById('selectedCoursesCount').textContent = coursesCount;
+            document.getElementById('totalHours').textContent = totalHours;
+            
+            // Enable/disable buttons
+            const saveBtn = document.getElementById('saveTermBtn');
+            const scheduleBtn = document.getElementById('scheduleBtn');
+            saveBtn.disabled = coursesCount === 0;
+            scheduleBtn.disabled = coursesCount === 0;
+            
+            // Update hours color based on limit
+            const hoursElement = document.getElementById('totalHours');
+            if (totalHours > 18) {
+                hoursElement.style.color = '#ef4444';
+            } else if (totalHours > 15) {
+                hoursElement.style.color = '#f59e0b';
+            } else {
+                hoursElement.style.color = '#d4af37';
+            }
+        }
+
+        function generateCalendar() {
+            const calendarModal = document.getElementById('calendarModal');
+            calendarModal.style.display = 'flex';
+            renderCalendarGrid();
+        }
+
+        function closeCalendar() {
+            const calendarModal = document.getElementById('calendarModal');
+            calendarModal.style.display = 'none';
+        }
+
+        function renderCalendarGrid() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const timeSlots = [
+                '3:00-3:50', '4:00-4:50', '5:00-5:50', 
+                '6:00-6:50', '7:00-7:50', '8:00-8:50', '9:00-9:50'
+            ];
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday'];
+            
+            let html = `
+                <div class="calendar-table">
+                    <div class="calendar-table-header">
+                        <div class="time-column-header">Time</div>
+                        ${days.map(day => `<div class="day-column-header">${day}</div>`).join('')}
+                    </div>
+                    <div class="calendar-body">
+            `;
+            
+            timeSlots.forEach(timeSlot => {
+                html += `<div class="calendar-time-row">
+                    <div class="calendar-time-cell">${timeSlot}</div>`;
+                
+                days.forEach(day => {
+                    const course = findCourseForTimeAndDay(timeSlot, day);
+                    html += `<div class="calendar-day-cell ${course ? 'has-course' : 'empty-cell'}">`;
+                    
+                    if (course) {
+                        const schedule = courseSchedule.get(course.code);
+                        html += `
+                            <div class="calendar-course-block">
+                                <div class="calendar-course-code">${course.code}</div>
+                                <div class="calendar-course-name">${course.name}</div>
+                                <div class="calendar-course-hours">${course.hours} hrs</div>
+                                ${schedule?.crn ? `<div class="calendar-course-crn">CRN: ${schedule.crn}</div>` : ''}
+                            </div>
+                        `;
+                    }
+                    
+                    html += `</div>`;
+                });
+                
+                html += '</div>';
+            });
+            
+            html += `
+                    </div>
+                </div>
+                <div class="calendar-summary">
+                    <h3>Term Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <span class="summary-label">Total Courses:</span>
+                            <span class="summary-value">${selectedTermCourses.size}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Total Hours:</span>
+                            <span class="summary-value">${Array.from(selectedTermCourses).reduce((total, code) => {
+                                const course = getAllCourses().find(c => c.code === code);
+                                return total + (course ? course.hours : 0);
+                            }, 0)}</span>
+                        </div>
+                    </div>
+                    <div class="course-list-summary">
+                        ${Array.from(selectedTermCourses).map(courseCode => {
+                            const course = getAllCourses().find(c => c.code === courseCode);
+                            const schedule = courseSchedule.get(courseCode);
+                            return `
+                                <div class="course-summary-item">
+                                    <span class="course-code">${course.code}</span>
+                                    <span class="course-name">${course.name}</span>
+                                    <span class="course-schedule">${schedule?.days || 'No days'} | ${schedule?.time || 'No time'}</span>
+                                    ${schedule?.crn ? `<span class="course-crn">CRN: ${schedule.crn}</span>` : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+            
+            calendarGrid.innerHTML = html;
+        }
+
+        async function exportCalendar() {
+            const calendarElement = document.getElementById('calendarGrid');
+            
+            try {
+                const canvas = await html2canvas(calendarElement, {
+                    scale: 2,
+                    backgroundColor: '#051f12',
+                    width: calendarElement.scrollWidth,
+                    height: calendarElement.scrollHeight,
+                    useCORS: true
+                });
+                
+                // Convert to JPEG and download
+                const link = document.createElement('a');
+                link.download = 'HI-Course-Calendar.jpeg';
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+                
+            } catch (error) {
+                console.error('Error exporting calendar:', error);
+                alert('Error exporting calendar. Please try again.');
+            }
+        }
+
+        function updateCourseDays(courseCode, days) {
+            if (!courseSchedule.has(courseCode)) {
+                courseSchedule.set(courseCode, {});
+            }
+            courseSchedule.get(courseCode).days = days;
+            
+            // Refresh the selected courses display to update time availability
+            renderSelectedCourses();
+        }
+
+        function updateCourseTime(courseCode, time) {
+            if (!courseSchedule.has(courseCode)) {
+                courseSchedule.set(courseCode, {});
+            }
+            courseSchedule.get(courseCode).time = time;
+            
+            // Refresh the selected courses display to update availability
+            renderSelectedCourses();
+        }
+
+        function updateCourseCRN(courseCode, crn) {
+            if (!courseSchedule.has(courseCode)) {
+                courseSchedule.set(courseCode, {});
+            }
+            courseSchedule.get(courseCode).crn = crn;
+        }
+
+        function getCRNValue(courseCode) {
+            const schedule = courseSchedule.get(courseCode);
+            return schedule?.crn || '';
+        }
+
+        function generateSchedule() {
+            const scheduleBuilder = document.getElementById('scheduleBuilder');
+            scheduleBuilder.style.display = 'block';
+            scheduleBuilder.scrollIntoView({ behavior: 'smooth' });
+            
+            renderScheduleGrid();
+        }
+
+        function renderScheduleGrid() {
+            const scheduleGrid = document.getElementById('scheduleGrid');
+            const viewType = document.querySelector('input[name="scheduleView"]:checked').value;
+            
+            if (viewType === 'weekly') {
+                renderWeeklySchedule(scheduleGrid);
+            } else {
+                renderDailySchedule(scheduleGrid);
+            }
+        }
+
+        function renderWeeklySchedule(container) {
+            const timeSlots = [
+                '3:00-3:50', '4:00-4:50', '5:00-5:50', 
+                '6:00-6:50', '7:00-7:50', '8:00-8:50', '9:00-9:50'
+            ];
+            
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday'];
+            
+            let html = `
+                <div class="schedule-table">
+                    <div class="schedule-header">
+                        <div class="time-header">Time</div>
+                        ${days.map(day => `<div class="day-header">${day}</div>`).join('')}
+                    </div>
+            `;
+            
+            timeSlots.forEach(timeSlot => {
+                html += `<div class="time-row">
+                    <div class="time-cell">${timeSlot}</div>`;
+                
+                days.forEach(day => {
+                    const course = findCourseForTimeAndDay(timeSlot, day);
+                    html += `<div class="schedule-cell ${course ? 'occupied' : 'empty'}">
+                        ${course ? `<div class="course-block">
+                            <div class="course-code">${course.code}</div>
+                            <div class="course-name">${course.name}</div>
+                            ${courseSchedule.get(course.code)?.crn ? `<div class="course-crn">CRN: ${courseSchedule.get(course.code).crn}</div>` : ''}
+                        </div>` : ''}
+                    </div>`;
+                });
+                
+                html += '</div>';
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function renderDailySchedule(container) {
+            const selectedCourses = Array.from(selectedTermCourses).map(code => {
+                const course = getAllCourses().find(c => c.code === code);
+                const schedule = courseSchedule.get(code) || {};
+                return { ...course, schedule };
+            });
+
+            let html = `
+                <div class="daily-schedule">
+                    ${selectedCourses.map(course => `
+                        <div class="daily-course-item">
+                            <div class="course-info">
+                                <span class="course-code">${course.code}</span>
+                                <span class="course-name">${course.name}</span>
+                            </div>
+                            <div class="schedule-info">
+                                <span class="course-time">${course.schedule.time || 'No time set'}</span>
+                                <span class="course-days">${course.schedule.days || 'No days set'}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function findCourseForTimeAndDay(timeSlot, day) {
+            for (const courseCode of selectedTermCourses) {
+                const schedule = courseSchedule.get(courseCode);
+                if (!schedule || !schedule.time || !schedule.days) continue;
+                
+                if (schedule.time === timeSlot) {
+                    const dayMappings = {
+                        'ST': ['Sunday', 'Tuesday'],
+                        'MW': ['Monday', 'Wednesday']
+                    };
+                    
+                    const courseDays = dayMappings[schedule.days] || [];
+                    if (courseDays.includes(day)) {
+                        return getAllCourses().find(c => c.code === courseCode);
+                    }
+                }
+            }
+            return null;
+        }
+
+        async function exportSchedule(format) {
+            const scheduleElement = document.getElementById('scheduleGrid');
+            
+            if (format === 'pdf') {
+                await exportToPDF(scheduleElement);
+            } else if (format === 'jpeg') {
+                await exportToJPEG(scheduleElement);
+            }
+        }
+
+        async function exportToPDF(element) {
+            try {
+                // Use html2canvas to capture the schedule
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    backgroundColor: '#051f12',
+                    onclone: function(clonedDoc) {
+                        // Ensure fonts are loaded in cloned document
+                        const clonedElement = clonedDoc.getElementById('scheduleGrid');
+                        if (clonedElement) {
+                            clonedElement.style.fontFamily = 'Inter, sans-serif';
+                        }
+                    }
+                });
+                
+                // Create PDF using jsPDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 297; // A4 landscape width in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                pdf.save('HI-Course-Schedule.pdf');
+                
+            } catch (error) {
+                console.error('Error exporting PDF:', error);
+                alert('Error exporting PDF. Please try again.');
+            }
+        }
+
+        async function exportToJPEG(element) {
+            try {
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    backgroundColor: '#051f12'
+                });
+                
+                // Convert to JPEG and download
+                const link = document.createElement('a');
+                link.download = 'HI-Course-Schedule.jpeg';
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+                
+            } catch (error) {
+                console.error('Error exporting JPEG:', error);
+                alert('Error exporting JPEG. Please try again.');
+            }
+        }
+
+        function updateStats() {
+            const allCoursesFlat = getAllCourses();
+            const completedCount = completedCourses.size;
+            const totalCount = allCoursesFlat.length;
+            const remainingCount = totalCount - completedCount;
+            
+            // Calculate completed hours
+            const completedHours = Array.from(completedCourses).reduce((total, courseCode) => {
+                const course = allCoursesFlat.find(c => c.code === courseCode);
+                return total + (course ? course.hours : 0);
+            }, 0);
+            
+            // Calculate total hours and remaining hours
+            const totalHours = allCoursesFlat.reduce((total, course) => total + course.hours, 0);
+            const remainingHours = totalHours - completedHours;
+
+            document.getElementById('completedCount').textContent = completedCount;
+            document.getElementById('completedHours').textContent = completedHours;
+            document.getElementById('remainingCount').textContent = remainingCount;
+            document.getElementById('remainingHours').textContent = remainingHours;
+        }
+
+        function clearTerm() {
+            selectedTermCourses.clear();
+            courseSchedule.clear();
+            document.getElementById('scheduleBuilder').style.display = 'none';
+            renderAvailableCourses();
+            renderSelectedCourses();
+            updateTermSummary();
+        }
+
+        function saveTerm() {
+            if (selectedTermCourses.size === 0) return;
+            
+            const selectedCourses = Array.from(selectedTermCourses);
+            const totalHours = Array.from(selectedTermCourses).reduce((total, courseCode) => {
+                const course = getAllCourses().find(c => c.code === courseCode);
+                return total + (course ? course.hours : 0);
+            }, 0);
+            
+            // Save to localStorage
+            const savedTerms = JSON.parse(localStorage.getItem('savedTerms') || '[]');
+            savedTerms.push({
+                id: Date.now(),
+                courses: selectedCourses,
+                totalHours: totalHours,
+                createdAt: new Date().toISOString()
+            });
+            localStorage.setItem('savedTerms', JSON.stringify(savedTerms));
+            
+            alert(`Term saved successfully!\nCourses: ${selectedCourses.length}\nTotal Hours: ${totalHours}`);
+            
+            // Optionally clear the term after saving
+            // clearTerm();
+        }
+
+        function goBack() {
+            window.location.href = 'public-health.html';
+        }
+
+        // Theme and language functions
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function toggleLanguage() {
+            window.location.href='../../AR/college-of-health-sciences/public-health.html';
+        }
+
+        function initializeTheme() {
+            // Force dark mode temporarily - light mode is hidden
+            document.body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            
+            const sunIcon = document.querySelector('.sun-icon');
+            const moonIcon = document.querySelector('.moon-icon');
+            
+            // Always show sun icon (dark mode)
+            if (sunIcon) sunIcon.style.display = 'block';
+            if (moonIcon) moonIcon.style.display = 'none';
+        }
+
+        // Questionnaire functionality
+        let userProgress = {
+            firstYear: null,
+            sharedCourses: [],
+            semesters: null,
+            selectedTrack: null
+        };
+
+        // Migrate legacy saved progress key (from earlier IT planner version) to new HI key
+        (function migrateLegacyProgress(){
+            try {
+                const legacy = localStorage.getItem('itProgressData');
+                if(legacy && !localStorage.getItem('hiProgressData')) {
+                    localStorage.setItem('hiProgressData', legacy);
+                }
+            } catch(e) { /* silent */ }
+        })();
+
+        // Enable submit button when all required questions are answered
+        function checkQuestionnaireCompletion() {
+            const firstYear = document.querySelector('input[name="firstYear"]:checked');
+            const semesters = document.querySelector('input[name="semesters"]:checked');
+            const track = document.querySelector('input[name="track"]:checked');
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = !(firstYear && semesters && track);
+        }
+
+        function updateTrackSelectionVisual() {
+            document.querySelectorAll('.track-option').forEach(label => label.classList.remove('selected'));
+            const chosen = document.querySelector('input[name="track"]:checked');
+            if (chosen) {
+                const parent = chosen.closest('.track-option');
+                if (parent) parent.classList.add('selected');
+            }
+        }
+
+        // Add event listeners to form inputs (consolidated above)
+        // This section was moved to the main DOMContentLoaded listener above
+
+        function submitQuestionnaire() {
+            // Collect answers
+            userProgress.firstYear = document.querySelector('input[name="firstYear"]:checked')?.value;
+            userProgress.semesters = parseInt(document.querySelector('input[name="semesters"]:checked')?.value);
+            
+            // Collect shared courses
+            userProgress.sharedCourses = Array.from(document.querySelectorAll('input[name="sharedCourses"]:checked'))
+                .map(input => input.value);
+            userProgress.selectedTrack = document.querySelector('input[name="track"]:checked')?.value || null;
+
+            // Store in localStorage for future reference
+            localStorage.setItem('hiProgressData', JSON.stringify(userProgress));
+
+            // Mark courses as completed based on answers
+            markCoursesBasedOnProgress();
+
+            // Hide questionnaire and show study plan
+            document.getElementById('questionnaireContainer').style.display = 'none';
+            document.getElementById('studyPlanContainer').style.display = 'block';
+
+            // Initialize the study plan with filtered courses
+            initializeWithProgress();
+        }
+
+        function markCoursesBasedOnProgress() {
+            // Clear existing completed courses
+            completedCourses.clear();
+
+            // 1. Mark common first year courses as completed if user selected "yes"
+            if (userProgress.firstYear === 'yes') {
+                const firstYearCourses = ['ENG001', 'ENG002', 'CS001', 'MATH001', 'COMM001', 'CI001'];
+                firstYearCourses.forEach(courseCode => {
+                    completedCourses.add(courseCode);
+                });
+            }
+
+            // 2. Mark selected shared courses as completed
+            userProgress.sharedCourses.forEach(courseCode => {
+                completedCourses.add(courseCode);
+            });
+
+            // 3. Mark semester courses as completed based on completed semesters
+            const semesterCourses = {
+            3: ['BIOL 101', 'HCM 101', 'HCM 102', 'PHC 121', 'PHC 101'],
+            4: ['BIOL 102', 'BIOL 103', 'HCM 113', 'PHC 131', 'PHC 151', 'PHC 181'],
+            5: ['PHC 212', 'PHC 241', 'PHC 261', 'PHC 271', 'PHC 281'],
+            6: ['HCM 213', 'PHC 215', 'PHC 216', 'PHC 231', 'PHC 273', 'PHC 274'],
+            7: ['PHC 311', 'PHC 312', 'PHC 313', 'PHC 331', 'PHC 372', 'PHC 373'],
+            8: ['PHC 374', 'PHC 314']
+            };
+
+            // Mark courses from completed semesters (starting from semester 3)
+            for (let sem = 3; sem <= userProgress.semesters; sem++) {
+                if (semesterCourses[sem]) {
+                    semesterCourses[sem].forEach(courseCode => {
+                        completedCourses.add(courseCode);
+                    });
+                }
+            }
+
+            // If user reached semester 8, automatically mark chosen track courses as part of semester 8 completion
+            if (userProgress.semesters >= 8 && userProgress.selectedTrack) {
+                const trackMap = {
+                    track1: ['PHC 321','PHC 332','PHC 335'],
+                    track2: ['PHC 351','PHC 361','PHC 362'],
+                    track3: ['PHC 315','PHC 375','PHC 376']
+                };
+                const chosen = trackMap[userProgress.selectedTrack] || [];
+                chosen.forEach(code => completedCourses.add(code));
+            }
+
+            // Update the progress statistics
+            updateStats();
+            // Track courses will be added dynamically based on selection
+        }
+
+        function goBackToSelection() {
+            window.location.href = '../college-selection.html';
+        }
+
+        function initializeWithProgress() {
+            // Refresh the available courses display to show updated status
+            renderAvailableCourses();
+            
+            // Update progress statistics
+            updateStats();
+            
+            // Show a summary message
+            const completedCoursesCount = completedCourses.size;
+            const totalHours = Array.from(completedCourses).reduce((total, courseCode) => {
+                const course = getAllCourses().find(c => c.code === courseCode);
+                return total + (course ? course.hours : 0);
+            }, 0);
+
+            showNotification(`Progress Updated! 
+✅ Completed Courses: ${completedCoursesCount}
+📚 Total Hours: ${totalHours}
+🎯 Showing only courses available for registration.`);
+        }
+
+        // Check if we have saved progress data
+        function checkSavedProgress() {
+            const savedData = localStorage.getItem('hiProgressData');
+            if (savedData) {
+                userProgress = JSON.parse(savedData);
+                // Auto-fill questionnaire if returning user
+                if (confirm('We found your previous progress. Would you like to continue from where you left off?')) {
+                    // Mark courses based on saved progress
+                    markCoursesBasedOnProgress();
+                    
+                    document.getElementById('questionnaireContainer').style.display = 'none';
+                    document.getElementById('studyPlanContainer').style.display = 'block';
+                    initializeWithProgress();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Check for saved progress functionality (consolidated above)
+        // This section was moved to the main DOMContentLoaded listener above
+
+        // Theme toggle functionality (existing)
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Initialize theme functionality (consolidated above)
+        // This section was moved to the main DOMContentLoaded listener above
+    </script>
+
+    <style>
+        /* Questionnaire Styles */
+        .questionnaire-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .questionnaire-card {
+            background: rgba(13, 40, 24, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .questionnaire-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .questionnaire-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .questionnaire-subtitle {
+            font-size: 16px;
+            color: #b8e6cc;
+            margin: 0;
+        }
+
+        .questions-form {
+            margin-bottom: 40px;
+        }
+
+        .question-group {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .question-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .question-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #e8f5f0;
+            margin-bottom: 15px;
+        }
+
+        .question-hint {
+            font-size: 14px;
+            color: #b8e6cc;
+            margin-bottom: 20px;
+        }
+
+        /* Radio Options */
+        .radio-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #ffffff;
+        }
+
+        .radio-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-custom {
+            border-color: #d4af37;
+            background: #d4af37;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-custom::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #0d2818;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Checkbox Grid */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #666;
+            border-radius: 4px;
+            margin-right: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-option input[type="checkbox"]:checked + .checkbox-custom {
+            border-color: #d4af37;
+            background: #d4af37;
+        }
+
+        .checkbox-option input[type="checkbox"]:checked + .checkbox-custom::after {
+            content: '✓';
+            color: #0d2818;
+            font-size: 14px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .questionnaire-course-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .questionnaire-course-code {
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 14px;
+        }
+
+        .questionnaire-course-name {
+            font-size: 12px;
+            color: #b8e6cc;
+        }
+
+        /* Semester Grid */
+        .semester-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 12px;
+        }
+
+        .semester-option {
+            cursor: pointer;
+        }
+
+        .semester-option input[type="radio"] {
+            display: none;
+        }
+
+        .semester-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #e8f5f0;
+            transition: all 0.3s ease;
+        }
+
+        .semester-option:hover .semester-number {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .semester-option input[type="radio"]:checked + .semester-number {
+            background: #d4af37;
+            border-color: #d4af37;
+            color: #0d2818;
+        }
+
+        /* Questionnaire Actions */
+        .questionnaire-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .questionnaire-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .questionnaire-btn.secondary {
+            background: rgba(0, 0, 0, 0.3);
+            color: #b8e6cc;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .questionnaire-btn.secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .questionnaire-btn.primary {
+            background: #d4af37;
+            color: #0d2818;
+        }
+
+        .questionnaire-btn.primary:hover:not(:disabled) {
+            background: #e6c654;
+            transform: translateY(-2px);
+        }
+
+        .questionnaire-btn:disabled {
+            background: rgba(0, 0, 0, 0.2);
+            color: #666;
+            cursor: not-allowed;
+            border: 1px solid rgba(100, 100, 100, 0.2);
+        }
+
+        .arrow-icon {
+            flex-shrink: 0;
+        }
+
+        /* Light Mode Adjustments */
+        [data-theme="light"] .questionnaire-card {
+            background: #faf9f5;
+            border-color: #d4af37;
+        }
+
+        [data-theme="light"] .questionnaire-title {
+            color: #b8860b;
+        }
+
+        [data-theme="light"] .questionnaire-subtitle,
+        [data-theme="light"] .question-hint,
+        [data-theme="light"] .questionnaire-course-name {
+            color: #8b7355;
+        }
+
+        [data-theme="light"] .question-title {
+            color: #2c2c2c;
+        }
+
+        [data-theme="light"] .radio-option,
+        [data-theme="light"] .checkbox-option,
+        [data-theme="light"] .semester-number {
+            background: #fff;
+            border-color: #d4af37;
+            color: #2c2c2c;
+        }
+
+        [data-theme="light"] .radio-option:hover,
+        [data-theme="light"] .checkbox-option:hover,
+        [data-theme="light"] .semester-option:hover .semester-number {
+            background: #f5f1e8;
+            border-color: #b8860b;
+        }
+
+        [data-theme="light"] .questionnaire-course-code {
+            color: #b8860b;
+        }
+
+        [data-theme="light"] .questionnaire-btn.secondary {
+            background: #f5f1e8;
+            color: #8b7355;
+            border-color: #d4af37;
+        }
+
+        [data-theme="light"] .questionnaire-btn.secondary:hover {
+            background: #ede8db;
+            border-color: #b8860b;
+        }
+
+        [data-theme="light"] .questionnaire-btn.primary {
+            background: #d4af37;
+            color: #2c2c2c;
+        }
+
+        [data-theme="light"] .questionnaire-btn:disabled {
+            background: #f0f0f0;
+            color: #999;
+            border-color: #ddd;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .questionnaire-container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .questionnaire-card {
+                padding: 24px;
+            }
+
+            .questionnaire-title {
+                font-size: 24px;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .semester-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .questionnaire-actions {
+                flex-direction: column;
+            }
+
+            .questionnaire-btn {
+                justify-content: center;
+            }
+        }
+
+        .study-plan-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(13, 40, 24, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .plan-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 14px;
+            color: #e8f5f0;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .plan-content {
+            display: grid;
+            grid-template-columns: 1fr 500px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+
+        /* Available Courses Section */
+        .available-courses-section {
+            background: rgba(13, 40, 24, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            height: fit-content;
+        }
+
+        .available-courses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .course-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .course-card.completed {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .course-card.completed .course-code {
+            color: #22c55e;
+        }
+
+        .course-card.completed .add-course-btn {
+            display: none;
+        }
+
+        .course-card.completed .done-course-btn {
+            display: none;
+        }
+
+        .course-card.completed::after {
+            content: '✓ Completed';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #22c55e;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .course-code {
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 16px;
+        }
+
+        .course-hours {
+            font-size: 12px;
+            color: #a0a6a4;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .course-category {
+            font-size: 11px;
+            color: #e8f5f0;
+            background: rgba(13, 40, 24, 0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            text-transform: capitalize;
+        }
+
+        .course-name {
+            font-size: 14px;
+            color: #e8f5f0;
+            margin-bottom: 4px;
+        }
+
+        .prerequisites {
+            font-size: 12px;
+            color: #a0a6a4;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .add-course-btn, .done-course-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid;
+            background: transparent;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .add-course-btn {
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+
+        .add-course-btn:hover:not(:disabled) {
+            background: #d4af37;
+            color: #051f12;
+        }
+
+        .add-course-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .done-course-btn {
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+
+        .done-course-btn:hover {
+            background: #22c55e;
+            color: #051f12;
+        }
+
+        /* Term Builder Section */
+        .term-builder-section {
+            background: rgba(13, 40, 24, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .term-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #e8f5f0;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: #d4af37;
+        }
+
+        .selected-courses-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a0a6a4;
+        }
+
+        .empty-state p {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .empty-state small {
+            font-size: 12px;
+        }
+
+        .selected-courses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .selected-course-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .selected-course-info {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .selected-course-code {
+            display: block;
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 14px;
+        }
+
+        .selected-course-name {
+            display: block;
+            font-size: 12px;
+            color: #e8f5f0;
+            margin: 2px 0;
+        }
+
+        .selected-course-hours {
+            font-size: 11px;
+            color: #a0a6a4;
+        }
+
+        .course-time-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 120px;
+        }
+
+        .time-select, .day-select, .crn-input {
+            padding: 4px 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            color: #e8f5f0;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .crn-input {
+            font-family: inherit;
+        }
+
+        .crn-input::placeholder {
+            color: #a0a6a4;
+            font-style: italic;
+        }
+
+        .time-select option, .day-select option {
+            background: #051f12;
+            color: #e8f5f0;
+        }
+
+        .time-select option:disabled, .day-select option:disabled {
+            background: #333;
+            color: #666;
+            font-style: italic;
+        }
+
+        .remove-course-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #ef4444;
+            background: transparent;
+            color: #ef4444;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .remove-course-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Schedule Builder Styles */
+        .schedule-builder {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .schedule-builder h3 {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .schedule-options {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .schedule-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #e8f5f0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-option:hover {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .schedule-option input[type="radio"] {
+            accent-color: #d4af37;
+            width: 16px;
+            height: 16px;
+        }
+
+        .schedule-table {
+            display: grid;
+            grid-template-columns: 60px repeat(4, minmax(0, 1fr));
+            gap: 1px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .schedule-header {
+            display: contents;
+        }
+
+        .time-header, .day-header {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 12px 8px;
+            font-weight: 600;
+            color: #d4af37;
+            text-align: center;
+            font-size: 12px;
+            border-radius: 6px;
+            margin: 2px;
+        }
+
+        .time-row {
+            display: contents;
+        }
+
+        .time-cell {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 4px 2px;
+            font-size: 8px;
+            color: #e8f5f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 6px;
+            margin: 2px;
+            line-height: 1;
+            font-weight: 600;
+        }
+
+        .schedule-cell {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin: 2px;
+        }
+
+        .schedule-cell.occupied {
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            margin: 2px;
+        }
+
+        .course-block {
+            text-align: center;
+            width: 100%;
+        }
+
+        .course-block .course-code {
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 10px;
+            display: block;
+        }
+
+        .course-block .course-name {
+            font-size: 8px;
+            color: #e8f5f0;
+            line-height: 1.2;
+            margin-top: 2px;
+        }
+
+        .course-block .course-crn {
+            font-size: 7px;
+            color: #d4af37;
+            line-height: 1.1;
+            margin-top: 1px;
+            font-weight: 600;
+        }
+
+        .daily-schedule {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .daily-course-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .daily-course-item .course-info {
+            flex: 1;
+        }
+
+        .daily-course-item .course-code {
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 14px;
+        }
+
+        .daily-course-item .course-name {
+            color: #e8f5f0;
+            font-size: 12px;
+        }
+
+        .schedule-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .course-time, .course-days {
+            font-size: 12px;
+            color: #a0a6a4;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .export-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .export-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .export-btn svg {
+            fill: currentColor;
+        }
+
+        .term-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 100px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            border: 1px solid #a0a6a4;
+            color: #a0a6a4;
+        }
+
+        .action-btn.secondary:hover {
+            background: rgba(160, 166, 164, 0.1);
+        }
+
+        .action-btn.schedule {
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+        }
+
+        .action-btn.schedule:hover:not(:disabled) {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .action-btn.calendar {
+            background: transparent;
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .action-btn.calendar:hover:not(:disabled) {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+            color: #051f12;
+        }
+
+        .action-btn.primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Calendar Modal Styles */
+        .calendar-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .calendar-content {
+            background: #051f12;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            max-width: 95vw;
+            max-height: 95vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .calendar-header h2 {
+            color: #d4af37;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .close-calendar {
+            background: none;
+            border: none;
+            color: #e8f5f0;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .close-calendar:hover {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .calendar-table {
+            margin: 20px;
+        }
+
+        .calendar-table-header {
+            display: grid;
+            grid-template-columns: 100px repeat(4, 1fr);
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+
+        .time-column-header, .day-column-header {
+            background: rgba(212, 175, 55, 0.3);
+            padding: 12px 8px;
+            font-weight: 600;
+            color: #d4af37;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .calendar-time-row {
+            display: grid;
+            grid-template-columns: 100px repeat(4, 1fr);
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+
+        .calendar-time-cell {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 12px 6px;
+            font-size: 12px;
+            color: #e8f5f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .calendar-day-cell {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px;
+            min-height: 80px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-day-cell.has-course {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .calendar-course-block {
+            text-align: center;
+            width: 100%;
+        }
+
+        .calendar-course-code {
+            font-weight: 600;
+            color: #d4af37;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .calendar-course-name {
+            font-size: 10px;
+            color: #e8f5f0;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+
+        .calendar-course-hours {
+            font-size: 9px;
+            color: #a0a6a4;
+            margin-bottom: 2px;
+        }
+
+        .calendar-course-crn {
+            font-size: 9px;
+            color: #22c55e;
+            font-weight: 500;
+        }
+
+        .calendar-summary {
+            padding: 20px 24px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .calendar-summary h3 {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary-grid .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 6px;
+        }
+
+        .summary-grid .summary-label {
+            color: #e8f5f0;
+            font-size: 14px;
+        }
+
+        .summary-grid .summary-value {
+            color: #d4af37;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .course-list-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .course-summary-item {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px 80px;
+            gap: 10px;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .course-summary-item .course-code {
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .course-summary-item .course-name {
+            color: #e8f5f0;
+        }
+
+        .course-summary-item .course-schedule {
+            color: #a0a6a4;
+        }
+
+        .course-summary-item .course-crn {
+            color: #22c55e;
+            font-weight: 500;
+        }
+
+        .calendar-actions {
+            display: flex;
+            gap: 12px;
+            padding: 20px 24px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .export-calendar-btn, .close-calendar-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-calendar-btn {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+        }
+
+        .export-calendar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+        }
+
+        .close-calendar-btn {
+            background: transparent;
+            border: 1px solid #a0a6a4;
+            color: #a0a6a4;
+        }
+
+        .close-calendar-btn:hover {
+            background: rgba(160, 166, 164, 0.1);
+        }
+
+        .empty-courses {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a0a6a4;
+        }
+
+        /* Light mode styles */
+        [data-theme="light"] {
+            background: linear-gradient(135deg, #fefdf8 0%, #f9f6e8 100%);
+            color: #2c1810;
+        }
+
+        [data-theme="light"] .plan-header,
+        [data-theme="light"] .available-courses-section,
+        [data-theme="light"] .term-builder-section {
+            background: linear-gradient(135deg, #fefdf8, #f4f0e0);
+            border: 2px solid #d4af37;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        body.light-mode .plan-title,
+        body.light-mode .section-title {
+            color: #2c1810;
+        }
+
+        body.light-mode .stat-value,
+        body.light-mode .summary-value,
+        body.light-mode .course-code,
+        body.light-mode .selected-course-code {
+            color: #b8860b;
+            font-weight: 700;
+        }
+
+        body.light-mode .stat-label,
+        body.light-mode .course-name,
+        body.light-mode .summary-label,
+        body.light-mode .selected-course-name,
+        body.light-mode .course-category {
+            color: #2c1810;
+            font-weight: 500;
+        }
+
+        body.light-mode .course-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 2px 10px rgba(13, 40, 24, 0.05);
+        }
+
+        body.light-mode .course-card:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 15px rgba(13, 40, 24, 0.1);
+        }
+
+        body.light-mode .course-card.completed {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        body.light-mode .course-card.completed .course-code {
+            color: #16a34a;
+        }
+
+        body.light-mode .term-summary {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        body.light-mode .selected-course-item {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        body.light-mode .schedule-builder {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        body.light-mode .schedule-cell.occupied {
+            background: linear-gradient(135deg, #f5e6a3, #e8d68a);
+            border: 2px solid #d4af37;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            margin: 2px;
+        }
+
+        body.light-mode .schedule-cell {
+            background: linear-gradient(135deg, #fefdf8, #f9f6e8);
+            border: 1px solid #e8d68a;
+            border-radius: 8px;
+            margin: 2px;
+        }
+
+        body.light-mode .time-header,
+        body.light-mode .day-header {
+            background: linear-gradient(135deg, #f4e4bc, #e6d7a3);
+            color: #2c1810;
+            font-weight: 700;
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            margin: 2px;
+        }
+
+        body.light-mode .time-cell {
+            background: linear-gradient(135deg, #faf6e8, #f0e8c8);
+            color: #2c1810;
+            font-weight: 700;
+            border: 1px solid #d4af37;
+            border-radius: 6px;
+            margin: 2px;
+            padding: 4px 2px;
+            font-size: 8px;
+            line-height: 1;
+        }
+
+        body.light-mode .course-block .course-code {
+            color: #b8860b;
+            font-weight: 700;
+            font-size: 11px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        body.light-mode .course-block .course-name {
+            color: #2c1810;
+            font-weight: 600;
+            font-size: 9px;
+        }
+
+        body.light-mode .course-block .course-crn {
+            color: #b8860b;
+            font-weight: 700;
+            font-size: 8px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        body.light-mode .calendar-modal .calendar-content {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        body.light-mode .calendar-day-cell.has-course {
+            background: linear-gradient(135deg, #f5e6a3, #e8d68a);
+            border: 2px solid #d4af37;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            margin: 2px;
+        }
+
+        body.light-mode .calendar-day-cell {
+            background: linear-gradient(135deg, #fefdf8, #f9f6e8);
+            border: 1px solid #e8d68a;
+            border-radius: 8px;
+            margin: 2px;
+        }
+
+        body.light-mode .calendar-course-block .calendar-course-code {
+            color: #b8860b;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        body.light-mode .calendar-course-block .calendar-course-name {
+            color: #2c1810;
+            font-weight: 600;
+        }
+
+        body.light-mode .calendar-course-block .calendar-course-crn {
+            color: #b8860b;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        body.light-mode .action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d5a3d;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+        }
+
+        body.light-mode .action-btn:hover:not(:disabled) {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.6);
+        }
+
+        body.light-mode .action-btn.primary {
+            background: linear-gradient(135deg, #b8860b, #daa520);
+            color: white;
+        }
+
+        body.light-mode .action-btn.primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #a0750a, #b8860b);
+        }
+
+        body.light-mode .time-select,
+        body.light-mode .day-select,
+        body.light-mode .crn-input {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d5a3d;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        body.light-mode .course-hours {
+            background: rgba(212, 175, 55, 0.2);
+            color: #2d5a3d;
+        }
+
+        body.light-mode .prerequisites {
+            color: #5a7c5a;
+        }
+
+        body.light-mode .empty-state {
+            color: #5a7c5a;
+        }
+
+        body.light-mode .selected-course-hours {
+            color: #5a7c5a;
+        }
+
+        body.light-mode .schedule-options {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        body.light-mode .schedule-option {
+            color: #2c1810;
+            font-weight: 600;
+        }
+
+        body.light-mode .schedule-option:hover {
+            background: rgba(212, 175, 55, 0.3);
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .plan-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .term-builder-section {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .progress-stats {
+                gap: 15px;
+                grid-template-columns: repeat(2, 1fr);
+                display: grid;
+            }
+            
+            .stat-value {
+                font-size: 18px;
+            }
+            
+            .stat-item {
+                text-align: center;
+            }
+        }
+        /* Track selection improved design */
+        .track-options {display:flex;flex-direction:column;gap:14px;}
+        .track-option {align-items:flex-start;padding:22px 24px;background:rgba(0,0,0,0.25);border:1px solid rgba(212,175,55,0.25);border-radius:16px;position:relative;transition:border-color .3s,background .3s,box-shadow .3s;}
+        .track-option:hover {border-color:rgba(212,175,55,0.6);background:rgba(212,175,55,0.08);}
+        .track-option.selected {border-color:#d4af37;background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(13,40,24,0.6));box-shadow:0 0 0 3px rgba(212,175,55,0.25);}
+        .track-option input[type="radio"]{display:none;}
+        .track-option .radio-custom {margin-top:4px;flex-shrink:0;}
+        .track-info {flex:1;}
+        .track-title {font-size:18px;font-weight:600;color:#d4af37;margin-bottom:10px;}
+        .track-courses-list {list-style:disc;margin:0 0 0 22px;padding:0;display:flex;flex-direction:column;gap:4px;}
+        .track-courses-list li {font-size:14px;color:#e8f5f0;line-height:1.3;}
+        .track-courses-list .questionnaire-course-code {font-size:14px;}
+        @media (max-width:640px){.track-option{padding:18px 18px;}.track-title{font-size:16px;}.track-courses-list li{font-size:13px;}}
+    </style>
+
+</body>
+</html>
