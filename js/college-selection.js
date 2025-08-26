@@ -135,6 +135,7 @@ function finishSelection() {
     const isArabic = document.body.classList.contains('rtl');
     const langFolder = isArabic ? 'AR' : 'EN';
     const computingBase = `${langFolder}/college-of-computing-and-informatics`;
+    const healthBase = `${langFolder}/college-of-health-sciences`;
     
     // Check if Information Technology is selected
     if (selectedCollege === 'computing' && selectedMajor === 'it') {
@@ -154,6 +155,12 @@ function finishSelection() {
     if (selectedCollege === 'computing' && selectedMajor === 'ds') {
         // Redirect to Data Science planner (respect current language)
         window.location.href = `${computingBase}/data-science.html`;
+        return;
+    }
+    
+    // Check if Health Informatics is selected
+    if (selectedCollege === 'health' && selectedMajor === 'health-informatics') {
+        window.location.href = `${healthBase}/health-informatics.html`;
         return;
     }
     

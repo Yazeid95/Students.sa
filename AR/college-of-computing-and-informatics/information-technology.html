@@ -2654,6 +2654,19 @@
                 text-align: center;
             }
         }
+
+        /* ---- Spacing Overrides (Added) ---- */
+        /* Increase visual distance between the selection circle / checkbox and the answer text */
+        .radio-option,
+        .checkbox-option {
+            gap: 20px; /* Uniform gap regardless of RTL/LTR */
+        }
+
+        /* Remove old margin so gap controls spacing consistently */
+        .radio-custom,
+        .checkbox-custom {
+            margin-right: 0 !important;
+        }
     </style>
 
     <script>

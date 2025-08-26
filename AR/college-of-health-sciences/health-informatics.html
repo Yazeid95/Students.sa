@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خطة دراسة علوم الحاسوب - طلاب.السعودية</title>
+    <title>منشئ خطة دراسة المعلوماتية الصحية - Students.sa</title>
     <link rel="stylesheet" href="../../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -13,8 +13,8 @@
 </head>
 <body>
     <div class="logo-container">
-        <img src="../../images/seu-students-logo-dark-green.png" alt="SEU Students Logo" class="header-logo dark-logo">
-        <img src="../../images/seu-students-logo-gold.png" alt="SEU Students Logo" class="header-logo light-logo">
+    <img src="../../images/seu-students-logo-dark-green.png" alt="شعار طلاب الجامعة السعودية الإلكترونية" class="header-logo dark-logo">
+    <img src="../../images/seu-students-logo-gold.png" alt="شعار طلاب الجامعة السعودية الإلكترونية" class="header-logo light-logo">
     </div>
 
     <div class="top-controls">
@@ -25,7 +25,7 @@
             </svg>
         </button>
         
-        <button class="control-btn" id="languageToggle" onclick="toggleLanguage()" title="تغيير اللغة">
+        <button class="control-btn" id="languageToggle" onclick="toggleLanguage()" title="Change language / تبديل اللغة">
             <span class="lang-text" id="langText">EN</span>
         </button>
     </div>
@@ -35,38 +35,38 @@
         <div class="questionnaire-card">
             <div class="questionnaire-header">
                 <h2 class="questionnaire-title">تقييم التقدم الأكاديمي</h2>
-                <p class="questionnaire-subtitle">يرجى الإجابة على هذه الأسئلة لتخصيص خطتك الدراسية</p>
+                <p class="questionnaire-subtitle">يرجى الإجابة على هذه الأسئلة لتخصيص خطة دراستك</p>
             </div>
 
             <div class="questions-form">
                 <!-- Question 1: Common First Year -->
                 <div class="question-group">
-                    <h3 class="question-title">١. هل أكملت السنة الأولى المشتركة؟</h3>
+                    <h3 class="question-title">١. هل أنهيت السنة المشتركة؟</h3>
                     <div class="radio-options">
                         <label class="radio-option">
                             <input type="radio" name="firstYear" value="yes">
                             <span class="radio-custom"></span>
-                            نعم، أكملت السنة الأولى المشتركة
+                            نعم، أنهيت السنة المشتركة
                         </label>
                         <label class="radio-option">
                             <input type="radio" name="firstYear" value="no">
                             <span class="radio-custom"></span>
-                            لا، لم أكملها بعد
+                            لا، لم أنهِها بعد
                         </label>
                     </div>
                 </div>
 
                 <!-- Question 2: Shared Courses -->
                 <div class="question-group">
-                    <h3 class="question-title">٢. أي من هذه المقررات المشتركة أكملتها؟</h3>
-                    <p class="question-hint">حدد جميع المقررات التي أكملتها</p>
+                    <h3 class="question-title">٢. أي من هذه المقررات المشتركة أنهيت؟</h3>
+                    <p class="question-hint">اختر جميع المقررات التي أنهيتها</p>
                     <div class="checkbox-grid">
                         <label class="checkbox-option">
                             <input type="checkbox" name="sharedCourses" value="ISLM101">
                             <span class="checkbox-custom"></span>
                             <div class="questionnaire-course-info">
                                 <span class="questionnaire-course-code">ISLM101</span>
-                                <span class="questionnaire-course-name">الثقافة الإسلامية 1</span>
+                                <span class="questionnaire-course-name">مقرر إسلامي 1</span>
                             </div>
                         </label>
                         <label class="checkbox-option">
@@ -74,7 +74,7 @@
                             <span class="checkbox-custom"></span>
                             <div class="questionnaire-course-info">
                                 <span class="questionnaire-course-code">ISLM102</span>
-                                <span class="questionnaire-course-name">الثقافة الإسلامية 2</span>
+                                <span class="questionnaire-course-name">مقرر إسلامي 2</span>
                             </div>
                         </label>
                         <label class="checkbox-option">
@@ -82,7 +82,7 @@
                             <span class="checkbox-custom"></span>
                             <div class="questionnaire-course-info">
                                 <span class="questionnaire-course-code">ISLM103</span>
-                                <span class="questionnaire-course-name">الثقافة الإسلامية 3</span>
+                                <span class="questionnaire-course-name">مقرر إسلامي 3</span>
                             </div>
                         </label>
                         <label class="checkbox-option">
@@ -90,64 +90,97 @@
                             <span class="checkbox-custom"></span>
                             <div class="questionnaire-course-info">
                                 <span class="questionnaire-course-code">ISLM104</span>
-                                <span class="questionnaire-course-name">الثقافة الإسلامية 4</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="SCI101">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">SCI101</span>
-                                <span class="questionnaire-course-name">الفيزياء العامة 1</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="SCI201">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">SCI201</span>
-                                <span class="questionnaire-course-name">الفيزياء العامة 2</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="MATH150">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">MATH150</span>
-                                <span class="questionnaire-course-name">الرياضيات المتقطعة</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="MATH251">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">MATH251</span>
-                                <span class="questionnaire-course-name">الجبر الخطي</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="ENG103">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">ENG103</span>
-                                <span class="questionnaire-course-name">الكتابة الفنية</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="STAT101">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">STAT101</span>
-                                <span class="questionnaire-course-name">الإحصاء</span>
+                                <span class="questionnaire-course-name">مقرر إسلامي 4</span>
                             </div>
                         </label>
                     </div>
                 </div>
 
-                <!-- Question 3: Completed Semesters -->
+                <!-- Question 3: Elective Selection (styled) -->
                 <div class="question-group">
-                    <h3 class="question-title">٣. كم فصل دراسي أكملت؟</h3>
-                    <p class="question-hint">اختر عدد الفصول المكتملة (١-٨)</p>
+                    <h3 class="question-title">٣. اختر مقررين اختياريين</h3>
+                    <p class="question-hint">اختر بالضبط مقررين اختياريين تنوي دراستهما</p>
+                    <div class="checkbox-grid" id="electivesGrid">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="IT487">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">IT487</span>
+                                <span class="questionnaire-course-name">تطوير تطبيقات الجوّال</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="IT364">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">IT364</span>
+                                <span class="questionnaire-course-name">الابتكار وريادة الأعمال في تقنية المعلومات</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="IT485">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">IT485</span>
+                                <span class="questionnaire-course-name">الأخلاقيات المهنية في تقنية المعلومات</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="ECOM101">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">ECOM101</span>
+                                <span class="questionnaire-course-name">التجارة الإلكترونية</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC101">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC101</span>
+                                <span class="questionnaire-course-name">مدخل إلى الصحة العامة</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC151">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC151</span>
+                                <span class="questionnaire-course-name">الصحة البيئية</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC261">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC261</span>
+                                <span class="questionnaire-course-name">الصحة المهنية</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC273">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC273</span>
+                                <span class="questionnaire-course-name">مدخل إلى الصحة النفسية</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC311">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC311</span>
+                                <span class="questionnaire-course-name">الصحة العالمية</span>
+                            </div>
+                        </label>
+                    </div>
+                    <small id="electiveWarning" style="display:none;color:#d4af37;font-weight:600;">يرجى اختيار مقررين اختياريين بالضبط.</small>
+                </div>
+
+                <!-- Question 4: Completed Semesters -->
+                <div class="question-group">
+                    <h3 class="question-title">٤. كم عدد الفصول الدراسية التي أنهيتها؟</h3>
+                    <p class="question-hint">اختر عدد الفصول المكتملة (1-8)</p>
                     <div class="semester-grid">
                         <label class="semester-option">
                             <input type="radio" name="semesters" value="1">
@@ -190,10 +223,10 @@
                     <svg class="arrow-icon" viewBox="0 0 24 24" width="16" height="16">
                         <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
                     </svg>
-                    العودة إلى الاختيار
+                    رجوع للاختيار
                 </button>
                 <button class="questionnaire-btn primary" onclick="submitQuestionnaire()" id="submitBtn" disabled>
-                    الانتقال إلى الخطة الدراسية
+                    المتابعة إلى خطة الدراسة
                     <svg class="arrow-icon" viewBox="0 0 24 24" width="16" height="16">
                         <path fill="currentColor" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
                     </svg>
@@ -205,14 +238,14 @@
     <div class="study-plan-container" id="studyPlanContainer" style="display: none;">
         <!-- Header Section -->
         <div class="plan-header">
-            <h1 class="plan-title">خطة دراسة علوم الحاسب</h1>
+            <h1 class="plan-title">خطة دراسة المعلوماتية الصحية</h1>
             <div class="progress-stats">
                 <div class="stat-item">
-                    <span class="stat-label">المقررات المكتملة:</span>
+                    <span class="stat-label">المقررات المنجزة:</span>
                     <span class="stat-value" id="completedCount">0</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">الساعات المكتملة:</span>
+                    <span class="stat-label">الساعات المنجزة:</span>
                     <span class="stat-value" id="completedHours">0</span>
                 </div>
                 <div class="stat-item">
@@ -227,10 +260,10 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="plan-content">
+    <div class="plan-content">
             <!-- Left Side: Available Courses -->
             <div class="available-courses-section">
-                <h2 class="section-title">المقررات المتاحة للتسجيل</h2>
+                <h2 class="section-title">مقررات متاحة للتسجيل</h2>
                 
                 <div class="available-courses-list" id="availableCoursesList">
                     <!-- Dynamic content will be generated here -->
@@ -239,7 +272,7 @@
 
             <!-- Right Side: Term Builder -->
             <div class="term-builder-section">
-                <h2 class="section-title">مُنشئ الفصل المخصص</h2>
+                <h2 class="section-title">مُنشئ فصل دراسي مخصص</h2>
                 
                 <!-- Term Summary -->
                 <div class="term-summary">
@@ -252,7 +285,7 @@
                         <span class="summary-value" id="totalHours">0</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">الحد الأعلى للساعات:</span>
+                        <span class="summary-label">الحد الأعلى:</span>
                         <span class="summary-value">18</span>
                     </div>
                 </div>
@@ -260,8 +293,8 @@
                 <!-- Selected Courses List -->
                 <div class="selected-courses-container">
                     <div class="empty-state" id="emptyState">
-                        <p>لم يتم اختيار أي مقررات بعد</p>
-                        <small>اضغط على زر + بجانب المقررات المتاحة لإضافتها</small>
+                        <p>لم يتم اختيار مقررات بعد</p>
+                        <small>اضغط زر + بجانب المقرر لإضافته للفصل</small>
                     </div>
                     <div class="selected-courses-list" id="selectedCoursesList">
                         <!-- Selected courses will be added here -->
@@ -270,7 +303,7 @@
 
                 <!-- Schedule Builder -->
                 <div class="schedule-builder" id="scheduleBuilder" style="display: none;">
-                    <h3>جدول المقررات</h3>
+                    <h3>الجدول الدراسي</h3>
                     <div class="schedule-options">
                         <label class="schedule-option">
                             <input type="radio" name="scheduleView" value="weekly" checked>
@@ -317,7 +350,7 @@
                 <svg class="arrow-icon" viewBox="0 0 24 24" width="16" height="16">
                     <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
                 </svg>
-                العودة إلى الاستبيان
+                رجوع للاستبيان
             </button>
         </div>
 
@@ -325,7 +358,7 @@
         <div class="calendar-modal" id="calendarModal" style="display: none;">
             <div class="calendar-content">
                 <div class="calendar-header">
-                    <h2>تقويم جدول المقررات</h2>
+                    <h2>تقويم الجدول الدراسي</h2>
                     <button class="close-calendar" onclick="closeCalendar()">×</button>
                 </div>
                 <div class="calendar-grid" id="calendarGrid">
@@ -356,44 +389,53 @@
                 { code: "CI001", name: "المهارات الأكاديمية", hours: 2, prerequisites: [], category: "university" }
             ],
             shared: [
-                { code: "ISLM101", name: "الثقافة الإسلامية 1", hours: 2, prerequisites: [], category: "university" },
-                { code: "ISLM102", name: "الثقافة الإسلامية 2", hours: 2, prerequisites: [], category: "university" },
-                { code: "ISLM103", name: "الثقافة الإسلامية 3", hours: 2, prerequisites: [], category: "university" },
-                { code: "ISLM104", name: "الثقافة الإسلامية 4", hours: 2, prerequisites: [], category: "university" },
-                { code: "SCI101", name: "الفيزياء العامة 1", hours: 3, prerequisites: [], category: "college" },
-                { code: "SCI201", name: "الفيزياء العامة 2", hours: 3, prerequisites: ["SCI101"], category: "college" },
-                { code: "MATH150", name: "الرياضيات المتقطعة", hours: 3, prerequisites: [], category: "college" },
-                { code: "MATH251", name: "الجبر الخطي", hours: 3, prerequisites: ["MATH150"], category: "college" },
-                { code: "ENG103", name: "الكتابة الفنية", hours: 3, prerequisites: [], category: "college" },
-                { code: "STAT101", name: "الإحصاء", hours: 3, prerequisites: [], category: "college" }
+                { code: "ISLM101", name: "مقرر إسلامي 1", hours: 2, prerequisites: [], category: "university" },
+                { code: "ISLM102", name: "مقرر إسلامي 2", hours: 2, prerequisites: [], category: "university" },
+                { code: "ISLM103", name: "مقرر إسلامي 3", hours: 2, prerequisites: [], category: "university" },
+                { code: "ISLM104", name: "مقرر إسلامي 4", hours: 2, prerequisites: [], category: "university" },
             ],
             major: [
-                { code: "CS230", name: "البرمجة كائنية التوجه", hours: 3, prerequisites: [], category: "department" },
-                { code: "CS231", name: "تصميم المنطق الرقمي", hours: 3, prerequisites: [], category: "department" },
-                { code: "CS240", name: "هياكل البيانات", hours: 3, prerequisites: ["CS230"], category: "department" },
-                { code: "CS241", name: "معمارية وتنظيم الحاسب", hours: 3, prerequisites: ["CS231"], category: "department" },
-                { code: "CS242", name: "نظرية الحوسبة", hours: 3, prerequisites: ["CS230"], category: "department" },
-                { code: "CS243", name: "الرياضيات المتقطعة لعلوم الحاسب", hours: 3, prerequisites: ["MATH150"], category: "department" },
-                { code: "CS350", name: "مقدمة في قواعد البيانات", hours: 3, prerequisites: ["CS240"], category: "department" },
-                { code: "CS351", name: "أنظمة التشغيل", hours: 3, prerequisites: ["CS241"], category: "department" },
-                { code: "CS352", name: "تحليل وتصميم النظم", hours: 3, prerequisites: ["CS230"], category: "department" },
-                { code: "CS353", name: "تصميم وتحليل الخوارزميات", hours: 3, prerequisites: ["CS240", "CS242"], category: "department" },
-                { code: "CS360", name: "شبكات الحاسب", hours: 3, prerequisites: ["CS351"], category: "department" },
-                { code: "CS361", name: "برمجة الويب", hours: 3, prerequisites: ["CS350"], category: "department" },
-                { code: "CS362", name: "الذكاء الاصطناعي", hours: 3, prerequisites: ["CS353"], category: "department" },
-                { code: "CS363", name: "مبادئ لغات البرمجة", hours: 3, prerequisites: ["CS240"], category: "department" },
-                { code: "CS364", name: "ريادة الأعمال والابتكار في الحوسبة", hours: 3, prerequisites: ["CS350"], category: "department" },
-                { code: "CS470", name: "التفاعل بين الإنسان والحاسب", hours: 3, prerequisites: ["CS352"], category: "department" },
-                { code: "CS471", name: "أمن الحاسب", hours: 3, prerequisites: ["CS360"], category: "department" },
-                { code: "CS479", name: "مشروع التخرج 1 في علوم الحاسب", hours: 3, prerequisites: ["CS350", "CS352"], category: "department" },
-                { code: "CS489", name: "مشروع التخرج 2 في علوم الحاسب", hours: 3, prerequisites: ["CS479"], category: "department" },
-                { code: "CS480", name: "إدارة المشاريع في الحوسبة", hours: 3, prerequisites: ["CS352"], category: "department" },
-                { code: "CS481", name: "أخلاقيات المهنة في علوم الحاسب", hours: 3, prerequisites: [], category: "department" },
-                { code: "CS475", name: "الحوسبة المتنقلة", hours: 3, prerequisites: ["CS363"], category: "track" },
-                { code: "CS476", name: "الحوسبة المتوازية والموزعة", hours: 3, prerequisites: ["CS363"], category: "track" },
-                { code: "CS477", name: "تصميم المترجمات", hours: 3, prerequisites: ["CS363"], category: "track" },
-                { code: "CS478", name: "الرسوم الحاسوبية", hours: 3, prerequisites: ["CS363"], category: "track" },
-                { code: "CS499", name:"تدريب عملي", hours:3, prerequisites:[], hourRequirement: 86 }
+                { code: "IT231", name: "مقدمة في تقنية ونظم المعلومات", hours: 3, prerequisites: [], category: "major" },
+                { code: "IT232", name: "البرمجة كائنية التوجه", hours: 3, prerequisites: [], category: "major" },
+                { code: "IT244", name: "مقدمة في قواعد البيانات", hours: 3, prerequisites: ["IT232"], category: "major" },
+                { code: "IT245", name: "هياكل البيانات", hours: 3, prerequisites: ["IT232"], category: "major" },
+                { code: "IT351", name: "شبكات الحاسب", hours: 3, prerequisites: ["IT231"], category: "major" },
+                { code: "IT352", name: "التفاعل بين الإنسان والحاسب", hours: 3, prerequisites: ["IT231","IT245"], category: "major" },
+                { code: "IT353", name: "تحليل وتصميم النظم", hours: 3, prerequisites: ["IT245"], category: "major" },
+                { code: "IT361", name: "تقنيات الويب", hours: 3, prerequisites: ["IT352","IT244"], category: "major" },
+                { code: "IT362", name: "إدارة مشاريع تقنية المعلومات", hours: 3, prerequisites: ["IT353"], category: "major" },
+                { code: "IT475", name: "نظم دعم القرار", hours: 3, prerequisites: ["IT244"], category: "major" },
+                { code: "IT476", name: "أمن المعلومات والسياسات", hours: 3, prerequisites: ["IT351"], category: "major" },
+                { code: "BIO101", name: "المصطلحات الطبية الأساسية", hours: 3, prerequisites: [], category: "college" },
+                { code: "BIO102", name: "مدخل إلى علم التشريح ووظائف الأعضاء", hours: 3, prerequisites: ["BIO101"], category: "college" },
+                { code: "HCM101", name: "إدارة الرعاية الصحية", hours: 3, prerequisites: [], category: "college" },
+                { code: "HCM102", name: "السلوك التنظيمي", hours: 3, prerequisites: [], category: "college" },
+                { code: "HCM113", name: "السياسات الصحية والنظام الصحي السعودي", hours: 3, prerequisites: ["HCM101"], category: "college" },
+                { code: "HCM213", name: "الإدارة المالية للرعاية الصحية", hours: 3, prerequisites: ["HCM101"], category: "college" },
+                { code: "HCI111", name: "مقدمة في المعلوماتية الصحية", hours: 3, prerequisites: [], category: "major" },
+                { code: "HCI112", name: "السجلات الصحية الإلكترونية", hours: 3, prerequisites: ["HCI111","IT231"], category: "major" },
+                { code: "HCI213", name: "الترميز الطبي والفوترة", hours: 3, prerequisites: ["HCI111","HCI112"], category: "major" },
+                { code: "HCI214", name: "معلوماتية صحة المستهلك", hours: 3, prerequisites: ["HCI112"], category: "major" },
+                { code: "HCI314", name: "معلوماتية الصحة العامة", hours: 3, prerequisites: ["HCI213"], category: "major" },
+                { code: "HCI315", name: "الصحة والطب عن بُعد", hours: 3, prerequisites: ["HCI213"], category: "major" },
+                { code: "HCI316", name: "الصحة الإلكترونية", hours: 3, prerequisites: ["HCI214"], category: "major" },
+                { code: "PHC121", name: "مدخل إلى الإحصاء الحيوي", hours: 3, prerequisites: [], category: "college" },
+                { code: "PHC131", name: "مدخل إلى علم الوبائيات", hours: 3, prerequisites: ["PHC121"], category: "college" },
+                { code: "PHC212", name: "مفاهيم التثقيف والتعزيز الصحي", hours: 3, prerequisites: ["BIO101"], category: "college" },
+                { code: "PHC215", name: "البحث في الرعاية الصحية", hours: 3, prerequisites: ["PHC131"], category: "college" },
+                { code: "PHC216", name: "الأخلاقيات والتنظيمات في الرعاية الصحية", hours: 3, prerequisites: ["HCM113"], category: "college" },
+                { code: "PHC312", name: "الاتصالات الصحية", hours: 3, prerequisites: ["PHC216"], category: "college" }
+            ],
+            electives: [
+                { code: "IT487", name: "تطوير تطبيقات الجوّال", hours: 3, prerequisites: ["PHC312","HCI213","HCI214"], category: "elective" },
+                { code: "IT364", name: "الابتكار وريادة الأعمال في تقنية المعلومات", hours: 3, prerequisites: [], category: "elective" },
+                { code: "IT485", name: "الأخلاقيات المهنية في تقنية المعلومات", hours: 3, prerequisites: [], category: "elective" },
+                { code: "ECOM101", name: "التجارة الإلكترونية", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC101", name: "مدخل إلى الصحة العامة", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC151", name: "الصحة البيئية", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC261", name: "الصحة المهنية", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC273", name: "مدخل إلى الصحة النفسية", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC311", name: "الصحة العالمية", hours: 3, prerequisites: [], category: "elective" }
             ]
         };
 
@@ -429,6 +471,25 @@
             document.querySelectorAll('input[name="sharedCourses"]').forEach(input => {
                 input.addEventListener('change', checkQuestionnaireCompletion);
             });
+
+            // Elective selection (limit to 2)
+            document.querySelectorAll('input[name="electives"]').forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const checked = Array.from(document.querySelectorAll('input[name="electives"]:checked'));
+                    // Enforce maximum 2
+                    if (checked.length > 2) {
+                        cb.checked = false; // revert last
+                        showNotification('لا يمكنك اختيار أكثر من مقررين اختياريين.');
+                    }
+                    // Disable unchecked boxes when 2 selected
+                    const disable = checked.length === 2;
+                    document.querySelectorAll('input[name="electives"]').forEach(box => {
+                        if (!box.checked) box.disabled = disable;
+                    });
+                    // Basic completion re-check
+                    checkQuestionnaireCompletion();
+                });
+            });
             
             // Add event listeners for schedule view options
             document.querySelectorAll('input[name="scheduleView"]').forEach(radio => {
@@ -440,8 +501,37 @@
         });
 
         function getAllCourses() {
-            return [...allCourses.university, ...allCourses.shared, ...allCourses.major];
-        }
+                    const chosenElectives = (userProgress.selectedElectives && userProgress.selectedElectives.length)
+                        ? allCourses.electives.filter(e => userProgress.selectedElectives.includes(e.code))
+                        : allCourses.electives; // before submit show all electives
+                    return [...allCourses.university, ...allCourses.shared, ...allCourses.major, ...chosenElectives];
+                }
+
+                function renderSemesterEight() {
+                    const container = document.getElementById('semesterEightList');
+                    if(!container) return;
+                    const baseSem8 = ['HCI315','HCI316','HCI314'];
+                    const electiveCodes = userProgress.selectedElectives || [];
+                    const allCodes = [...baseSem8, ...electiveCodes];
+                    const courses = allCodes.map(c => getAllCourses().find(x => x.code === c)).filter(Boolean);
+                    container.innerHTML = courses.map(course => {
+                        const completed = completedCourses.has(course.code);
+                        const prereqMet = isPrerequisitesMet(course);
+                        const status = completed ? 'Completed' : (prereqMet ? 'Available' : 'Locked');
+                        return `
+                        <div class="course-card semester8" data-course="${course.code}">
+                            <div class="course-info">
+                                <div class="course-header">
+                                    <span class="course-code">${course.code}</span>
+                                    <span class="course-hours">${course.hours} hrs</span>
+                                    <span class="course-category">${course.category}</span>
+                                </div>
+                                <div class="course-name">${course.name}</div>
+                                <div class="prerequisites"><small>Status: ${status}</small></div>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
 
         function isPrerequisitesMet(course) {
             // Check regular course prerequisites
@@ -481,7 +571,7 @@
                 container.innerHTML = `
                     <div class="empty-courses">
                         <p>📚 لا توجد مقررات متاحة للتسجيل</p>
-                        <small>أكمل المزيد من المتطلبات لفتح مقررات جديدة، أو قد تكون أنهيت جميع المقررات المتاحة!</small>
+                        <small>أكمل متطلبات مقررات إضافية لفتح خيارات جديدة، أو ربما أنهيت كل المقررات المتاحة!</small>
                     </div>
                 `;
                 return;
@@ -495,22 +585,22 @@
                     <div class="course-info">
                         <div class="course-header">
                             <span class="course-code">${course.code}</span>
-                            <span class="course-hours">${course.hours} س</span>
+                            <span class="course-hours">${course.hours} hrs</span>
                             <span class="course-category">${course.category}</span>
                         </div>
                         <div class="course-name">${course.name}</div>
                         ${course.prerequisites.length > 0 || course.hourRequirement ? 
                             `<div class="prerequisites">
-                                <small>المتطلبات: ${course.prerequisites.length > 0 ? course.prerequisites.join(', ') : 'لا يوجد'}${course.hourRequirement ? `، ${course.hourRequirement} ساعة مكتملة` : ''}</small>
+                                <small>Prerequisites: ${course.prerequisites.length > 0 ? course.prerequisites.join(', ') : 'None'}${course.hourRequirement ? `, ${course.hourRequirement} hours completed` : ''}</small>
                             </div>` : ''
                         }
                     </div>
                     <div class="course-actions">
                         ${!isInTerm ? 
-                            `<button class=\"add-course-btn\" onclick=\"addCourseToTerm('${course.code}')\" title=\"إضافة إلى الفصل\">+</button>` : 
-                            `<button class=\"add-course-btn\" disabled title=\"مضاف للفصل\">مضاف</button>`
+                            `<button class="add-course-btn" onclick="addCourseToTerm('${course.code}')" title="Add to term">+</button>` : 
+                            `<button class="add-course-btn" disabled title="Already in term">Added</button>`
                         }
-                        <button class="done-course-btn" onclick="markCourseCompleted('${course.code}')" title="وضع كمكتمل">✓</button>
+                        <button class="done-course-btn" onclick="markCourseCompleted('${course.code}')" title="Mark as completed">✓</button>
                     </div>
                 </div>
                 `;
@@ -528,7 +618,7 @@
             }, 0);
 
             if (currentHours + course.hours > 18) {
-                alert(`لا يمكن إضافة ${course.code}. إجمالي الساعات سيتجاوز الحد الأقصى 18 ساعة (الحالي: ${currentHours}، سيصبح: ${currentHours + course.hours})`);
+                alert(`لا يمكن إضافة ${course.code}. مجموع الساعات سيتجاوز الحد الأعلى (18 ساعة). الحالي: ${currentHours}، سيصبح: ${currentHours + course.hours}`);
                 return;
             }
 
@@ -543,7 +633,7 @@
             if (!course) return;
 
             // Confirm the action
-            if (confirm(`هل تريد وضع المقرر \"${course.code} - ${course.name}\" كمكتمل؟\n\nسيتم فتح المقررات التي تعتمد عليه كمتطلب لاحقًا.`)) {
+            if (confirm(`هل تريد تعليم المقرر \"${course.code} - ${course.name}\" كمكتمل؟\n\nسيتم فتح المقررات التي تشترطه كمتطلب.`)) {
                 // Add to completed courses
                 completedCourses.add(courseCode);
                 
@@ -558,7 +648,7 @@
                 updateStats();
                 
                 // Show notification
-                showNotification(`${course.code} تم وضعه كمكتمل! قد تتوفر الآن مقررات جديدة.`);
+                showNotification(`${course.code} تم تعليمه كمكتمل! قد تتاح مقررات جديدة الآن.`);
             }
         }
 
@@ -619,18 +709,18 @@
                     <div class="selected-course-info">
                         <span class="selected-course-code">${course.code}</span>
                         <span class="selected-course-name">${course.name}</span>
-                        <span class="selected-course-hours">${course.hours} س</span>
+                        <span class="selected-course-hours">${course.hours} hrs</span>
                     </div>
                     <div class="course-time-selector">
                         <select class="day-select" onchange="updateCourseDays('${course.code}', this.value)">
-                            <option value="">اختر الأيام</option>
+                            <option value="">Select Days</option>
                             ${getAvailableDayOptions(course.code)}
                         </select>
                         <select class="time-select" onchange="updateCourseTime('${course.code}', this.value)">
-                            <option value="">اختر الوقت</option>
+                            <option value="">Select Time</option>
                             ${getAvailableTimeOptions(course.code)}
                         </select>
-                        <input type="text" class="crn-input" placeholder="رقم CRN" 
+                        <input type="text" class="crn-input" placeholder="CRN Number" 
                                onchange="updateCourseCRN('${course.code}', this.value)"
                                value="${getCRNValue(course.code)}">
                     </div>
@@ -667,15 +757,15 @@
                 const isDisabled = isConflict && !isSelected;
                 
                 return `<option value="${timeSlot}" ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled style="color: #666;"' : ''}>
-                    ${timeSlot}${isDisabled ? ' (محجوز)' : ''}
+                    ${timeSlot}${isDisabled ? ' (Occupied)' : ''}
                 </option>`;
             }).join('');
         }
 
         function getAvailableDayOptions(currentCourseCode) {
             const dayOptions = [
-                { value: 'ST', label: 'الأحد والثلاثاء' },
-                { value: 'MW', label: 'الاثنين والأربعاء' }
+                { value: 'ST', label: 'Sunday & Tuesday' },
+                { value: 'MW', label: 'Monday & Wednesday' }
             ];
             
             const currentCourseSchedule = courseSchedule.get(currentCourseCode);
@@ -735,12 +825,12 @@
                 '3:00-3:50', '4:00-4:50', '5:00-5:50', 
                 '6:00-6:50', '7:00-7:50', '8:00-8:50', '9:00-9:50'
             ];
-            const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء'];
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday'];
             
             let html = `
                 <div class="calendar-table">
                     <div class="calendar-table-header">
-                        <div class="time-column-header">الوقت</div>
+                        <div class="time-column-header">Time</div>
                         ${days.map(day => `<div class="day-column-header">${day}</div>`).join('')}
                     </div>
                     <div class="calendar-body">
@@ -776,14 +866,14 @@
                     </div>
                 </div>
                 <div class="calendar-summary">
-                    <h3>ملخص الفصل</h3>
+                    <h3>Term Summary</h3>
                     <div class="summary-grid">
                         <div class="summary-item">
-                            <span class="summary-label">إجمالي المقررات:</span>
+                            <span class="summary-label">Total Courses:</span>
                             <span class="summary-value">${selectedTermCourses.size}</span>
                         </div>
                         <div class="summary-item">
-                            <span class="summary-label">إجمالي الساعات:</span>
+                            <span class="summary-label">Total Hours:</span>
                             <span class="summary-value">${Array.from(selectedTermCourses).reduce((total, code) => {
                                 const course = getAllCourses().find(c => c.code === code);
                                 return total + (course ? course.hours : 0);
@@ -798,7 +888,7 @@
                                 <div class="course-summary-item">
                                     <span class="course-code">${course.code}</span>
                                     <span class="course-name">${course.name}</span>
-                                    <span class="course-schedule">${schedule?.days || 'لا أيام'} | ${schedule?.time || 'لا وقت'}</span>
+                                    <span class="course-schedule">${schedule?.days || 'No days'} | ${schedule?.time || 'No time'}</span>
                                     ${schedule?.crn ? `<span class="course-crn">CRN: ${schedule.crn}</span>` : ''}
                                 </div>
                             `;
@@ -824,13 +914,13 @@
                 
                 // Convert to JPEG and download
                 const link = document.createElement('a');
-                link.download = 'CS-Course-Calendar.jpeg';
+                link.download = 'HI-Course-Calendar.jpeg';
                 link.href = canvas.toDataURL('image/jpeg', 0.9);
                 link.click();
                 
             } catch (error) {
                 console.error('Error exporting calendar:', error);
-                alert('حدث خطأ أثناء تصدير التقويم. حاول مرة أخرى.');
+                alert('Error exporting calendar. Please try again.');
             }
         }
 
@@ -891,12 +981,12 @@
                 '6:00-6:50', '7:00-7:50', '8:00-8:50', '9:00-9:50'
             ];
             
-            const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء'];
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday'];
             
             let html = `
                 <div class="schedule-table">
                     <div class="schedule-header">
-                        <div class="time-header">الوقت</div>
+                        <div class="time-header">Time</div>
                         ${days.map(day => `<div class="day-header">${day}</div>`).join('')}
                     </div>
             `;
@@ -939,8 +1029,8 @@
                                 <span class="course-name">${course.name}</span>
                             </div>
                             <div class="schedule-info">
-                                <span class="course-time">${course.schedule.time || 'لا وقت محدد'}</span>
-                                <span class="course-days">${course.schedule.days || 'لا أيام محددة'}</span>
+                                <span class="course-time">${course.schedule.time || 'No time set'}</span>
+                                <span class="course-days">${course.schedule.days || 'No days set'}</span>
                             </div>
                         </div>
                     `).join('')}
@@ -957,8 +1047,8 @@
                 
                 if (schedule.time === timeSlot) {
                     const dayMappings = {
-                        'ST': ['الأحد', 'الثلاثاء'],
-                        'MW': ['الاثنين', 'الأربعاء']
+                        'ST': ['Sunday', 'Tuesday'],
+                        'MW': ['Monday', 'Wednesday']
                     };
                     
                     const courseDays = dayMappings[schedule.days] || [];
@@ -1008,11 +1098,11 @@
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 
                 pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                pdf.save('CS-Course-Schedule.pdf');
+                pdf.save('HI-Course-Schedule.pdf');
                 
             } catch (error) {
                 console.error('Error exporting PDF:', error);
-                alert('حدث خطأ أثناء تصدير ملف PDF. حاول مرة أخرى.');
+                alert('Error exporting PDF. Please try again.');
             }
         }
 
@@ -1025,13 +1115,13 @@
                 
                 // Convert to JPEG and download
                 const link = document.createElement('a');
-                link.download = 'CS-Course-Schedule.jpeg';
+                link.download = 'HI-Course-Schedule.jpeg';
                 link.href = canvas.toDataURL('image/jpeg', 0.9);
                 link.click();
                 
             } catch (error) {
                 console.error('Error exporting JPEG:', error);
-                alert('حدث خطأ أثناء تصدير صورة JPEG. حاول مرة أخرى.');
+                alert('Error exporting JPEG. Please try again.');
             }
         }
 
@@ -1085,25 +1175,28 @@
             });
             localStorage.setItem('savedTerms', JSON.stringify(savedTerms));
             
-            alert(`Term saved successfully!\nCourses: ${selectedCourses.length}\nTotal Hours: ${totalHours}`);
+            alert(`تم حفظ الفصل بنجاح!\nالمقررات: ${selectedCourses.length}\nإجمالي الساعات: ${totalHours}`);
             
             // Optionally clear the term after saving
             // clearTerm();
         }
 
         function goBack() {
-            window.location.href = 'information-technology.html';
+            window.location.href = 'health-informatics.html';
         }
 
         // Theme and language functions
         function toggleTheme() {
-            // Theme toggle is temporarily disabled - light mode is hidden
-            console.log('Theme toggle is temporarily disabled');
-            return;
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
         }
 
         function toggleLanguage() {
-            window.location.href = '../../AR/college-of-computing-and-informatics/information-technology.html';
+            window.location.href='../../EN/college-of-health-sciences/health-informatics.html';
         }
 
         function initializeTheme() {
@@ -1118,6 +1211,173 @@
             if (sunIcon) sunIcon.style.display = 'block';
             if (moonIcon) moonIcon.style.display = 'none';
         }
+
+        // Questionnaire functionality
+        let userProgress = {
+            firstYear: null,
+            sharedCourses: [],
+                    semesters: null,
+                    selectedElectives: []
+        };
+
+        // Migrate legacy saved progress key (from earlier IT planner version) to new HI key
+        (function migrateLegacyProgress(){
+            try {
+                const legacy = localStorage.getItem('itProgressData');
+                if(legacy && !localStorage.getItem('hiProgressData')) {
+                    localStorage.setItem('hiProgressData', legacy);
+                }
+            } catch(e) { /* silent */ }
+        })();
+
+        // Enable submit button when all required questions are answered
+        function checkQuestionnaireCompletion() {
+            const firstYear = document.querySelector('input[name="firstYear"]:checked');
+            const semesters = document.querySelector('input[name="semesters"]:checked');
+                    const electives = document.querySelectorAll('input[name="electives"]:checked');
+            const submitBtn = document.getElementById('submitBtn');
+            
+                    if (firstYear && semesters && electives.length === 2) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        // Add event listeners to form inputs (consolidated above)
+        // This section was moved to the main DOMContentLoaded listener above
+
+        function submitQuestionnaire() {
+            // Collect answers
+            userProgress.firstYear = document.querySelector('input[name="firstYear"]:checked')?.value;
+            userProgress.semesters = parseInt(document.querySelector('input[name="semesters"]:checked')?.value);
+            
+            // Collect shared courses
+            userProgress.sharedCourses = Array.from(document.querySelectorAll('input[name="sharedCourses"]:checked'))
+                .map(input => input.value);
+
+                        // Collect electives (must be exactly 2)
+                        userProgress.selectedElectives = Array.from(document.querySelectorAll('input[name="electives"]:checked'))
+                            .map(input => input.value);
+                        if (userProgress.selectedElectives.length !== 2) {
+                            document.getElementById('electiveWarning').style.display = 'block';
+                            showNotification('Please select exactly 2 electives.');
+                            return;
+                        } else {
+                            document.getElementById('electiveWarning').style.display = 'none';
+                        }
+
+            // Store in localStorage for future reference
+            localStorage.setItem('hiProgressData', JSON.stringify(userProgress));
+
+            // Mark courses as completed based on answers
+            markCoursesBasedOnProgress();
+
+            // Hide questionnaire and show study plan
+            document.getElementById('questionnaireContainer').style.display = 'none';
+            document.getElementById('studyPlanContainer').style.display = 'block';
+
+            // Initialize the study plan with filtered courses
+            initializeWithProgress();
+        }
+
+        function markCoursesBasedOnProgress() {
+            // Clear existing completed courses
+            completedCourses.clear();
+
+            // 1. Mark common first year courses as completed if user selected "yes"
+            if (userProgress.firstYear === 'yes') {
+                const firstYearCourses = ['ENG001', 'ENG002', 'CS001', 'MATH001', 'COMM001', 'CI001'];
+                firstYearCourses.forEach(courseCode => {
+                    completedCourses.add(courseCode);
+                });
+            }
+
+            // 2. Mark selected shared courses as completed
+            userProgress.sharedCourses.forEach(courseCode => {
+                completedCourses.add(courseCode);
+            });
+
+            // 3. Mark semester courses as completed based on completed semesters
+            const semesterCourses = {
+                3: ['BIO101', 'HCM101', 'HCM102', 'PHC121', 'IT231', 'IT232'],
+                4: ['BIO102', 'IT244', 'IT245', 'PHC131', 'HCM113'],
+                5: ['PHC212', 'IT351', 'IT352', 'HCI111', 'IT353'],
+                6: ['HCM213', 'PHC215', 'IT362', 'PHC216', 'HCI112', 'IT361'],
+                7: ['IT475', 'IT476', 'HCI214', 'HCI213', 'PHC312'],
+                8: ['HCI315', 'HCI316', 'HCI314', ...userProgress.selectedElectives],
+            };
+
+            // Mark courses from completed semesters (starting from semester 3)
+            for (let sem = 3; sem <= userProgress.semesters; sem++) {
+                if (semesterCourses[sem]) {
+                    semesterCourses[sem].forEach(courseCode => {
+                        completedCourses.add(courseCode);
+                    });
+                }
+            }
+
+            // Update the progress statistics
+            updateStats();
+            renderSemesterEight();
+        }
+
+        function goBackToSelection() {
+            window.location.href = '../college-selection.html';
+        }
+
+        function initializeWithProgress() {
+            // Refresh the available courses display to show updated status
+            renderAvailableCourses();
+            
+            // Update progress statistics
+            updateStats();
+            renderSemesterEight();
+            
+            // Show a summary message
+            const completedCoursesCount = completedCourses.size;
+            const totalHours = Array.from(completedCourses).reduce((total, courseCode) => {
+                const course = getAllCourses().find(c => c.code === courseCode);
+                return total + (course ? course.hours : 0);
+            }, 0);
+
+            showNotification(`تم تحديث التقدم!\n✅ المقررات المنجزة: ${completedCoursesCount}\n📚 إجمالي الساعات: ${totalHours}\n🎯 يتم عرض المقررات المتاحة للتسجيل فقط.`);
+        }
+
+        // Check if we have saved progress data
+        function checkSavedProgress() {
+            const savedData = localStorage.getItem('hiProgressData');
+            if (savedData) {
+                userProgress = JSON.parse(savedData);
+                // Auto-fill questionnaire if returning user
+                if (confirm('We found your previous progress. Would you like to continue from where you left off?')) {
+                    // Mark courses based on saved progress
+                    markCoursesBasedOnProgress();
+                    
+                    document.getElementById('questionnaireContainer').style.display = 'none';
+                    document.getElementById('studyPlanContainer').style.display = 'block';
+                    initializeWithProgress();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Check for saved progress functionality (consolidated above)
+        // This section was moved to the main DOMContentLoaded listener above
+
+        // Theme toggle functionality (existing)
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Initialize theme functionality (consolidated above)
+        // This section was moved to the main DOMContentLoaded listener above
     </script>
 
     <style>
@@ -2626,6 +2886,18 @@
             background: rgba(212, 175, 55, 0.3);
         }
 
+        /* تحسين مسافة عناصر الاختيار في أسئلة الاستبيان */
+        .radio-option, .checkbox-option {
+            gap: 20px; /* مسافة أوضح بين الدائرة/المربع والنص */
+        }
+        .radio-option .radio-custom, .checkbox-option .checkbox-custom {
+            margin-right: 0; /* إزالة الهامش السابق */
+            margin-left: 0;
+        }
+        [dir='rtl'] .radio-option .radio-custom, [dir='rtl'] .checkbox-option .checkbox-custom {
+            margin-left: 0; /* توحيد الاتجاه */
+        }
+
         /* Responsive design */
         @media (max-width: 1024px) {
             .plan-content {
@@ -2653,162 +2925,7 @@
                 text-align: center;
             }
         }
-        /* ---- Spacing Overrides (Added) ---- */
-        .radio-option,
-        .checkbox-option {
-            gap: 20px;
-        }
-        .radio-custom,
-        .checkbox-custom {
-            margin-right: 0 !important;
-        }
     </style>
 
-    <script>
-        // Questionnaire functionality
-        let userProgress = {
-            firstYear: null,
-            sharedCourses: [],
-            semesters: null
-        };
-
-        // Enable submit button when all required questions are answered
-        function checkQuestionnaireCompletion() {
-            const firstYear = document.querySelector('input[name="firstYear"]:checked');
-            const semesters = document.querySelector('input[name="semesters"]:checked');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            if (firstYear && semesters) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
-        }
-
-        // Add event listeners to form inputs (consolidated above)
-        // This section was moved to the main DOMContentLoaded listener above
-
-        function submitQuestionnaire() {
-            // Collect answers
-            userProgress.firstYear = document.querySelector('input[name="firstYear"]:checked')?.value;
-            userProgress.semesters = parseInt(document.querySelector('input[name="semesters"]:checked')?.value);
-            
-            // Collect shared courses
-            userProgress.sharedCourses = Array.from(document.querySelectorAll('input[name="sharedCourses"]:checked'))
-                .map(input => input.value);
-
-            // Store in localStorage for future reference
-            localStorage.setItem('csProgressData', JSON.stringify(userProgress));
-
-            // Mark courses as completed based on answers
-            markCoursesBasedOnProgress();
-
-            // Hide questionnaire and show study plan
-            document.getElementById('questionnaireContainer').style.display = 'none';
-            document.getElementById('studyPlanContainer').style.display = 'block';
-
-            // Initialize the study plan with filtered courses
-            initializeWithProgress();
-        }
-
-        function markCoursesBasedOnProgress() {
-            // Clear existing completed courses
-            completedCourses.clear();
-
-            // 1. Mark common first year courses as completed if user selected "yes"
-            if (userProgress.firstYear === 'yes') {
-                const firstYearCourses = ['ENG001', 'ENG002', 'CS001', 'MATH001', 'COMM001', 'CI001'];
-                firstYearCourses.forEach(courseCode => {
-                    completedCourses.add(courseCode);
-                });
-            }
-
-            // 2. Mark selected shared courses as completed
-            userProgress.sharedCourses.forEach(courseCode => {
-                completedCourses.add(courseCode);
-            });
-
-            // 3. Mark semester courses as completed based on completed semesters
-            const semesterCourses = {
-                3: ['CS230', 'CS231'],
-                4: ['CS240', 'CS241', 'CS242', 'CS243'],
-                5: ['CS350', 'CS351', 'CS352', 'CS353'],
-                6: ['CS360', 'CS361', 'CS362', 'CS363', 'CS364'],
-                7: ['CS470', 'CS471', 'CS475', 'CS476', 'CS479'],
-                8: ['CS477', 'CS478', 'CS480', 'CS481', 'CS489', 'CS499']
-            };
-
-            // Mark courses from completed semesters (starting from semester 3)
-            for (let sem = 3; sem <= userProgress.semesters; sem++) {
-                if (semesterCourses[sem]) {
-                    semesterCourses[sem].forEach(courseCode => {
-                        completedCourses.add(courseCode);
-                    });
-                }
-            }
-
-            // Update the progress statistics
-            updateStats();
-        }
-
-        function goBackToSelection() {
-            window.location.href = '../../college-selection.html';
-        }
-
-        function initializeWithProgress() {
-            // Refresh the available courses display to show updated status
-            renderAvailableCourses();
-            
-            // Update progress statistics
-            updateStats();
-            
-            // Show a summary message
-            const completedCoursesCount = completedCourses.size;
-            const totalHours = Array.from(completedCourses).reduce((total, courseCode) => {
-                const course = getAllCourses().find(c => c.code === courseCode);
-                return total + (course ? course.hours : 0);
-            }, 0);
-
-            showNotification(`Progress Updated! 
-✅ Completed Courses: ${completedCoursesCount}
-📚 Total Hours: ${totalHours}
-🎯 Showing only courses available for registration.`);
-        }
-
-        // Check if we have saved progress data
-        function checkSavedProgress() {
-            const savedData = localStorage.getItem('csProgressData');
-            if (savedData) {
-                userProgress = JSON.parse(savedData);
-                // Auto-fill questionnaire if returning user
-                if (confirm('We found your previous progress. Would you like to continue from where you left off?')) {
-                    // Mark courses based on saved progress
-                    markCoursesBasedOnProgress();
-                    
-                    document.getElementById('questionnaireContainer').style.display = 'none';
-                    document.getElementById('studyPlanContainer').style.display = 'block';
-                    initializeWithProgress();
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        // Check for saved progress functionality (consolidated above)
-        // This section was moved to the main DOMContentLoaded listener above
-
-        // Theme toggle functionality (existing)
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
-        // Initialize theme functionality (consolidated above)
-        // This section was moved to the main DOMContentLoaded listener above
-    </script>
 </body>
 </html>

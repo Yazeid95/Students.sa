@@ -96,9 +96,90 @@
                     </div>
                 </div>
 
-                <!-- Question 3: Completed Semesters -->
+                <!-- Question 3: Elective Selection (styled) -->
                 <div class="question-group">
-                    <h3 class="question-title">3. How many semesters have you completed?</h3>
+                    <h3 class="question-title">3. Choose two elective courses</h3>
+                    <p class="question-hint">Select exactly 2 electives you plan to take</p>
+                    <div class="checkbox-grid" id="electivesGrid">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="IT487">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">IT487</span>
+                                <span class="questionnaire-course-name">Mobile Application Development</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="IT364">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">IT364</span>
+                                <span class="questionnaire-course-name">IT Innovation and Entrepreneurship</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="IT485">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">IT485</span>
+                                <span class="questionnaire-course-name">Professional Ethics in IT</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="ECOM101">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">ECOM101</span>
+                                <span class="questionnaire-course-name">E-Commerce</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC101">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC101</span>
+                                <span class="questionnaire-course-name">Introduction to Public Health</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC151">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC151</span>
+                                <span class="questionnaire-course-name">Environmental Health</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC261">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC261</span>
+                                <span class="questionnaire-course-name">Occupational Health</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC273">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC273</span>
+                                <span class="questionnaire-course-name">Introduction to Mental Health</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="electives" value="PHC311">
+                            <span class="checkbox-custom"></span>
+                            <div class="questionnaire-course-info">
+                                <span class="questionnaire-course-code">PHC311</span>
+                                <span class="questionnaire-course-name">Global Health</span>
+                            </div>
+                        </label>
+                    </div>
+                    <small id="electiveWarning" style="display:none;color:#d4af37;font-weight:600;">Please select exactly 2 electives.</small>
+                </div>
+
+                <!-- Question 4: Completed Semesters -->
+                <div class="question-group">
+                    <h3 class="question-title">4. How many semesters have you completed?</h3>
                     <p class="question-hint">Select the number of completed semesters (1-8)</p>
                     <div class="semester-grid">
                         <label class="semester-option">
@@ -179,7 +260,7 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="plan-content">
+    <div class="plan-content">
             <!-- Left Side: Available Courses -->
             <div class="available-courses-section">
                 <h2 class="section-title">Courses Available for Registration</h2>
@@ -315,20 +396,46 @@
             ],
             major: [
                 { code: "IT231", name: "Introduction to IT and IS", hours: 3, prerequisites: [], category: "major" },
-                { code: "IT231", name: "Introduction to IT and IS", hours: 3, prerequisites: [], category: "major" },
                 { code: "IT232", name: "Object Oriented Programming", hours: 3, prerequisites: [], category: "major" },
                 { code: "IT244", name: "Introduction to Database", hours: 3, prerequisites: ["IT232"], category: "major" },
                 { code: "IT245", name: "Data Structure", hours: 3, prerequisites: ["IT232"], category: "major" },
-                { code: "IT351", name: "Computer Networks", hours: 3, prerequisites: ["IT241"], category: "major" },
-                { code: "IT352", name: "Human Computer Interaction", hours: 3, prerequisites: ["IT231", "IT245"], category: "major" },
-                { code: "IT361", name: "Web Technologies", hours: 3, prerequisites: ["IT352", "IT244"], category: "major" },
+                { code: "IT351", name: "Computer Networks", hours: 3, prerequisites: ["IT231"], category: "major" },
+                { code: "IT352", name: "Human Computer Interaction", hours: 3, prerequisites: ["IT231","IT245"], category: "major" },
+                { code: "IT353", name: "System Analysis and Design", hours: 3, prerequisites: ["IT245"], category: "major" },
+                { code: "IT361", name: "Web Technologies", hours: 3, prerequisites: ["IT352","IT244"], category: "major" },
                 { code: "IT362", name: "IT Project Management", hours: 3, prerequisites: ["IT353"], category: "major" },
-                { code: "IT475", name: "Decision Support Systems", hours: 3, prerequisites: ["IT354"], category: "major" },
+                { code: "IT475", name: "Decision Support Systems", hours: 3, prerequisites: ["IT244"], category: "major" },
                 { code: "IT476", name: "IT Security & Policies", hours: 3, prerequisites: ["IT351"], category: "major" },
-
-                { code: "IT364", name: "IT Entrepreneurship and Innovation", hours: 3, prerequisites: ["IT244"], category: "major" },
-                { code: "IT485", name: "Professional Ethics in IT", hours: 3, prerequisites: ["IT362"], category: "major" },
-                { code: "IT487", name: "Mobile Application Development", hours: 3, prerequisites: ["IT475"], category: "major" },
+                { code: "BIO101", name: "Basic Medical Terminology", hours: 3, prerequisites: [], category: "college" },
+                { code: "BIO102", name: "Introduction to Anatomy and Physiology", hours: 3, prerequisites: ["BIO101"], category: "college" },
+                { code: "HCM101", name: "Health Care Management", hours: 3, prerequisites: [], category: "college" },
+                { code: "HCM102", name: "Organizational Behavior", hours: 3, prerequisites: [], category: "college" },
+                { code: "HCM113", name: "Health Policy & Saudi Healthcare System", hours: 3, prerequisites: ["HCM101"], category: "college" },
+                { code: "HCM213", name: "Financial Management for Healthcare", hours: 3, prerequisites: ["HCM101"], category: "college" },
+                { code: "HCI111", name: "Introduction to Health Informatics", hours: 3, prerequisites: [], category: "major" },
+                { code: "HCI112", name: "Electronic Health Records", hours: 3, prerequisites: ["HCI111","IT231"], category: "major" },
+                { code: "HCI213", name: "Medical Coding and Billing", hours: 3, prerequisites: ["HCI111","HCI112"], category: "major" },
+                { code: "HCI214", name: "Consumer Health Informatics", hours: 3, prerequisites: ["HCI112"], category: "major" },
+                { code: "HCI314", name: "Public Health Informatics", hours: 3, prerequisites: ["HCI213"], category: "major" },
+                { code: "HCI315", name: "Telehealth and Telemedicine", hours: 3, prerequisites: ["HCI213"], category: "major" },
+                { code: "HCI316", name: "E-Health", hours: 3, prerequisites: ["HCI214"], category: "major" },
+                { code: "PHC121", name: "Introduction to Biostatistics", hours: 3, prerequisites: [], category: "college" },
+                { code: "PHC131", name: "Introduction to Epidemiology", hours: 3, prerequisites: ["PHC121"], category: "college" },
+                { code: "PHC212", name: "Concepts of Health Education and Promotion", hours: 3, prerequisites: ["BIO101"], category: "college" },
+                { code: "PHC215", name: "Healthcare Research", hours: 3, prerequisites: ["PHC131"], category: "college" },
+                { code: "PHC216", name: "Ethics & Regulations in Healthcare", hours: 3, prerequisites: ["HCM113"], category: "college" },
+                { code: "PHC312", name: "Health Communications", hours: 3, prerequisites: ["PHC216"], category: "college" }
+            ],
+            electives: [
+                { code: "IT487", name: "Mobile Application Development", hours: 3, prerequisites: ["PHC312","HCI213","HCI214"], category: "elective" },
+                { code: "IT364", name: "IT Innovation and Entrepreneurship", hours: 3, prerequisites: [], category: "elective" },
+                { code: "IT485", name: "Professional Ethics in IT", hours: 3, prerequisites: [], category: "elective" },
+                { code: "ECOM101", name: "E-Commerce", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC101", name: "Introduction to Public Health", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC151", name: "Environmental Health", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC261", name: "Occupational Health", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC273", name: "Introduction to Mental Health", hours: 3, prerequisites: [], category: "elective" },
+                { code: "PHC311", name: "Global Health", hours: 3, prerequisites: [], category: "elective" }
             ]
         };
 
@@ -364,6 +471,25 @@
             document.querySelectorAll('input[name="sharedCourses"]').forEach(input => {
                 input.addEventListener('change', checkQuestionnaireCompletion);
             });
+
+            // Elective selection (limit to 2)
+            document.querySelectorAll('input[name="electives"]').forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const checked = Array.from(document.querySelectorAll('input[name="electives"]:checked'));
+                    // Enforce maximum 2
+                    if (checked.length > 2) {
+                        cb.checked = false; // revert last
+                        showNotification('You can select only 2 electives.');
+                    }
+                    // Disable unchecked boxes when 2 selected
+                    const disable = checked.length === 2;
+                    document.querySelectorAll('input[name="electives"]').forEach(box => {
+                        if (!box.checked) box.disabled = disable;
+                    });
+                    // Basic completion re-check
+                    checkQuestionnaireCompletion();
+                });
+            });
             
             // Add event listeners for schedule view options
             document.querySelectorAll('input[name="scheduleView"]').forEach(radio => {
@@ -375,8 +501,37 @@
         });
 
         function getAllCourses() {
-            return [...allCourses.university, ...allCourses.shared, ...allCourses.major];
-        }
+                    const chosenElectives = (userProgress.selectedElectives && userProgress.selectedElectives.length)
+                        ? allCourses.electives.filter(e => userProgress.selectedElectives.includes(e.code))
+                        : allCourses.electives; // before submit show all electives
+                    return [...allCourses.university, ...allCourses.shared, ...allCourses.major, ...chosenElectives];
+                }
+
+                function renderSemesterEight() {
+                    const container = document.getElementById('semesterEightList');
+                    if(!container) return;
+                    const baseSem8 = ['HCI315','HCI316','HCI314'];
+                    const electiveCodes = userProgress.selectedElectives || [];
+                    const allCodes = [...baseSem8, ...electiveCodes];
+                    const courses = allCodes.map(c => getAllCourses().find(x => x.code === c)).filter(Boolean);
+                    container.innerHTML = courses.map(course => {
+                        const completed = completedCourses.has(course.code);
+                        const prereqMet = isPrerequisitesMet(course);
+                        const status = completed ? 'Completed' : (prereqMet ? 'Available' : 'Locked');
+                        return `
+                        <div class="course-card semester8" data-course="${course.code}">
+                            <div class="course-info">
+                                <div class="course-header">
+                                    <span class="course-code">${course.code}</span>
+                                    <span class="course-hours">${course.hours} hrs</span>
+                                    <span class="course-category">${course.category}</span>
+                                </div>
+                                <div class="course-name">${course.name}</div>
+                                <div class="prerequisites"><small>Status: ${status}</small></div>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
 
         function isPrerequisitesMet(course) {
             // Check regular course prerequisites
@@ -1061,16 +1216,28 @@
         let userProgress = {
             firstYear: null,
             sharedCourses: [],
-            semesters: null
+                    semesters: null,
+                    selectedElectives: []
         };
+
+        // Migrate legacy saved progress key (from earlier IT planner version) to new HI key
+        (function migrateLegacyProgress(){
+            try {
+                const legacy = localStorage.getItem('itProgressData');
+                if(legacy && !localStorage.getItem('hiProgressData')) {
+                    localStorage.setItem('hiProgressData', legacy);
+                }
+            } catch(e) { /* silent */ }
+        })();
 
         // Enable submit button when all required questions are answered
         function checkQuestionnaireCompletion() {
             const firstYear = document.querySelector('input[name="firstYear"]:checked');
             const semesters = document.querySelector('input[name="semesters"]:checked');
+                    const electives = document.querySelectorAll('input[name="electives"]:checked');
             const submitBtn = document.getElementById('submitBtn');
             
-            if (firstYear && semesters) {
+                    if (firstYear && semesters && electives.length === 2) {
                 submitBtn.disabled = false;
             } else {
                 submitBtn.disabled = true;
@@ -1089,8 +1256,19 @@
             userProgress.sharedCourses = Array.from(document.querySelectorAll('input[name="sharedCourses"]:checked'))
                 .map(input => input.value);
 
+                        // Collect electives (must be exactly 2)
+                        userProgress.selectedElectives = Array.from(document.querySelectorAll('input[name="electives"]:checked'))
+                            .map(input => input.value);
+                        if (userProgress.selectedElectives.length !== 2) {
+                            document.getElementById('electiveWarning').style.display = 'block';
+                            showNotification('Please select exactly 2 electives.');
+                            return;
+                        } else {
+                            document.getElementById('electiveWarning').style.display = 'none';
+                        }
+
             // Store in localStorage for future reference
-            localStorage.setItem('itProgressData', JSON.stringify(userProgress));
+            localStorage.setItem('hiProgressData', JSON.stringify(userProgress));
 
             // Mark courses as completed based on answers
             markCoursesBasedOnProgress();
@@ -1122,12 +1300,12 @@
 
             // 3. Mark semester courses as completed based on completed semesters
             const semesterCourses = {
-                3: ['IT231', 'IT232', 'IT233'],
-                4: ['IT241', 'IT244', 'IT245'],
-                5: ['IT351', 'IT352', 'IT353', 'IT354'],
-                6: ['IT361', 'IT362', 'IT363', 'IT364', 'IT365'],
-                7: ['IT474', 'IT475', 'IT476', 'IT478', 'IT479'],
-                8: ['IT484', 'IT485', 'IT487', 'IT488', 'IT489', 'IT499']
+                3: ['BIO101', 'HCM101', 'HCM102', 'PHC121', 'IT231', 'IT232'],
+                4: ['BIO102', 'IT244', 'IT245', 'PHC131', 'HCM113'],
+                5: ['PHC212', 'IT351', 'IT352', 'HCI111', 'IT353'],
+                6: ['HCM213', 'PHC215', 'IT362', 'PHC216', 'HCI112', 'IT361'],
+                7: ['IT475', 'IT476', 'HCI214', 'HCI213', 'PHC312'],
+                8: ['HCI315', 'HCI316', 'HCI314', ...userProgress.selectedElectives],
             };
 
             // Mark courses from completed semesters (starting from semester 3)
@@ -1141,6 +1319,7 @@
 
             // Update the progress statistics
             updateStats();
+            renderSemesterEight();
         }
 
         function goBackToSelection() {
@@ -1153,6 +1332,7 @@
             
             // Update progress statistics
             updateStats();
+            renderSemesterEight();
             
             // Show a summary message
             const completedCoursesCount = completedCourses.size;
@@ -2738,144 +2918,5 @@
         }
     </style>
 
-    <script>
-        // Enable submit button when all required questions are answered
-        function checkQuestionnaireCompletion() {
-            const firstYear = document.querySelector('input[name="firstYear"]:checked');
-            const semesters = document.querySelector('input[name="semesters"]:checked');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            if (firstYear && semesters) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
-        }
-
-        // Add event listeners to form inputs (consolidated above)
-        // This section was moved to the main DOMContentLoaded listener above
-
-        function submitQuestionnaire() {
-            // Collect answers
-            userProgress.firstYear = document.querySelector('input[name="firstYear"]:checked')?.value;
-            userProgress.semesters = parseInt(document.querySelector('input[name="semesters"]:checked')?.value);
-            
-            // Collect shared courses
-            userProgress.sharedCourses = Array.from(document.querySelectorAll('input[name="sharedCourses"]:checked'))
-                .map(input => input.value);
-
-            // Store in localStorage for future reference
-            localStorage.setItem('itProgressData', JSON.stringify(userProgress));
-
-            // Mark courses as completed based on answers
-            markCoursesBasedOnProgress();
-
-            // Hide questionnaire and show study plan
-            document.getElementById('questionnaireContainer').style.display = 'none';
-            document.getElementById('studyPlanContainer').style.display = 'block';
-
-            // Initialize the study plan with filtered courses
-            initializeWithProgress();
-        }
-
-        function markCoursesBasedOnProgress() {
-            // Clear existing completed courses
-            completedCourses.clear();
-
-            // 1. Mark common first year courses as completed if user selected "yes"
-            if (userProgress.firstYear === 'yes') {
-                const firstYearCourses = ['ENG001', 'ENG002', 'CS001', 'MATH001', 'COMM001', 'CI001'];
-                firstYearCourses.forEach(courseCode => {
-                    completedCourses.add(courseCode);
-                });
-            }
-
-            // 2. Mark selected shared courses as completed
-            userProgress.sharedCourses.forEach(courseCode => {
-                completedCourses.add(courseCode);
-            });
-
-            // 3. Mark semester courses as completed based on completed semesters
-            const semesterCourses = {
-                3: ['IT231', 'IT232', 'IT233'],
-                4: ['IT241', 'IT244', 'IT245'],
-                5: ['IT351', 'IT352', 'IT353', 'IT354'],
-                6: ['IT361', 'IT362', 'IT363', 'IT364', 'IT365'],
-                7: ['IT474', 'IT475', 'IT476', 'IT478', 'IT479'],
-                8: ['IT484', 'IT485', 'IT487', 'IT488', 'IT489', 'IT499']
-            };
-
-            // Mark courses from completed semesters (starting from semester 3)
-            for (let sem = 3; sem <= userProgress.semesters; sem++) {
-                if (semesterCourses[sem]) {
-                    semesterCourses[sem].forEach(courseCode => {
-                        completedCourses.add(courseCode);
-                    });
-                }
-            }
-
-            // Update the progress statistics
-            updateStats();
-        }
-
-        function goBackToSelection() {
-            window.location.href = '../college-selection.html';
-        }
-
-        function initializeWithProgress() {
-            // Refresh the available courses display to show updated status
-            renderAvailableCourses();
-            
-            // Update progress statistics
-            updateStats();
-            
-            // Show a summary message
-            const completedCoursesCount = completedCourses.size;
-            const totalHours = Array.from(completedCourses).reduce((total, courseCode) => {
-                const course = getAllCourses().find(c => c.code === courseCode);
-                return total + (course ? course.hours : 0);
-            }, 0);
-
-            showNotification(`Progress Updated! 
-✅ Completed Courses: ${completedCoursesCount}
-📚 Total Hours: ${totalHours}
-🎯 Showing only courses available for registration.`);
-        }
-
-        // Check if we have saved progress data
-        function checkSavedProgress() {
-            const savedData = localStorage.getItem('hiProgressData');
-            if (savedData) {
-                userProgress = JSON.parse(savedData);
-                // Auto-fill questionnaire if returning user
-                if (confirm('We found your previous progress. Would you like to continue from where you left off?')) {
-                    // Mark courses based on saved progress
-                    markCoursesBasedOnProgress();
-                    
-                    document.getElementById('questionnaireContainer').style.display = 'none';
-                    document.getElementById('studyPlanContainer').style.display = 'block';
-                    initializeWithProgress();
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        // Check for saved progress functionality (consolidated above)
-        // This section was moved to the main DOMContentLoaded listener above
-
-        // Theme toggle functionality (existing)
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
-        // Initialize theme functionality (consolidated above)
-        // This section was moved to the main DOMContentLoaded listener above
-    </script>
 </body>
 </html>
