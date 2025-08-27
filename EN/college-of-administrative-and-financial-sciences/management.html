@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Study Plan Builder - Students.sa</title>
+    <title>Business Administration (BSBA) - Management Study Plan Builder - Students.sa</title>
     <link rel="stylesheet" href="../../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -93,60 +93,68 @@
                                 <span class="questionnaire-course-name">Islamic Course 4</span>
                             </div>
                         </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="SCI101">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">SCI101</span>
-                                <span class="questionnaire-course-name">General Physics 1</span>
+                    </div>
+                </div>
+
+                <!-- Question 3: Concentration Selection -->
+                <div class="question-group">
+                    <h3 class="question-title">3. Which concentration will you follow?</h3>
+                    <p class="question-hint">Select exactly ONE concentration</p>
+                    <div class="concentration-options">
+                        <label class="radio-option concentration-option">
+                            <input type="radio" name="concentration" value="ba">
+                            <span class="radio-custom"></span>
+                            <div class="concentration-info">
+                                <div class="concentration-title">Business Administration Concentration</div>
+                                <ul class="concentration-courses-list">
+                                    <li><span class="questionnaire-course-code">MGT325</span> - Management of Technology</li>
+                                    <li><span class="questionnaire-course-code">MGT424</span> - Quality Management</li>
+                                    <li><span class="questionnaire-course-code">MGT425</span> - Spreadsheet Decision Modeling</li>
+                                </ul>
                             </div>
                         </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="SCI201">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">SCI201</span>
-                                <span class="questionnaire-course-name">General Physics 2</span>
+                        <label class="radio-option concentration-option">
+                            <input type="radio" name="concentration" value="ecommerce">
+                            <span class="radio-custom"></span>
+                            <div class="concentration-info">
+                                <div class="concentration-title">E-Commerce Concentration</div>
+                                <ul class="concentration-courses-list">
+                                    <li><span class="questionnaire-course-code">ECOM301</span> - E-Marketing</li>
+                                    <li><span class="questionnaire-course-code">ECOM421</span> - E-Business Strategies & Business Models</li>
+                                    <li><span class="questionnaire-course-code">IT404</span> - Web Design</li>
+                                </ul>
                             </div>
                         </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="MATH150">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">MATH150</span>
-                                <span class="questionnaire-course-name">Discrete Mathematics</span>
+                        <label class="radio-option concentration-option">
+                            <input type="radio" name="concentration" value="accounting">
+                            <span class="radio-custom"></span>
+                            <div class="concentration-info">
+                                <div class="concentration-title">Accounting Concentration</div>
+                                <ul class="concentration-courses-list">
+                                    <li><span class="questionnaire-course-code">ACCT201</span> - Financial Accounting</li>
+                                    <li><span class="questionnaire-course-code">ACCT402</span> - Intro to Accounting Information Systems</li>
+                                    <li><span class="questionnaire-course-code">ACCT422</span> - Tax & Zakat Accounting</li>
+                                </ul>
                             </div>
                         </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="MATH251">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">MATH251</span>
-                                <span class="questionnaire-course-name">Linear Algebra</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="ENG103">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">ENG103</span>
-                                <span class="questionnaire-course-name">Technical Writing</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-option">
-                            <input type="checkbox" name="sharedCourses" value="STAT101">
-                            <span class="checkbox-custom"></span>
-                            <div class="questionnaire-course-info">
-                                <span class="questionnaire-course-code">STAT101</span>
-                                <span class="questionnaire-course-name">Statistics</span>
+                        <label class="radio-option concentration-option">
+                            <input type="radio" name="concentration" value="finance">
+                            <span class="radio-custom"></span>
+                            <div class="concentration-info">
+                                <div class="concentration-title">Finance Concentration</div>
+                                <ul class="concentration-courses-list">
+                                    <li><span class="questionnaire-course-code">FIN201</span> - Corporate Finance</li>
+                                    <li><span class="questionnaire-course-code">FIN401</span> - Banks Management</li>
+                                    <li><span class="questionnaire-course-code">FIN402</span> - Financial Institutions & Markets</li>
+                                </ul>
                             </div>
                         </label>
                     </div>
                 </div>
 
-                <!-- Question 3: Completed Semesters -->
+                <!-- Question 4: Completed Semesters -->
                 <div class="question-group">
-                    <h3 class="question-title">3. How many semesters have you completed?</h3>
+                    <h3 class="question-title">4. How many semesters have you completed?</h3>
                     <p class="question-hint">Select the number of completed semesters (1-8)</p>
                     <div class="semester-grid">
                         <label class="semester-option">
@@ -205,7 +213,7 @@
     <div class="study-plan-container" id="studyPlanContainer" style="display: none;">
         <!-- Header Section -->
         <div class="plan-header">
-            <h1 class="plan-title">Information Technology Study Plan</h1>
+            <h1 class="plan-title">BUSINESS ADMINISTRATION (BSBA) - MAJOR IN MANAGEMENT Study Plan</h1>
             <div class="progress-stats">
                 <div class="stat-item">
                     <span class="stat-label">Completed Courses:</span>
@@ -359,42 +367,62 @@
                 { code: "ISLM101", name: "Islamic Course 1", hours: 2, prerequisites: [], category: "university" },
                 { code: "ISLM102", name: "Islamic Course 2", hours: 2, prerequisites: [], category: "university" },
                 { code: "ISLM103", name: "Islamic Course 3", hours: 2, prerequisites: [], category: "university" },
-                { code: "ISLM104", name: "Islamic Course 4", hours: 2, prerequisites: [], category: "university" },
-                { code: "SCI101", name: "General Physics 1", hours: 3, prerequisites: [], category: "college" },
-                { code: "SCI201", name: "General Physics 2", hours: 3, prerequisites: ["SCI101"], category: "college" },
-                { code: "MATH150", name: "Discrete Mathematics", hours: 3, prerequisites: [], category: "college" },
-                { code: "MATH251", name: "Linear Algebra", hours: 3, prerequisites: ["MATH150"], category: "college" },
-                { code: "ENG103", name: "Technical Writing", hours: 3, prerequisites: [], category: "college" },
-                { code: "STAT101", name: "Statistics", hours: 3, prerequisites: [], category: "college" }
+                { code: "ISLM104", name: "Islamic Course 4", hours: 2, prerequisites: [], category: "university" }
+            ],
+            College: [
+                { code: "ACCT101", name: "Principles of Accounting", hours: 3, prerequisites: [], category: "college" },
+                { code: "ACCT301", name: "Cost Accounting", hours: 3, prerequisites: ["ACCT101"], category: "college" },
+                { code: "ECOM101", name: "E-Commerce", hours: 3, prerequisites: [], category: "college" },
+                { code: "ECOM201", name: "Introduction to E-Management", hours: 3, prerequisites: ["MGT101"], category: "college" },
+                { code: "ECON101", name: "Microeconomics", hours: 3, prerequisites: [], category: "college" },
+                { code: "ECON201", name: "Macroeconomics", hours: 3, prerequisites: ["ECON101"], category: "college" },
+                { code: "FIN101", name: "Principles of Finance", hours: 3, prerequisites: ["ACCT101"], category: "college" },
+                { code: "LAW101", name: "Legal Environment of Business", hours: 3, prerequisites: [], category: "college" },
+                { code: "MGT101", name: "Principles of Management", hours: 3, prerequisites: [], category: "college" },
+                { code: "MGT201", name: "Marketing Management", hours: 3, prerequisites: ["MGT101"], category: "college" },
+                { code: "MGT211", name: "HR Management", hours: 3, prerequisites: ["MGT101"], category: "college" },
+                { code: "MGT301", name: "Organizational Behavior", hours: 3, prerequisites: ["MGT211"], category: "college" },
+                { code: "MGT311", name: "Introduction to Operations Management", hours: 3, prerequisites: ["MGT101", "STAT101"], category: "college" },
+                { code: "MGT321", name: "Introduction to International Business", hours: 3, prerequisites: [], category: "college" },
+                { code: "MGT322", name: "Logistics Management", hours: 3, prerequisites: ["MGT101"], category: "college" },
+                { code: "MGT401", name: "Strategic Management", hours: 3, prerequisites: ["MGT201", "FIN101"], category: "college" },
+                { code: "MIS201", name: "Management of Information Systems", hours: 3, prerequisites: ["MGT101"], category: "college" },
+                { code: "STAT101", name: "Statistics", hours: 3, prerequisites: [], category: "college" },
+                { code: "STAT201", name: "Quantitative Methods", hours: 3, prerequisites: ["STAT101"], category: "college" }
             ],
             major: [
-                { code: "IT231", name: "Introduction to IT and IS", hours: 3, prerequisites: [], category: "major" },
-                { code: "IT232", name: "Object Oriented Programming", hours: 3, prerequisites: [], category: "major" },
-                { code: "IT233", name: "Computer Organization", hours: 3, prerequisites: [], category: "major" },
-                { code: "IT241", name: "Operating Systems", hours: 3, prerequisites: ["IT233"], category: "major" },
-                { code: "IT244", name: "Introduction to Database", hours: 3, prerequisites: ["IT232"], category: "major" },
-                { code: "IT245", name: "Data Structure", hours: 3, prerequisites: ["IT232"], category: "major" },
-                { code: "IT351", name: "Computer Networks", hours: 3, prerequisites: ["IT241"], category: "major" },
-                { code: "IT352", name: "Human Computer Interaction", hours: 3, prerequisites: ["IT231", "IT245"], category: "major" },
-                { code: "IT353", name: "System Analysis and Design", hours: 3, prerequisites: ["IT245"], category: "major" },
-                { code: "IT354", name: "Database Management Systems", hours: 3, prerequisites: ["IT244"], category: "major" },
-                { code: "IT361", name: "Web Technologies", hours: 3, prerequisites: ["IT352", "IT244"], category: "major" },
-                { code: "IT362", name: "IT Project Management", hours: 3, prerequisites: ["IT353"], category: "major" },
-                { code: "IT363", name: "Network Management", hours: 3, prerequisites: ["IT351"], category: "major" },
-                { code: "IT364", name: "IT Entrepreneurship and Innovation", hours: 3, prerequisites: ["IT244"], category: "major" },
-                { code: "IT365", name: "Enterprise Systems", hours: 3, prerequisites: ["IT352"], category: "major" },
-                { code: "IT474", name: "Introduction to Cyber Security and Digital Crime", hours: 3, prerequisites: ["IT363"], category: "major" },
-                { code: "IT475", name: "Decision Support Systems", hours: 3, prerequisites: ["IT354"], category: "major" },
-                { code: "IT476", name: "IT Security & Policies", hours: 3, prerequisites: ["IT351"], category: "major" },
-                { code: "IT478", name: "Network Security", hours: 3, prerequisites: ["IT363"], category: "major" },
-                { code: "IT479", name: "Senior Project I", hours: 3, prerequisites: ["IT354", "IT361"], category: "major" },
-                { code: "IT484", name: "Wireless Sensor Networks", hours: 3, prerequisites: ["IT474"], category: "major" },
-                { code: "IT485", name: "Professional Ethics in IT", hours: 3, prerequisites: ["IT362"], category: "major" },
-                { code: "IT487", name: "Mobile Application Development", hours: 3, prerequisites: ["IT475"], category: "major" },
-                { code: "IT488", name: "Cyber Forensics", hours: 3, prerequisites: ["IT474"], category: "major" },
-                { code: "IT489", name: "Senior Project II", hours: 3, prerequisites: ["IT479"], category: "major" },
-                { code: "IT499", name: "Practical Training", hours: 3, prerequisites: [], category: "major", hourRequirement: 86 }
-            ]
+                 { code: "MGT312", name: "Decision Making and Problem Solving", hours: 3, prerequisites: ["MGT101"], category: "specialization" },
+                 { code: "MGT323", name: "Project Management", hours: 3, prerequisites: ["MGT311"], category: "specialization" },
+                 { code: "MGT324", name: "Public Management", hours: 3, prerequisites: ["MGT101"], category: "specialization" },
+                 { code: "MGT402", name: "Entrepreneurship & Small Business", hours: 3, prerequisites: ["MGT101"], category: "specialization" },
+                 { code: "MGT403", name: "Knowledge Management", hours: 3, prerequisites: [], category: "specialization" },
+                 { code: "MGT404", name: "Organization Design and Development", hours: 3, prerequisites: [], category: "specialization" },
+                 { code: "MGT421", name: "Communications Management", hours: 3, prerequisites: [], category: "specialization" },
+                 { code: "MGT422", name: "Business Ethics & Social Responsibility", hours: 3, prerequisites: [], category: "specialization" },
+                 { code: "MGT430", name: "Internship", hours: 6, prerequisites: [], hourRequirement: 90, category: "specialization" }
+            ],
+            concentrations: {
+                ba: [
+                    { code: "MGT325", name: "Management of Technology", hours: 3, prerequisites: ["MGT101"], levelRequirement: 6, category: "concentration" },
+                    { code: "MGT424", name: "Quality Management", hours: 3, prerequisites: ["MGT101"], levelRequirement: 7, category: "concentration" },
+                    { code: "MGT425", name: "Spreadsheet Decision Modeling", hours: 3, prerequisites: ["MGT101"], levelRequirement: 8, category: "concentration" }
+                ],
+                ecommerce: [
+                    { code: "ECOM301", name: "E-Marketing", hours: 3, prerequisites: ["MGT201"], levelRequirement: 6, category: "concentration" },
+                    { code: "ECOM421", name: "E-Business Strategies and Business Models", hours: 3, prerequisites: ["MGT401"], levelRequirement: 7, category: "concentration" },
+                    { code: "IT404", name: "Web Design", hours: 3, prerequisites: [], levelRequirement: 8, category: "concentration" }
+                ],
+                accounting: [
+                    { code: "ACCT201", name: "Financial Accounting", hours: 3, prerequisites: ["ACCT101"], levelRequirement: 6, category: "concentration" },
+                    { code: "ACCT402", name: "Introduction to Accounting Information Systems", hours: 3, prerequisites: ["ACCT101", "MIS201"], levelRequirement: 7, category: "concentration" },
+                    { code: "ACCT422", name: "Tax & Zakat Accounting", hours: 3, prerequisites: ["ACCT201"], levelRequirement: 8, category: "concentration" }
+                ],
+                finance: [
+                    { code: "FIN201", name: "Corporate Finance", hours: 3, prerequisites: ["FIN101"], levelRequirement: 6, category: "concentration" },
+                    { code: "FIN401", name: "Banks Management", hours: 3, prerequisites: ["FIN101"], levelRequirement: 7, category: "concentration" },
+                    { code: "FIN402", name: "Financial Institutions and Markets", hours: 3, prerequisites: ["FIN101"], levelRequirement: 8, category: "concentration" }
+                ]
+            },
         };
 
         // State management
@@ -421,7 +449,7 @@
             }
             
             // Add event listeners for questionnaire
-            document.querySelectorAll('input[name="firstYear"], input[name="semesters"]').forEach(input => {
+            document.querySelectorAll('input[name="firstYear"], input[name="semesters"], input[name="concentration"]').forEach(input => {
                 input.addEventListener('change', checkQuestionnaireCompletion);
             });
             
@@ -440,25 +468,30 @@
         });
 
         function getAllCourses() {
-            return [...allCourses.university, ...allCourses.shared, ...allCourses.major];
+            // Include College-level courses to reflect full curriculum totals (42 courses / 130 hours)
+            const base = [...allCourses.university, ...allCourses.shared, ...allCourses.College, ...allCourses.major];
+            if (userProgress.selectedConcentration && allCourses.concentrations[userProgress.selectedConcentration]) {
+                return [...base, ...allCourses.concentrations[userProgress.selectedConcentration]];
+            }
+            return base;
         }
 
         function isPrerequisitesMet(course) {
-            // Check regular course prerequisites
-            const regularPrereqsMet = course.prerequisites.every(prereq => completedCourses.has(prereq));
-            
-            // Check hour-based requirements (like IT499 requiring 86 hours)
+            const prereqsOk = course.prerequisites.every(prereq => completedCourses.has(prereq));
+            if (!prereqsOk) return false;
             if (course.hourRequirement) {
                 const allCoursesFlat = getAllCourses();
-                const completedHours = Array.from(completedCourses).reduce((total, courseCode) => {
-                    const completedCourse = allCoursesFlat.find(c => c.code === courseCode);
-                    return total + (completedCourse ? completedCourse.hours : 0);
+                const completedHours = Array.from(completedCourses).reduce((t, code) => {
+                    const c = allCoursesFlat.find(cc => cc.code === code);
+                    return t + (c ? c.hours : 0);
                 }, 0);
-                
-                return regularPrereqsMet && completedHours >= course.hourRequirement;
+                if (completedHours < course.hourRequirement) return false;
             }
-            
-            return regularPrereqsMet;
+            if (course.levelRequirement) {
+                // semesters represent levels completed
+                if (!userProgress.semesters || userProgress.semesters < course.levelRequirement) return false;
+            }
+            return true;
         }
 
         function getAvailableCourses() {
@@ -499,11 +532,14 @@
                             <span class="course-category">${course.category}</span>
                         </div>
                         <div class="course-name">${course.name}</div>
-                        ${course.prerequisites.length > 0 || course.hourRequirement ? 
+                        ${(course.prerequisites.length > 0) || course.hourRequirement || course.levelRequirement ?
                             `<div class="prerequisites">
-                                <small>Prerequisites: ${course.prerequisites.length > 0 ? course.prerequisites.join(', ') : 'None'}${course.hourRequirement ? `, ${course.hourRequirement} hours completed` : ''}</small>
-                            </div>` : ''
-                        }
+                                <small>Prerequisites: ${[
+                                    course.prerequisites.length ? course.prerequisites.join(', ') : 'None',
+                                    course.hourRequirement ? course.hourRequirement + ' hours completed' : null,
+                                    course.levelRequirement ? 'Level ' + course.levelRequirement : null
+                                ].filter(Boolean).join(', ')}</small>
+                            </div>` : ''}
                     </div>
                     <div class="course-actions">
                         ${!isInTerm ? 
@@ -824,7 +860,7 @@
                 
                 // Convert to JPEG and download
                 const link = document.createElement('a');
-                link.download = 'IT-Course-Calendar.jpeg';
+                link.download = 'Management-Course-Calendar.jpeg';
                 link.href = canvas.toDataURL('image/jpeg', 0.9);
                 link.click();
                 
@@ -1008,7 +1044,7 @@
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 
                 pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                pdf.save('IT-Course-Schedule.pdf');
+                pdf.save('Management-Course-Schedule.pdf');
                 
             } catch (error) {
                 console.error('Error exporting PDF:', error);
@@ -1025,7 +1061,7 @@
                 
                 // Convert to JPEG and download
                 const link = document.createElement('a');
-                link.download = 'IT-Course-Schedule.jpeg';
+                link.download = 'Management-Course-Schedule.jpeg';
                 link.href = canvas.toDataURL('image/jpeg', 0.9);
                 link.click();
                 
@@ -1092,7 +1128,15 @@
         }
 
         function goBack() {
-            window.location.href = 'information-technology.html';
+            // Show questionnaire again instead of leaving the page
+            const questionnaire = document.getElementById('questionnaireContainer');
+            const studyPlan = document.getElementById('studyPlanContainer');
+            if (questionnaire && studyPlan) {
+                questionnaire.style.display = 'block';
+                studyPlan.style.display = 'none';
+                // Optional: scroll to top for better UX
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
         // Theme and language functions
@@ -1103,7 +1147,7 @@
         }
 
         function toggleLanguage() {
-            window.location.href = '../../AR/college-of-computing-and-informatics/information-technology.html';
+            window.location.href = '../../AR/college-of-administrative-and-financial-sciences/management.html';
         }
 
         function initializeTheme() {
@@ -2626,6 +2670,84 @@
             background: rgba(212, 175, 55, 0.3);
         }
 
+        /* Concentration list design improvements */
+        .concentration-options {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .concentration-option {
+            align-items: flex-start;
+            padding: 14px 16px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.02);
+            position: relative;
+            transition: border-color .25s, background .25s, box-shadow .25s;
+        }
+        .concentration-option:hover {
+            border-color: rgba(212, 175, 55, 0.55);
+            background: rgba(212, 175, 55, 0.06);
+            box-shadow: 0 2px 6px -2px rgba(0,0,0,0.4);
+        }
+        .concentration-option input[type="radio"] {
+            margin-top: 4px;
+        }
+        .concentration-info {
+            margin-left: 10px;
+            flex: 1;
+        }
+        .concentration-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: .5px;
+        }
+        .concentration-courses-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .concentration-courses-list li {
+            display: flex;
+            align-items: center;
+            font-size: 13.5px;
+            line-height: 1.4;
+            position: relative;
+            padding-left: 18px; /* space for custom bullet */
+        }
+        .concentration-courses-list li::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 6px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #d4af37;
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.25);
+        }
+        /* Improve code highlight inside concentration list */
+        .concentration-courses-list .questionnaire-course-code {
+            color: #d4af37;
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+        /* Selected state styling */
+        .concentration-option input[type="radio"]:checked + .radio-custom + .concentration-info,
+        .concentration-option input[type="radio"]:checked ~ .concentration-info { /* fallback */
+            outline: 2px solid rgba(212, 175, 55, 0.6);
+            outline-offset: 2px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02));
+        }
+        @media (max-width: 640px) {
+            .concentration-option { padding: 12px 12px; }
+            .concentration-courses-list li { font-size: 13px; }
+        }
+
         /* Responsive design */
         @media (max-width: 1024px) {
             .plan-content {
@@ -2660,16 +2782,18 @@
         let userProgress = {
             firstYear: null,
             sharedCourses: [],
-            semesters: null
+            semesters: null,
+            selectedConcentration: null
         };
 
         // Enable submit button when all required questions are answered
         function checkQuestionnaireCompletion() {
             const firstYear = document.querySelector('input[name="firstYear"]:checked');
             const semesters = document.querySelector('input[name="semesters"]:checked');
+            const concentration = document.querySelector('input[name="concentration"]:checked');
             const submitBtn = document.getElementById('submitBtn');
             
-            if (firstYear && semesters) {
+            if (firstYear && semesters && concentration) {
                 submitBtn.disabled = false;
             } else {
                 submitBtn.disabled = true;
@@ -2683,13 +2807,14 @@
             // Collect answers
             userProgress.firstYear = document.querySelector('input[name="firstYear"]:checked')?.value;
             userProgress.semesters = parseInt(document.querySelector('input[name="semesters"]:checked')?.value);
+            userProgress.selectedConcentration = document.querySelector('input[name="concentration"]:checked')?.value || null;
             
             // Collect shared courses
             userProgress.sharedCourses = Array.from(document.querySelectorAll('input[name="sharedCourses"]:checked'))
                 .map(input => input.value);
 
             // Store in localStorage for future reference
-            localStorage.setItem('itProgressData', JSON.stringify(userProgress));
+            localStorage.setItem('managementProgressData', JSON.stringify(userProgress));
 
             // Mark courses as completed based on answers
             markCoursesBasedOnProgress();
@@ -2721,12 +2846,12 @@
 
             // 3. Mark semester courses as completed based on completed semesters
             const semesterCourses = {
-                3: ['IT231', 'IT232', 'IT233'],
-                4: ['IT241', 'IT244', 'IT245'],
-                5: ['IT351', 'IT352', 'IT353', 'IT354'],
-                6: ['IT361', 'IT362', 'IT363', 'IT364', 'IT365'],
-                7: ['IT474', 'IT475', 'IT476', 'IT478', 'IT479'],
-                8: ['IT484', 'IT485', 'IT487', 'IT488', 'IT489', 'IT499']
+                3: ['STAT101', 'LAW101', 'ECON101', 'MGT101', 'ACCT101'],
+                4: ['STAT201', 'FIN101', 'MGT201', 'MGT211', 'ECOM101'],
+                5: ['ACCT301', 'MGT321', 'MGT322', 'MGT312'],
+                6: ['MGT311', 'MIS201', 'ECON201', 'MGT323', 'MGT324'],
+                7: ['MGT301', 'MGT401', 'MGT402', 'MGT403'],
+                8: ['MGT404', 'MGT421', 'MGT422', 'MGT430']
             };
 
             // Mark courses from completed semesters (starting from semester 3)
@@ -2768,7 +2893,12 @@
 
         // Check if we have saved progress data
         function checkSavedProgress() {
-            const savedData = localStorage.getItem('itProgressData');
+            const legacy = localStorage.getItem('itProgressData');
+            if (legacy && !localStorage.getItem('managementProgressData')) {
+                localStorage.setItem('managementProgressData', legacy);
+                localStorage.removeItem('itProgressData');
+            }
+            const savedData = localStorage.getItem('managementProgressData');
             if (savedData) {
                 userProgress = JSON.parse(savedData);
                 // Auto-fill questionnaire if returning user

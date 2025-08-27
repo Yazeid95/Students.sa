@@ -136,6 +136,7 @@ function finishSelection() {
     const langFolder = isArabic ? 'AR' : 'EN';
     const computingBase = `${langFolder}/college-of-computing-and-informatics`;
     const healthBase = `${langFolder}/college-of-health-sciences`;
+    const administrativeBase = `${langFolder}/college-of-administrative-and-financial-sciences`;
     
     // Check if Information Technology is selected
     if (selectedCollege === 'computing' && selectedMajor === 'it') {
@@ -166,6 +167,11 @@ function finishSelection() {
     // Check if Public Health is selected
     if (selectedCollege === 'health' && selectedMajor === 'public-health') {
         window.location.href = `${healthBase}/public-health.html`;
+        return;
+    }
+    // Check if Management is selected (Administrative college)
+    if (selectedCollege === 'administrative' && selectedMajor === 'management') {
+        window.location.href = `${administrativeBase}/management.html`;
         return;
     }
     
