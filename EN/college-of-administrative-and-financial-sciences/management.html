@@ -366,8 +366,8 @@
             shared: [
                 { code: "ISLM101", name: "Islamic Course 1", hours: 2, prerequisites: [], category: "university" },
                 { code: "ISLM102", name: "Islamic Course 2", hours: 2, prerequisites: [], category: "university" },
-                { code: "ISLM103", name: "Islamic Course 3", hours: 2, prerequisites: [], category: "university" },
-                { code: "ISLM104", name: "Islamic Course 4", hours: 2, prerequisites: [], category: "university" }
+                { code: "ISLM103", name: "Islamic Course 3", hours: 2, prerequisites: ["ISLM101"], category: "university" },
+                { code: "ISLM104", name: "Islamic Course 4", hours: 2, prerequisites: ["ISLM102"], category: "university" }
             ],
             College: [
                 { code: "ACCT101", name: "Principles of Accounting", hours: 3, prerequisites: [], category: "college" },
@@ -395,9 +395,9 @@
                  { code: "MGT323", name: "Project Management", hours: 3, prerequisites: ["MGT311"], category: "specialization" },
                  { code: "MGT324", name: "Public Management", hours: 3, prerequisites: ["MGT101"], category: "specialization" },
                  { code: "MGT402", name: "Entrepreneurship & Small Business", hours: 3, prerequisites: ["MGT101"], category: "specialization" },
-                 { code: "MGT403", name: "Knowledge Management", hours: 3, prerequisites: [], category: "specialization" },
-                 { code: "MGT404", name: "Organization Design and Development", hours: 3, prerequisites: [], category: "specialization" },
-                 { code: "MGT421", name: "Communications Management", hours: 3, prerequisites: [], category: "specialization" },
+                 { code: "MGT403", name: "Knowledge Management", hours: 3, prerequisites: ["MGT101"], category: "specialization" },
+                 { code: "MGT404", name: "Organization Design and Development", hours: 3, prerequisites: ["MGT101"], category: "specialization" },
+                 { code: "MGT421", name: "Communications Management", hours: 3, prerequisites: ["MGT101"], category: "specialization" },
                  { code: "MGT422", name: "Business Ethics & Social Responsibility", hours: 3, prerequisites: [], category: "specialization" },
                  { code: "MGT430", name: "Internship", hours: 6, prerequisites: [], hourRequirement: 90, category: "specialization" }
             ],
