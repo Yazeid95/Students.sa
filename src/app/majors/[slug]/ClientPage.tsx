@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowRight, 
@@ -13,11 +13,15 @@ import {
   Plus,
   Trash2,
   Download,
-  Hash
+  Hash,
+  AlertTriangle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useScheduleStore } from "@/contexts/scheduleStore";
+import type { CourseSchedule } from "@/contexts/scheduleStore";
+import { SchedulePoster } from "@/components/SchedulePoster";
 
 // Helper function for Arabic pluralization
 const getArabicHoursPlural = (count: number): string => {
@@ -33,6 +37,23 @@ const getArabicCoursesPlural = (count: number): string => {
   if (count === 2) return "مقرران";
   if (count >= 3 && count <= 10) return "مقررات";
   return "مقرر"; // for 11+ or 0, Arabic uses singular form
+};
+// Time helpers
+const startTimes = ["3:00","4:00","5:00","6:00","7:00","8:00","9:00"] as const;
+const endTimeForStart = (start: string) => `${start.split(":")[0]}:50`;
+
+// Validate CRN (4-5 digits)
+const validateCRNInput = (crn: string | undefined | null): boolean => {
+  if (!crn) return false;
+  return /^\d{4,5}$/.test(crn);
+};
+
+// Get border classes for CRN input based on validity
+const getCrnBorderClass = (crn: string | undefined | null): string => {
+  if (!crn || crn.length === 0) return 'border-white/20 focus:border-blue-500';
+  return validateCRNInput(crn)
+    ? 'border-green-500 focus:border-green-500'
+    : 'border-red-500 focus:border-red-500';
 };
 
 interface Course {
@@ -51,22 +72,12 @@ interface Course {
 interface ScheduleEntry {
   courseId: string;
   day: 'sunday-tuesday' | 'monday-wednesday';
-  timeSlot: string;
+  start: string;
+  end: string;
   crn: string;
 }
 
-// Generate time slots from 3:00-3:50 to 9:00-9:50
-const generateTimeSlots = () => {
-  const slots = [];
-  for (let hour = 3; hour <= 9; hour++) {
-    const startTime = `${hour}:00`;
-    const endTime = `${hour}:50`;
-    slots.push(`${startTime}-${endTime}`);
-  }
-  return slots;
-};
-
-const timeSlots = generateTimeSlots();
+// Maintain for backward-compatibility if needed (removed unused generator)
 
 const dayOptions = [
   { value: 'sunday-tuesday', labelEn: 'Sunday & Tuesday', labelAr: 'الأحد والثلاثاء' },
@@ -535,10 +546,33 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [customTerm, setCustomTerm] = useState<Course[]>([]);
   const [showQuestionnaire, setShowQuestionnaire] = useState(true);
-  const [courseSchedules, setCourseSchedules] = useState<Record<string, ScheduleEntry>>({});
+  // Zustand store for schedules persisted in localStorage
+  const { schedules: storeSchedules, setSchedule, removeSchedule } = useScheduleStore();
+  const getKey = (courseId: string) => `${params.slug}:${courseId}`;
+  const getSchedule = (courseId: string): ScheduleEntry => {
+    const key = getKey(courseId);
+    const s = storeSchedules[key];
+    return s
+    ? { courseId, day: s.day || 'sunday-tuesday', start: s.start || '3:00', end: s.end || '3:50', crn: s.crn || '' }
+      : { courseId, day: 'sunday-tuesday', start: '3:00', end: '3:50', crn: '' };
+  };
+  const setScheduleField = (courseId: string, field: keyof ScheduleEntry, value: string) => {
+    const key = getKey(courseId);
+    // Ensure end follows start if start changes
+    if (field === 'start') {
+      const end = endTimeForStart(value);
+      setSchedule(key, { start: value, end });
+    } else if (field === 'end') {
+      setSchedule(key, { end: value });
+    } else if (field === 'day') {
+      setSchedule(key, { day: value });
+    } else if (field === 'crn') {
+      setSchedule(key, { crn: value });
+    }
+  };
 
   // Keep track of schedule updates for debugging
-  console.log('Current course schedules:', Object.keys(courseSchedules).length);
+  console.log('Current course schedules:', Object.keys(storeSchedules).length);
 
   // Get major data based on slug
   const getMajorData = (slug: string): MajorData => {
@@ -678,165 +712,54 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
   const addToCustomTerm = (course: Course) => {
     if (customTerm.length < 6 && !customTerm.find(c => c.id === course.id)) {
       setCustomTerm([...customTerm, course]);
-      // Initialize schedule entry for the new course
-      setCourseSchedules(prev => ({
-        ...prev,
-        [course.id]: {
-          courseId: course.id,
-          day: 'sunday-tuesday',
-          timeSlot: timeSlots[0],
-          crn: ''
-        }
-      }));
+      // Initialize schedule entry for the new course in store
+      setSchedule(getKey(course.id), { day: 'sunday-tuesday', start: '3:00', end: '3:50', crn: '' });
     }
   };
 
   const removeFromCustomTerm = (courseId: string) => {
     setCustomTerm(customTerm.filter(c => c.id !== courseId));
     // Remove schedule entry for this course
-    const newSchedules = { ...courseSchedules };
-    delete newSchedules[courseId];
-    setCourseSchedules(newSchedules);
+    removeSchedule(getKey(courseId));
   };
 
-  const updateCourseSchedule = (courseId: string, field: keyof ScheduleEntry, value: string) => {
-    setCourseSchedules(prev => ({
-      ...prev,
-      [courseId]: {
-        ...prev[courseId],
-        courseId,
-        [field]: value
-      }
-    }));
+  const validateCRN = (crn: string): boolean => /^\d{4,5}$/.test(crn);
+
+  const hasTimeConflict = (day: string, start: string, end: string, excludeCourseId?: string): boolean => {
+    const startMin = (s: string) => {
+      const [h, m] = s.split(":").map(Number);
+      return h * 60 + m;
+    };
+    return Object.entries(storeSchedules).some(([key, s]) => {
+      const id = key.split(":").pop();
+      if (!id || id === excludeCourseId) return false;
+      const entry = s as CourseSchedule;
+      if (entry.day !== day) return false;
+      // Overlap check
+      const a1 = startMin(start), a2 = startMin(end);
+      const b1 = startMin(entry.start), b2 = startMin(entry.end);
+      return Math.max(a1, b1) < Math.min(a2, b2);
+    });
   };
 
-  const validateCRN = (crn: string): boolean => {
-    return /^\d{5}$/.test(crn);
-  };
-
-  const hasTimeConflict = (day: string, timeSlot: string, excludeCourseId?: string): boolean => {
-    return Object.values(courseSchedules).some(schedule => 
-      schedule.courseId !== excludeCourseId &&
-      schedule.day === day && 
-      schedule.timeSlot === timeSlot
-    );
-  };
-
+  const posterRef = useRef<HTMLDivElement | null>(null);
   const exportScheduleAsJPEG = async () => {
     const html2canvas = (await import('html2canvas')).default;
-    
-    // Create a temporary div with the schedule content
-    const scheduleDiv = document.createElement('div');
-    scheduleDiv.style.width = '500px'; // 5:7 ratio base width
-    scheduleDiv.style.height = '700px'; // 5:7 ratio height  
-    scheduleDiv.style.padding = '20px';
-    scheduleDiv.style.backgroundColor = '#1a1a2e';
-    scheduleDiv.style.color = 'white';
-    scheduleDiv.style.fontFamily = 'Arial, sans-serif';
-    scheduleDiv.style.position = 'absolute';
-    scheduleDiv.style.left = '-10000px';
-    scheduleDiv.style.top = '-10000px';
-
-    // Create schedule content
-    const titleDiv = document.createElement('div');
-    titleDiv.style.textAlign = 'center';
-    titleDiv.style.marginBottom = '30px';
-    titleDiv.style.fontSize = '24px';
-    titleDiv.style.fontWeight = 'bold';
-    titleDiv.style.color = '#4ade80';
-    titleDiv.textContent = isArabic ? 'جدول المقررات' : 'Course Schedule';
-    scheduleDiv.appendChild(titleDiv);
-
-    // Add major name
-    const majorDiv = document.createElement('div');
-    majorDiv.style.textAlign = 'center';
-    majorDiv.style.marginBottom = '20px';
-    majorDiv.style.fontSize = '18px';
-    majorDiv.style.color = '#60a5fa';
-    majorDiv.textContent = isArabic ? majorData.nameAr : majorData.name;
-    scheduleDiv.appendChild(majorDiv);
-
-    // Add courses
-    customTerm.forEach((course) => {
-      const schedule = courseSchedules[course.id];
-      if (schedule) {
-        const courseDiv = document.createElement('div');
-        courseDiv.style.backgroundColor = '#16213e';
-        courseDiv.style.padding = '15px';
-        courseDiv.style.marginBottom = '15px';
-        courseDiv.style.borderRadius = '8px';
-        courseDiv.style.border = '1px solid #22c55e30';
-
-        const courseInfo = document.createElement('div');
-        courseInfo.style.marginBottom = '10px';
-        courseInfo.innerHTML = `
-          <div style="font-size: 16px; font-weight: bold; color: white;">${course.code}</div>
-          <div style="font-size: 14px; color: #d1d5db; margin-top: 2px;">${isArabic ? course.nameAr : course.name}</div>
-          <div style="font-size: 12px; color: #22c55e; margin-top: 4px;">${course.credits} ${isArabic ? 'ساعة' : 'credits'}</div>
-        `;
-        courseDiv.appendChild(courseInfo);
-
-        const scheduleInfo = document.createElement('div');
-        scheduleInfo.style.display = 'grid';
-        scheduleInfo.style.gridTemplateColumns = '1fr 1fr 1fr';
-        scheduleInfo.style.gap = '10px';
-        scheduleInfo.style.fontSize = '12px';
-
-        const dayLabel = dayOptions.find(opt => opt.value === schedule.day);
-        scheduleInfo.innerHTML = `
-          <div>
-            <div style="color: #9ca3af; margin-bottom: 4px;">${isArabic ? 'اليوم:' : 'Day:'}</div>
-            <div style="color: white;">${isArabic ? dayLabel?.labelAr : dayLabel?.labelEn}</div>
-          </div>
-          <div>
-            <div style="color: #9ca3af; margin-bottom: 4px;">${isArabic ? 'الوقت:' : 'Time:'}</div>
-            <div style="color: white;">${schedule.timeSlot}</div>
-          </div>
-          <div>
-            <div style="color: #9ca3af; margin-bottom: 4px;">${isArabic ? 'رقم CRN:' : 'CRN:'}</div>
-            <div style="color: white;">${schedule.crn}</div>
-          </div>
-        `;
-        courseDiv.appendChild(scheduleInfo);
-        scheduleDiv.appendChild(courseDiv);
-      }
+    if (!posterRef.current) return;
+    const canvas = await html2canvas(posterRef.current, {
+      backgroundColor: '#0a0a0f',
+      width: 1000,
+      height: 1400,
+      scale: 1,
+      useCORS: true,
     });
-
-    // Add summary
-    const summaryDiv = document.createElement('div');
-    summaryDiv.style.marginTop = '20px';
-    summaryDiv.style.padding = '15px';
-    summaryDiv.style.backgroundColor = '#1e40af20';
-    summaryDiv.style.borderRadius = '8px';
-    summaryDiv.style.textAlign = 'center';
-    summaryDiv.innerHTML = `
-      <div style="color: #60a5fa; font-size: 14px; margin-bottom: 8px;">${isArabic ? 'الملخص' : 'Summary'}</div>
-      <div style="color: white; font-size: 20px; font-weight: bold;">${customTerm.reduce((sum, course) => sum + course.credits, 0)} ${isArabic ? 'ساعة' : 'Credits'}</div>
-      <div style="color: #9ca3af; font-size: 12px; margin-top: 4px;">${customTerm.length} ${isArabic ? 'مقرر' : 'Courses'}</div>
-    `;
-    scheduleDiv.appendChild(summaryDiv);
-
-    // Add to document temporarily
-    document.body.appendChild(scheduleDiv);
-
-    try {
-      // Convert to canvas
-      const canvas = await html2canvas(scheduleDiv, {
-        backgroundColor: '#1a1a2e',
-        width: 500,
-        height: 700,
-        scale: 2
-      });
-
-      // Convert to JPEG and download
-      const link = document.createElement('a');
-      link.download = `schedule-${isArabic ? majorData.nameAr : majorData.name}-${new Date().toISOString().split('T')[0]}.jpg`;
-      link.href = canvas.toDataURL('image/jpeg', 0.9);
-      link.click();
-    } finally {
-      // Clean up
-      document.body.removeChild(scheduleDiv);
-    }
+    const now = new Date();
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const filename = `schedule-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}.jpeg`;
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/jpeg', 0.92);
+    link.click();
   };
 
   const markCourseAsCompleted = (course: Course) => {
@@ -866,48 +789,26 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
     return (
       <div className="min-h-screen bg-gradient-dark pt-20">
         <div className="max-w-4xl mx-auto px-6 py-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
-            <h1 className="text-4xl font-bold text-white mb-4">
-              {isArabic ? majorData.nameAr : majorData.name}
-            </h1>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-white mb-4">{isArabic ? majorData.nameAr : majorData.name}</h1>
             <p className="text-gray-400 text-lg">
               {isArabic ? "أجب على الأسئلة التالية لتخصيص خطتك الدراسية" : "Answer the following questions to customize your study plan"}
             </p>
           </motion.div>
 
           <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              className="mb-8"
-            >
+            <motion.div key={currentStep} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="mb-8">
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-center">
-                    {questionnaire[currentStep]?.question}
-                  </CardTitle>
+                  <CardTitle className="text-2xl text-center">{questionnaire[currentStep]?.question}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   {currentStep === 0 && (
                     <div className="flex justify-center gap-4">
-                      <Button 
-                        onClick={() => setHasCompletedFirstYear(true)}
-                        className="px-8 py-3"
-                        variant={hasCompletedFirstYear === true ? "default" : "outline"}
-                      >
+                      <Button onClick={() => setHasCompletedFirstYear(true)} className="px-8 py-3" variant={hasCompletedFirstYear === true ? "default" : "outline"}>
                         {isArabic ? "نعم" : "Yes"}
                       </Button>
-                      <Button 
-                        onClick={() => setHasCompletedFirstYear(false)}
-                        className="px-8 py-3"
-                        variant={hasCompletedFirstYear === false ? "default" : "outline"}
-                      >
+                      <Button onClick={() => setHasCompletedFirstYear(false)} className="px-8 py-3" variant={hasCompletedFirstYear === false ? "default" : "outline"}>
                         {isArabic ? "لا" : "No"}
                       </Button>
                     </div>
@@ -916,11 +817,9 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                   {currentStep === 1 && hasCompletedFirstYear === false && (
                     <div className="grid gap-3">
                       <div className="text-center mb-4 p-3 bg-blue-500/10 rounded-lg">
-                        <p className="text-blue-400 text-sm">
-                          {isArabic ? "متطلبات الجامعة - السنة الأولى المشتركة" : "University Requirements - Common First Year"}
-                        </p>
+                        <p className="text-blue-400 text-sm">{isArabic ? "متطلبات الجامعة - السنة الأولى المشتركة" : "University Requirements - Common First Year"}</p>
                       </div>
-                      {majorData.universityRequirements.map(course => (
+                      {majorData.universityRequirements.map((course) => (
                         <div key={course.id} className="flex items-center gap-3 p-3 rounded-lg bg-white/5">
                           <input
                             type="checkbox"
@@ -930,16 +829,14 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                               if (e.target.checked) {
                                 setCompletedUniversityCourses([...completedUniversityCourses, course.id]);
                               } else {
-                                setCompletedUniversityCourses(completedUniversityCourses.filter(id => id !== course.id));
+                                setCompletedUniversityCourses(completedUniversityCourses.filter((id) => id !== course.id));
                               }
                             }}
                             className="w-4 h-4"
                           />
                           <label htmlFor={course.id} className="flex-1 cursor-pointer">
                             <span className="font-medium text-white">{course.code}</span>
-                            <span className="text-gray-300 ml-2">
-                              {isArabic ? course.nameAr : course.name}
-                            </span>
+                            <span className="text-gray-300 ml-2">{isArabic ? course.nameAr : course.name}</span>
                             <span className="text-cyan-400 ml-2">({course.credits} {isArabic ? getArabicHoursPlural(course.credits) : "credits"})</span>
                           </label>
                         </div>
@@ -950,11 +847,9 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                   {currentStep === 1 && hasCompletedFirstYear === true && (
                     <div className="grid gap-3">
                       <div className="text-center mb-4 p-3 bg-green-500/10 rounded-lg">
-                        <p className="text-green-400 text-sm">
-                          {isArabic ? "متطلبات الكلية المشتركة" : "Shared College Requirements"}
-                        </p>
+                        <p className="text-green-400 text-sm">{isArabic ? "متطلبات الكلية المشتركة" : "Shared College Requirements"}</p>
                       </div>
-                      {majorData.sharedFirstYearCourses.map(course => (
+                      {majorData.sharedFirstYearCourses.map((course) => (
                         <div key={course.id} className="flex items-center gap-3 p-3 rounded-lg bg-white/5">
                           <input
                             type="checkbox"
@@ -964,16 +859,14 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                               if (e.target.checked) {
                                 setCompletedSharedCourses([...completedSharedCourses, course.id]);
                               } else {
-                                setCompletedSharedCourses(completedSharedCourses.filter(id => id !== course.id));
+                                setCompletedSharedCourses(completedSharedCourses.filter((id) => id !== course.id));
                               }
                             }}
                             className="w-4 h-4"
                           />
                           <label htmlFor={course.id} className="flex-1 cursor-pointer">
                             <span className="font-medium text-white">{course.code}</span>
-                            <span className="text-gray-300 ml-2">
-                              {isArabic ? course.nameAr : course.name}
-                            </span>
+                            <span className="text-gray-300 ml-2">{isArabic ? course.nameAr : course.name}</span>
                             <span className="text-cyan-400 ml-2">({course.credits} {isArabic ? getArabicHoursPlural(course.credits) : "credits"})</span>
                           </label>
                         </div>
@@ -987,22 +880,16 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                         <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-primary mb-4">
                           <span className="text-3xl font-bold text-white">{completedSemesters}</span>
                         </div>
-                        <p className="text-gray-400 mb-6">
-                          {isArabic ? "استخدم الأزرار أدناه" : "Use the buttons below"}
-                        </p>
-                        
-                        {/* Show courses that will be auto-completed */}
+                        <p className="text-gray-400 mb-6">{isArabic ? "استخدم الأزرار أدناه" : "Use the buttons below"}</p>
+
                         {completedSemesters >= 3 && (
                           <div className="mb-6 p-4 bg-green-500/10 rounded-lg">
-                            <p className="text-green-400 text-sm mb-2">
-                              {isArabic ? "المقررات التي ستعتبر مكتملة تلقائياً:" : "Courses that will be auto-completed:"}
-                            </p>
+                            <p className="text-green-400 text-sm mb-2">{isArabic ? "المقررات التي ستعتبر مكتملة تلقائياً:" : "Courses that will be auto-completed:"}</p>
                             <div className="text-xs text-gray-300 space-y-1">
-                              {Array.from({ length: completedSemesters - 2 }, (_, i) => i + 3).map(semester => {
+                              {Array.from({ length: completedSemesters - 2 }, (_, i) => i + 3).map((semester) => {
                                 const semesterCourses = majorData.courses
-                                  .filter(course => course.semester === semester && course.type === "core")
-                                  .map(course => course.code);
-                                
+                                  .filter((course) => course.semester === semester && course.type === "core")
+                                  .map((course) => course.code);
                                 return (
                                   <div key={semester} className="flex flex-wrap gap-1">
                                     <span className="font-medium text-blue-400">Semester {semester}:</span>
@@ -1014,19 +901,16 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                           </div>
                         )}
                       </div>
-                      
-                      {/* Number buttons */}
+
                       <div className="grid grid-cols-4 gap-3 max-w-xs mx-auto mb-6">
-                        {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
                           <motion.button
                             key={num}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setCompletedSemesters(num)}
                             className={`p-3 rounded-lg font-semibold transition-all ${
-                              completedSemesters === num
-                                ? 'bg-gradient-primary text-white'
-                                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                              completedSemesters === num ? 'bg-gradient-primary text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'
                             }`}
                           >
                             {num}
@@ -1041,11 +925,7 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
           </AnimatePresence>
 
           <div className="flex justify-between">
-            <Button
-              onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-              disabled={currentStep === 0}
-              variant="outline"
-            >
+            <Button onClick={() => setCurrentStep(Math.max(0, currentStep - 1))} disabled={currentStep === 0} variant="outline">
               <ArrowLeft className="w-4 h-4 mr-2" />
               {isArabic ? "السابق" : "Previous"}
             </Button>
@@ -1056,7 +936,7 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                   if (currentStep === 0 && hasCompletedFirstYear === false) {
                     handleQuestionnaireSubmit();
                   } else if (currentStep === 0 && hasCompletedFirstYear === null) {
-                    return; // Don't proceed if no answer
+                    return;
                   } else {
                     setCurrentStep(currentStep + 1);
                   }
@@ -1195,20 +1075,10 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                   </div>
                 ) : (
                   customTerm.map(course => {
-                    const courseSchedule = courseSchedules[course.id] || {
-                      courseId: course.id,
-                      day: 'sunday-tuesday',
-                      timeSlot: timeSlots[0],
-                      crn: ''
-                    };
-                    const crnValid = validateCRN(courseSchedule.crn);
-                    const hasConflict = hasTimeConflict(courseSchedule.day, courseSchedule.timeSlot, course.id);
+                    const courseSchedule = getSchedule(course.id);
+                    const conflict = hasTimeConflict(courseSchedule.day, courseSchedule.start, courseSchedule.end, course.id);
                     
-                    const getCrnBorderClass = () => {
-                      if (courseSchedule.crn && !crnValid) return 'border-red-500 focus:border-red-500';
-                      if (courseSchedule.crn && crnValid) return 'border-green-500 focus:border-green-500';
-                      return 'border-white/20 focus:border-blue-500';
-                    };
+                    // use global getCrnBorderClass helper
 
                     return (
                       <motion.div
@@ -1246,8 +1116,9 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                               {isArabic ? "اختر اليوم" : "Choose Day"}
                             </label>
                             <select
+                              dir={isArabic ? 'rtl' : 'ltr'}
                               value={courseSchedule.day}
-                              onChange={(e) => updateCourseSchedule(course.id, 'day', e.target.value)}
+                              onChange={(e) => setScheduleField(course.id, 'day', e.target.value)}
                               className="w-full p-2 bg-black/30 border border-white/20 rounded-lg text-white text-sm focus:border-blue-500 focus:outline-none"
                             >
                               {dayOptions.map(option => (
@@ -1263,22 +1134,33 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                             <label className="block text-sm text-gray-400 mb-2">
                               {isArabic ? "اختر الوقت" : "Choose Time"}
                             </label>
-                            <select
-                              value={courseSchedule.timeSlot}
-                              onChange={(e) => updateCourseSchedule(course.id, 'timeSlot', e.target.value)}
-                              className={`w-full p-2 bg-black/30 border rounded-lg text-white text-sm focus:outline-none ${
-                                hasConflict 
-                                  ? 'border-red-500 focus:border-red-500' 
-                                  : 'border-white/20 focus:border-blue-500'
-                              }`}
-                            >
-                              {timeSlots.map(slot => (
-                                <option key={slot} value={slot} className="bg-black text-white">
-                                  {slot}
+                            <div className="grid grid-cols-2 gap-2">
+                              <select
+                                dir={isArabic ? 'rtl' : 'ltr'}
+                                value={courseSchedule.start}
+                                onChange={(e) => setScheduleField(course.id, 'start', e.target.value)}
+                                className={`w-full p-2 bg-black/30 border rounded-lg text-white text-sm focus:outline-none ${
+                                  conflict ? 'border-red-500 focus:border-red-500' : 'border-white/20 focus:border-blue-500'
+                                }`}
+                              >
+                                {startTimes.map((t) => (
+                                  <option key={t} value={t} className="bg-black text-white">{t}</option>
+                                ))}
+                              </select>
+                              <select
+                                dir={isArabic ? 'rtl' : 'ltr'}
+                                value={courseSchedule.end}
+                                onChange={(e) => setScheduleField(course.id, 'end', e.target.value)}
+                                className={`w-full p-2 bg-black/30 border rounded-lg text-white text-sm focus:outline-none ${
+                                  conflict ? 'border-red-500 focus:border-red-500' : 'border-white/20 focus:border-blue-500'
+                                }`}
+                              >
+                                <option value={endTimeForStart(courseSchedule.start)} className="bg-black text-white">
+                                  {endTimeForStart(courseSchedule.start)}
                                 </option>
-                              ))}
-                            </select>
-                            {hasConflict && (
+                              </select>
+                            </div>
+                            {conflict && (
                               <div className="text-red-400 text-xs mt-1">
                                 {isArabic ? "تعارض في الوقت" : "Time conflict"}
                               </div>
@@ -1292,26 +1174,20 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                             </label>
                             <div className="relative">
                               <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                                const getCrnInputClasses = () => {
-                                  if (courseSchedule.crn && !crnValid) return 'border-red-500 focus:border-red-500';
-                                  if (courseSchedule.crn && crnValid) return 'border-green-500 focus:border-green-500';
-                                  return 'border-white/20 focus:border-blue-500';
-                                };
-
-                                <input
+                              <input
                                 type="text"
                                 value={courseSchedule.crn}
                                 onChange={(e) => {
                                   const value = e.target.value.replace(/\D/g, '').slice(0, 5);
-                                  updateCourseSchedule(course.id, 'crn', value);
+                                  setScheduleField(course.id, 'crn', value);
                                 }}
                                 placeholder="12345"
                                 maxLength={5}
-                                className={`w-full p-2 pl-10 bg-black/30 border rounded-lg text-white text-sm focus:outline-none ${getCrnBorderClass()}`}
+                                className={`w-full p-2 pl-10 bg-black/30 border rounded-lg text-white text-sm focus:outline-none ${getCrnBorderClass(courseSchedule.crn)}`}
                               />
                               {courseSchedule.crn && (
                                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                  {crnValid ? (
+                                  {validateCRN(courseSchedule.crn) ? (
                                     <CheckCircle className="w-4 h-4 text-green-400" />
                                   ) : (
                                     <Clock className="w-4 h-4 text-red-400" />
@@ -1319,9 +1195,9 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                                 </div>
                               )}
                             </div>
-                            {courseSchedule.crn && !crnValid && (
+                            {courseSchedule.crn && !validateCRN(courseSchedule.crn) && (
                               <div className="text-red-400 text-xs mt-1">
-                                {isArabic ? "يجب أن يكون 5 أرقام" : "Must be 5 digits"}
+                                {isArabic ? "يجب أن يكون 4-5 أرقام" : "Must be 4-5 digits"}
                               </div>
                             )}
                           </div>
@@ -1348,44 +1224,79 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                           <div className="text-sm text-gray-400">
                             {isArabic ? "الحالة" : "Status"}
                           </div>
-                          <div className={`text-sm font-medium ${
-                            Object.values(courseSchedules).every(schedule => 
-                              schedule && validateCRN(schedule.crn)
-                            ) && Object.keys(courseSchedules).length === customTerm.length
-                              ? 'text-green-400' 
-                              : 'text-orange-400'
-                          }`}>
-                            {(() => {
-                              const isReady = Object.values(courseSchedules).every(schedule => 
-                                schedule && validateCRN(schedule.crn)
-                              ) && Object.keys(courseSchedules).length === customTerm.length;
-                              return isReady 
-                                ? (isArabic ? "جاهز" : "Ready")
-                                : (isArabic ? "غير مكتمل" : "Incomplete");
-                            })()}
-                          </div>
+                          {(() => {
+                            const isReady = customTerm.every((course) => {
+                              const s = getSchedule(course.id);
+                              return s.day && s.start && s.end && validateCRN(s.crn);
+                            });
+                            let statusLabel: string;
+                            if (isReady) {
+                              statusLabel = isArabic ? "جاهز" : "Ready";
+                            } else {
+                              statusLabel = isArabic ? "غير مكتمل" : "Incomplete";
+                            }
+                            const statusClass = isReady ? 'text-green-400' : 'text-orange-400';
+                            return <div className={`text-sm font-medium ${statusClass}`}>{statusLabel}</div>;
+                          })()}
                         </div>
                       </div>
                     </div>
 
                     {/* Export Button */}
                     <div className="text-center">
-                      <Button
-                        onClick={exportScheduleAsJPEG}
-                        disabled={!Object.values(courseSchedules).every(schedule => 
-                          schedule && validateCRN(schedule.crn)
-                        ) || Object.keys(courseSchedules).length !== customTerm.length}
-                        className="bg-gradient-primary hover:bg-gradient-primary/80 disabled:opacity-50"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        {isArabic ? "تصدير الجدول كصورة" : "Export Schedule as JPEG"}
-                      </Button>
+                      {customTerm.map((course) => {
+                        const s = getSchedule(course.id);
+                        const missing = !(s.day && s.start && s.end && validateCRN(s.crn));
+                        return missing ? (
+                          <div key={`warn-${course.id}`} className="text-yellow-400 text-xs mb-1 flex items-center justify-center gap-1">
+                            <AlertTriangle className="w-4 h-4" />
+                            {isArabic ? 'أكمل اليوم والوقت و CRN لجميع المقررات' : 'Complete day, time, and CRN for all courses.'}
+                          </div>
+                        ) : null;
+                      })}
+                      {(() => {
+                        const readyToExport = customTerm.every((course) => {
+                          const s = getSchedule(course.id);
+                          return s.day && s.start && s.end && validateCRN(s.crn);
+                        });
+                        let title: string | undefined;
+                        if (!readyToExport) {
+                          title = isArabic ? 'أكمل اليوم والوقت و CRN لجميع المقررات.' : 'Complete day, time, and CRN for all courses.';
+                        }
+                        return (
+                          <Button
+                            onClick={exportScheduleAsJPEG}
+                            disabled={!readyToExport}
+                            title={title}
+                            className="bg-gradient-primary hover:bg-gradient-primary/80 disabled:opacity-50"
+                          >
+                            <Download className="w-4 h-4 mr-2" />
+                            {isArabic ? "تصدير كصورة JPEG" : "Export as JPEG"}
+                          </Button>
+                        );
+                      })()}
                     </div>
                   </div>
                 )}
               </div>
             </CardContent>
           </Card>
+        </div>
+      </div>
+      {/* Hidden poster for export */}
+      <div style={{ position: 'absolute', left: -99999, top: -99999 }}>
+        <div ref={posterRef}>
+          <SchedulePoster
+            isArabic={isArabic}
+            dir={isArabic ? 'rtl' : 'ltr'}
+            majorName={majorData.name}
+            majorNameAr={majorData.nameAr}
+            termName={undefined}
+            totalCredits={customTerm.reduce((sum, c) => sum + c.credits, 0)}
+            courses={customTerm}
+            schedules={Object.fromEntries(customTerm.map((c) => [c.id, getSchedule(c.id)]))}
+            dayOptions={dayOptions}
+          />
         </div>
       </div>
     </div>
