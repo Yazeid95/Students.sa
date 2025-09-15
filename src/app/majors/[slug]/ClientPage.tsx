@@ -11,12 +11,13 @@ import {
   BookOpen, 
   GraduationCap,
   Plus,
-  Trash2
+  Trash2,
+  Download,
+  Hash
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ScheduleCreator from "@/components/ScheduleCreator";
 
 // Helper function for Arabic pluralization
 const getArabicHoursPlural = (count: number): string => {
@@ -53,6 +54,24 @@ interface ScheduleEntry {
   timeSlot: string;
   crn: string;
 }
+
+// Generate time slots from 3:00-3:50 to 9:00-9:50
+const generateTimeSlots = () => {
+  const slots = [];
+  for (let hour = 3; hour <= 9; hour++) {
+    const startTime = `${hour}:00`;
+    const endTime = `${hour}:50`;
+    slots.push(`${startTime}-${endTime}`);
+  }
+  return slots;
+};
+
+const timeSlots = generateTimeSlots();
+
+const dayOptions = [
+  { value: 'sunday-tuesday', labelEn: 'Sunday & Tuesday', labelAr: 'الأحد والثلاثاء' },
+  { value: 'monday-wednesday', labelEn: 'Monday & Wednesday', labelAr: 'الاثنين والأربعاء' }
+] as const;
 
 interface MajorData {
   id: string;
@@ -516,10 +535,10 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [customTerm, setCustomTerm] = useState<Course[]>([]);
   const [showQuestionnaire, setShowQuestionnaire] = useState(true);
-  const [scheduleEntries, setScheduleEntries] = useState<ScheduleEntry[]>([]);
+  const [courseSchedules, setCourseSchedules] = useState<Record<string, ScheduleEntry>>({});
 
   // Keep track of schedule updates for debugging
-  console.log('Current schedule entries:', scheduleEntries.length);
+  console.log('Current course schedules:', Object.keys(courseSchedules).length);
 
   // Get major data based on slug
   const getMajorData = (slug: string): MajorData => {
@@ -659,11 +678,165 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
   const addToCustomTerm = (course: Course) => {
     if (customTerm.length < 6 && !customTerm.find(c => c.id === course.id)) {
       setCustomTerm([...customTerm, course]);
+      // Initialize schedule entry for the new course
+      setCourseSchedules(prev => ({
+        ...prev,
+        [course.id]: {
+          courseId: course.id,
+          day: 'sunday-tuesday',
+          timeSlot: timeSlots[0],
+          crn: ''
+        }
+      }));
     }
   };
 
   const removeFromCustomTerm = (courseId: string) => {
     setCustomTerm(customTerm.filter(c => c.id !== courseId));
+    // Remove schedule entry for this course
+    const newSchedules = { ...courseSchedules };
+    delete newSchedules[courseId];
+    setCourseSchedules(newSchedules);
+  };
+
+  const updateCourseSchedule = (courseId: string, field: keyof ScheduleEntry, value: string) => {
+    setCourseSchedules(prev => ({
+      ...prev,
+      [courseId]: {
+        ...prev[courseId],
+        courseId,
+        [field]: value
+      }
+    }));
+  };
+
+  const validateCRN = (crn: string): boolean => {
+    return /^\d{5}$/.test(crn);
+  };
+
+  const hasTimeConflict = (day: string, timeSlot: string, excludeCourseId?: string): boolean => {
+    return Object.values(courseSchedules).some(schedule => 
+      schedule.courseId !== excludeCourseId &&
+      schedule.day === day && 
+      schedule.timeSlot === timeSlot
+    );
+  };
+
+  const exportScheduleAsJPEG = async () => {
+    const html2canvas = (await import('html2canvas')).default;
+    
+    // Create a temporary div with the schedule content
+    const scheduleDiv = document.createElement('div');
+    scheduleDiv.style.width = '500px'; // 5:7 ratio base width
+    scheduleDiv.style.height = '700px'; // 5:7 ratio height  
+    scheduleDiv.style.padding = '20px';
+    scheduleDiv.style.backgroundColor = '#1a1a2e';
+    scheduleDiv.style.color = 'white';
+    scheduleDiv.style.fontFamily = 'Arial, sans-serif';
+    scheduleDiv.style.position = 'absolute';
+    scheduleDiv.style.left = '-10000px';
+    scheduleDiv.style.top = '-10000px';
+
+    // Create schedule content
+    const titleDiv = document.createElement('div');
+    titleDiv.style.textAlign = 'center';
+    titleDiv.style.marginBottom = '30px';
+    titleDiv.style.fontSize = '24px';
+    titleDiv.style.fontWeight = 'bold';
+    titleDiv.style.color = '#4ade80';
+    titleDiv.textContent = isArabic ? 'جدول المقررات' : 'Course Schedule';
+    scheduleDiv.appendChild(titleDiv);
+
+    // Add major name
+    const majorDiv = document.createElement('div');
+    majorDiv.style.textAlign = 'center';
+    majorDiv.style.marginBottom = '20px';
+    majorDiv.style.fontSize = '18px';
+    majorDiv.style.color = '#60a5fa';
+    majorDiv.textContent = isArabic ? majorData.nameAr : majorData.name;
+    scheduleDiv.appendChild(majorDiv);
+
+    // Add courses
+    customTerm.forEach((course) => {
+      const schedule = courseSchedules[course.id];
+      if (schedule) {
+        const courseDiv = document.createElement('div');
+        courseDiv.style.backgroundColor = '#16213e';
+        courseDiv.style.padding = '15px';
+        courseDiv.style.marginBottom = '15px';
+        courseDiv.style.borderRadius = '8px';
+        courseDiv.style.border = '1px solid #22c55e30';
+
+        const courseInfo = document.createElement('div');
+        courseInfo.style.marginBottom = '10px';
+        courseInfo.innerHTML = `
+          <div style="font-size: 16px; font-weight: bold; color: white;">${course.code}</div>
+          <div style="font-size: 14px; color: #d1d5db; margin-top: 2px;">${isArabic ? course.nameAr : course.name}</div>
+          <div style="font-size: 12px; color: #22c55e; margin-top: 4px;">${course.credits} ${isArabic ? 'ساعة' : 'credits'}</div>
+        `;
+        courseDiv.appendChild(courseInfo);
+
+        const scheduleInfo = document.createElement('div');
+        scheduleInfo.style.display = 'grid';
+        scheduleInfo.style.gridTemplateColumns = '1fr 1fr 1fr';
+        scheduleInfo.style.gap = '10px';
+        scheduleInfo.style.fontSize = '12px';
+
+        const dayLabel = dayOptions.find(opt => opt.value === schedule.day);
+        scheduleInfo.innerHTML = `
+          <div>
+            <div style="color: #9ca3af; margin-bottom: 4px;">${isArabic ? 'اليوم:' : 'Day:'}</div>
+            <div style="color: white;">${isArabic ? dayLabel?.labelAr : dayLabel?.labelEn}</div>
+          </div>
+          <div>
+            <div style="color: #9ca3af; margin-bottom: 4px;">${isArabic ? 'الوقت:' : 'Time:'}</div>
+            <div style="color: white;">${schedule.timeSlot}</div>
+          </div>
+          <div>
+            <div style="color: #9ca3af; margin-bottom: 4px;">${isArabic ? 'رقم CRN:' : 'CRN:'}</div>
+            <div style="color: white;">${schedule.crn}</div>
+          </div>
+        `;
+        courseDiv.appendChild(scheduleInfo);
+        scheduleDiv.appendChild(courseDiv);
+      }
+    });
+
+    // Add summary
+    const summaryDiv = document.createElement('div');
+    summaryDiv.style.marginTop = '20px';
+    summaryDiv.style.padding = '15px';
+    summaryDiv.style.backgroundColor = '#1e40af20';
+    summaryDiv.style.borderRadius = '8px';
+    summaryDiv.style.textAlign = 'center';
+    summaryDiv.innerHTML = `
+      <div style="color: #60a5fa; font-size: 14px; margin-bottom: 8px;">${isArabic ? 'الملخص' : 'Summary'}</div>
+      <div style="color: white; font-size: 20px; font-weight: bold;">${customTerm.reduce((sum, course) => sum + course.credits, 0)} ${isArabic ? 'ساعة' : 'Credits'}</div>
+      <div style="color: #9ca3af; font-size: 12px; margin-top: 4px;">${customTerm.length} ${isArabic ? 'مقرر' : 'Courses'}</div>
+    `;
+    scheduleDiv.appendChild(summaryDiv);
+
+    // Add to document temporarily
+    document.body.appendChild(scheduleDiv);
+
+    try {
+      // Convert to canvas
+      const canvas = await html2canvas(scheduleDiv, {
+        backgroundColor: '#1a1a2e',
+        width: 500,
+        height: 700,
+        scale: 2
+      });
+
+      // Convert to JPEG and download
+      const link = document.createElement('a');
+      link.download = `schedule-${isArabic ? majorData.nameAr : majorData.name}-${new Date().toISOString().split('T')[0]}.jpg`;
+      link.href = canvas.toDataURL('image/jpeg', 0.9);
+      link.click();
+    } finally {
+      // Clean up
+      document.body.removeChild(scheduleDiv);
+    }
   };
 
   const markCourseAsCompleted = (course: Course) => {
@@ -1021,55 +1194,193 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                     {isArabic ? "اختر المقررات من القائمة المجاورة" : "Select courses from the list to build your term"}
                   </div>
                 ) : (
-                  customTerm.map(course => (
-                    <motion.div
-                      key={course.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="p-4 bg-green-500/10 rounded-lg border border-green-500/30"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <div className="font-semibold text-white">{course.code}</div>
-                          <div className="text-gray-300 text-sm">
-                            {isArabic ? course.nameAr : course.name}
+                  customTerm.map(course => {
+                    const courseSchedule = courseSchedules[course.id] || {
+                      courseId: course.id,
+                      day: 'sunday-tuesday',
+                      timeSlot: timeSlots[0],
+                      crn: ''
+                    };
+                    const crnValid = validateCRN(courseSchedule.crn);
+                    const hasConflict = hasTimeConflict(courseSchedule.day, courseSchedule.timeSlot, course.id);
+                    
+                    const getCrnBorderClass = () => {
+                      if (courseSchedule.crn && !crnValid) return 'border-red-500 focus:border-red-500';
+                      if (courseSchedule.crn && crnValid) return 'border-green-500 focus:border-green-500';
+                      return 'border-white/20 focus:border-blue-500';
+                    };
+
+                    return (
+                      <motion.div
+                        key={course.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="p-4 bg-green-500/10 rounded-lg border border-green-500/30"
+                      >
+                        {/* Course Header */}
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex-1">
+                            <div className="font-semibold text-white">{course.code}</div>
+                            <div className="text-gray-300 text-sm">
+                              {isArabic ? course.nameAr : course.name}
+                            </div>
+                            <div className="text-green-400 text-xs mt-1">
+                              {course.credits} {isArabic ? getArabicHoursPlural(course.credits) : "credits"}
+                            </div>
                           </div>
-                          <div className="text-green-400 text-xs mt-1">
-                            {course.credits} {isArabic ? getArabicHoursPlural(course.credits) : "credits"}
+                          <Button 
+                            size="sm"
+                            variant="outline"
+                            onClick={() => removeFromCustomTerm(course.id)}
+                            className="text-red-400 border-red-400/30 hover:bg-red-400/20"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+
+                        {/* Schedule Fields */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {/* Day Selection */}
+                          <div>
+                            <label className="block text-sm text-gray-400 mb-2">
+                              {isArabic ? "اختر اليوم" : "Choose Day"}
+                            </label>
+                            <select
+                              value={courseSchedule.day}
+                              onChange={(e) => updateCourseSchedule(course.id, 'day', e.target.value)}
+                              className="w-full p-2 bg-black/30 border border-white/20 rounded-lg text-white text-sm focus:border-blue-500 focus:outline-none"
+                            >
+                              {dayOptions.map(option => (
+                                <option key={option.value} value={option.value} className="bg-black text-white">
+                                  {isArabic ? option.labelAr : option.labelEn}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+
+                          {/* Time Selection */}
+                          <div>
+                            <label className="block text-sm text-gray-400 mb-2">
+                              {isArabic ? "اختر الوقت" : "Choose Time"}
+                            </label>
+                            <select
+                              value={courseSchedule.timeSlot}
+                              onChange={(e) => updateCourseSchedule(course.id, 'timeSlot', e.target.value)}
+                              className={`w-full p-2 bg-black/30 border rounded-lg text-white text-sm focus:outline-none ${
+                                hasConflict 
+                                  ? 'border-red-500 focus:border-red-500' 
+                                  : 'border-white/20 focus:border-blue-500'
+                              }`}
+                            >
+                              {timeSlots.map(slot => (
+                                <option key={slot} value={slot} className="bg-black text-white">
+                                  {slot}
+                                </option>
+                              ))}
+                            </select>
+                            {hasConflict && (
+                              <div className="text-red-400 text-xs mt-1">
+                                {isArabic ? "تعارض في الوقت" : "Time conflict"}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* CRN Input */}
+                          <div>
+                            <label className="block text-sm text-gray-400 mb-2">
+                              {isArabic ? "رقم CRN" : "CRN Number"}
+                            </label>
+                            <div className="relative">
+                              <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                const getCrnInputClasses = () => {
+                                  if (courseSchedule.crn && !crnValid) return 'border-red-500 focus:border-red-500';
+                                  if (courseSchedule.crn && crnValid) return 'border-green-500 focus:border-green-500';
+                                  return 'border-white/20 focus:border-blue-500';
+                                };
+
+                                <input
+                                type="text"
+                                value={courseSchedule.crn}
+                                onChange={(e) => {
+                                  const value = e.target.value.replace(/\D/g, '').slice(0, 5);
+                                  updateCourseSchedule(course.id, 'crn', value);
+                                }}
+                                placeholder="12345"
+                                maxLength={5}
+                                className={`w-full p-2 pl-10 bg-black/30 border rounded-lg text-white text-sm focus:outline-none ${getCrnBorderClass()}`}
+                              />
+                              {courseSchedule.crn && (
+                                <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                  {crnValid ? (
+                                    <CheckCircle className="w-4 h-4 text-green-400" />
+                                  ) : (
+                                    <Clock className="w-4 h-4 text-red-400" />
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                            {courseSchedule.crn && !crnValid && (
+                              <div className="text-red-400 text-xs mt-1">
+                                {isArabic ? "يجب أن يكون 5 أرقام" : "Must be 5 digits"}
+                              </div>
+                            )}
                           </div>
                         </div>
-                        <Button 
-                          size="sm"
-                          variant="outline"
-                          onClick={() => removeFromCustomTerm(course.id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </motion.div>
-                  ))
+                      </motion.div>
+                    );
+                  })
                 )}
                 
                 {customTerm.length > 0 && (
-                  <div className="mt-4 p-3 bg-blue-500/10 rounded-lg">
-                    <div className="text-center">
-                      <div className="text-sm text-gray-400">
-                        {isArabic ? "إجمالي الساعات" : "Total Credits"}
-                      </div>
-                      <div className="text-2xl font-bold text-blue-400">
-                        {customTerm.reduce((sum, course) => sum + course.credits, 0)}
+                  <div className="mt-4 space-y-4">
+                    {/* Summary */}
+                    <div className="p-3 bg-blue-500/10 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div className="text-center flex-1">
+                          <div className="text-sm text-gray-400">
+                            {isArabic ? "إجمالي الساعات" : "Total Credits"}
+                          </div>
+                          <div className="text-2xl font-bold text-blue-400">
+                            {customTerm.reduce((sum, course) => sum + course.credits, 0)}
+                          </div>
+                        </div>
+                        <div className="text-center flex-1">
+                          <div className="text-sm text-gray-400">
+                            {isArabic ? "الحالة" : "Status"}
+                          </div>
+                          <div className={`text-sm font-medium ${
+                            Object.values(courseSchedules).every(schedule => 
+                              schedule && validateCRN(schedule.crn)
+                            ) && Object.keys(courseSchedules).length === customTerm.length
+                              ? 'text-green-400' 
+                              : 'text-orange-400'
+                          }`}>
+                            {(() => {
+                              const isReady = Object.values(courseSchedules).every(schedule => 
+                                schedule && validateCRN(schedule.crn)
+                              ) && Object.keys(courseSchedules).length === customTerm.length;
+                              return isReady 
+                                ? (isArabic ? "جاهز" : "Ready")
+                                : (isArabic ? "غير مكتمل" : "Incomplete");
+                            })()}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
 
-                {/* Schedule Creator Section */}
-                {customTerm.length > 0 && (
-                  <div className="mt-6 border-t border-white/10 pt-6">
-                    <ScheduleCreator
-                      courses={customTerm}
-                      onScheduleUpdate={setScheduleEntries}
-                    />
+                    {/* Export Button */}
+                    <div className="text-center">
+                      <Button
+                        onClick={exportScheduleAsJPEG}
+                        disabled={!Object.values(courseSchedules).every(schedule => 
+                          schedule && validateCRN(schedule.crn)
+                        ) || Object.keys(courseSchedules).length !== customTerm.length}
+                        className="bg-gradient-primary hover:bg-gradient-primary/80 disabled:opacity-50"
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        {isArabic ? "تصدير الجدول كصورة" : "Export Schedule as JPEG"}
+                      </Button>
+                    </div>
                   </div>
                 )}
               </div>
