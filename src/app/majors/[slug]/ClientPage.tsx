@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ScheduleCreator from "@/components/ScheduleCreator";
 
 // Helper function for Arabic pluralization
 const getArabicHoursPlural = (count: number): string => {
@@ -44,6 +45,13 @@ interface Course {
   semester?: number;
   type: 'core' | 'elective' | 'general';
   hourRequirement?: number; // For courses that require minimum completed hours
+}
+
+interface ScheduleEntry {
+  courseId: string;
+  day: 'sunday-tuesday' | 'monday-wednesday';
+  timeSlot: string;
+  crn: string;
 }
 
 interface MajorData {
@@ -497,7 +505,7 @@ const mgmtMajorData: MajorData = {
   ]
 };
 
-export default function ClientMajorPage({ params }: { params: { slug: string } }) {
+export default function ClientMajorPage({ params }: Readonly<{ params: { slug: string } }>) {
   const router = useRouter();
   const { isArabic } = useLanguage();
   const [currentStep, setCurrentStep] = useState(0);
@@ -508,6 +516,10 @@ export default function ClientMajorPage({ params }: { params: { slug: string } }
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [customTerm, setCustomTerm] = useState<Course[]>([]);
   const [showQuestionnaire, setShowQuestionnaire] = useState(true);
+  const [scheduleEntries, setScheduleEntries] = useState<ScheduleEntry[]>([]);
+
+  // Keep track of schedule updates for debugging
+  console.log('Current schedule entries:', scheduleEntries.length);
 
   // Get major data based on slug
   const getMajorData = (slug: string): MajorData => {
@@ -1048,6 +1060,16 @@ export default function ClientMajorPage({ params }: { params: { slug: string } }
                         {customTerm.reduce((sum, course) => sum + course.credits, 0)}
                       </div>
                     </div>
+                  </div>
+                )}
+
+                {/* Schedule Creator Section */}
+                {customTerm.length > 0 && (
+                  <div className="mt-6 border-t border-white/10 pt-6">
+                    <ScheduleCreator
+                      courses={customTerm}
+                      onScheduleUpdate={setScheduleEntries}
+                    />
                   </div>
                 )}
               </div>
