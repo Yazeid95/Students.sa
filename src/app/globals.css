@@ -1,0 +1,347 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0f;
+  --foreground: #ffffff;
+  /* Brand palette - Enhanced futuristic colors */
+  --brand-green: #0f3a2c;
+  --brand-green-alt: #105640;
+  --brand-green-fade: #0f3a2c0f;
+  --brand-gold: #ffd700;
+  --brand-gold-soft: #ffed4a;
+  
+  /* Futuristic gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-dark: linear-gradient(135deg, #0c0c0f 0%, #1a1a2e 50%, #16213e 100%);
+  --gradient-glow: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Light theme variables */
+:root.light {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --gradient-dark: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+}
+
+/* Dark theme variables (default) */
+:root.dark {
+  --background: #0a0a0f;
+  --foreground: #ffffff;
+  --gradient-dark: linear-gradient(135deg, #0c0c0f 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+/* Light mode text color overrides */
+.light .text-white {
+  color: #1a1a1a !important;
+}
+
+.light .text-gray-300 {
+  color: #4a5568 !important;
+}
+
+.light .text-gray-400 {
+  color: #2d3748 !important;
+}
+
+.light .text-gray-500 {
+  color: #1a202c !important;
+}
+
+/* Card content in light mode */
+.light .glass-card,
+.light .bg-white\/5,
+.light .bg-white\/10 {
+  color: #1a1a1a !important;
+}
+
+/* Specific component overrides for light mode */
+.light h1,
+.light h2, 
+.light h3,
+.light h4,
+.light h5,
+.light h6 {
+  color: #1a1a1a !important;
+}
+
+.light p {
+  color: #2d3748 !important;
+}
+
+/* Card titles and descriptions in light mode */
+.light .text-2xl,
+.light .text-xl,
+.light .text-lg {
+  color: #1a1a1a !important;
+}
+
+/* Small text and descriptions */
+.light .text-sm,
+.light .text-xs {
+  color: #4a5568 !important;
+}
+
+/* Footer light mode overrides */
+.light footer {
+  background: rgba(248, 250, 252, 0.9) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.light .bg-black\/50 {
+  background: rgba(248, 250, 252, 0.9) !important;
+}
+
+.light .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Footer text colors in light mode */
+.light footer .text-white {
+  color: #1a1a1a !important;
+}
+
+.light footer .text-gray-400 {
+  color: #4a5568 !important;
+}
+
+.light footer h3 {
+  color: #1a1a1a !important;
+}
+
+.light footer a:hover {
+  color: #2d3748 !important;
+}
+
+/* Theme variables consumed directly via CSS custom properties */
+/* (Removed experimental @theme rule for compatibility) */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0f;
+    --foreground: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #ffffff;
+    --foreground: #1a1a1a;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Futuristic utility classes */
+.bg-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.bg-gradient-dark {
+  background: var(--gradient-dark);
+}
+
+.bg-gradient-glow {
+  background: var(--gradient-glow);
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Light mode glass morphism */
+:root.light .glass-morphism {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card {
+  background: rgba(15, 15, 25, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Light mode glass card */
+:root.light .glass-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Card background overrides for light mode */
+.light [class*="bg-white/"] {
+  background: rgba(248, 250, 252, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.light .hover\:bg-white\/10:hover {
+  background: rgba(241, 245, 249, 0.9) !important;
+}
+
+/* Background overrides for transparency classes */
+.light .bg-black\/50,
+.light .bg-black\/40,
+.light .bg-black\/30 {
+  background: rgba(248, 250, 252, 0.95) !important;
+}
+
+.glow-effect {
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+  transform: translateY(-2px);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.7);
+}
+
+/* RTL Support */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Arabic font support */
+[dir="rtl"] {
+  font-family: 'Inter', 'Tajawal', 'Cairo', 'Amiri', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* RTL specific adjustments */
+[dir="rtl"] .text-gradient,
+[dir="rtl"] .gold-gradient {
+  text-align: right;
+}
+
+[dir="rtl"] input[type="text"],
+[dir="rtl"] input[type="email"],
+[dir="rtl"] textarea {
+  text-align: right;
+}
+
+[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}
+
+/* Specific RTL overrides for the navbar */
+[dir="rtl"] nav .flex {
+  flex-direction: row;
+}
+
+[dir="rtl"] nav .gap-8 {
+  flex-direction: row-reverse;
+}
+
+/* Button text alignment in RTL */
+[dir="rtl"] button {
+  text-align: center;
+}
+
+/* Logo positioning adjustments for RTL */
+[dir="rtl"] .logo-container {
+  transform: scaleX(-1);
+}
+
+/* Enhanced RTL Support for Flex and Grid */
+[dir="rtl"] .flex-auto-reverse {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .gap-reverse {
+  flex-direction: row-reverse;
+}
+
+/* RTL Arrow animations */
+[dir="rtl"] .arrow-right {
+  transform: rotate(180deg);
+}
+
+[dir="rtl"] .arrow-animate:hover {
+  transform: rotate(180deg) translateX(-4px);
+}
+
+/* RTL Icon positioning */
+[dir="rtl"] .icon-start {
+  order: 2;
+}
+
+[dir="rtl"] .content-end {
+  order: 1;
+}
+
+/* RTL Card layouts */
+[dir="rtl"] .card-content {
+  text-align: right;
+}
+
+[dir="rtl"] .card-header {
+  flex-direction: row-reverse;
+}
+
+/* RTL Logical properties fallbacks for older browsers */
+[dir="rtl"] .ps-4 {
+  padding-right: 1rem;
+  padding-left: 0;
+}
+
+[dir="rtl"] .pe-4 {
+  padding-left: 1rem;
+  padding-right: 0;
+}
+
+[dir="rtl"] .ms-2 {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+[dir="rtl"] .me-2 {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
