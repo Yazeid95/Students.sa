@@ -56,6 +56,18 @@ interface MajorData {
   universityRequirements: Course[]; // Added for first year courses
 }
 
+// Pre-render dynamic routes for static export on GitHub Pages
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return [
+    { slug: "information-technology" },
+    { slug: "data-science" },
+    { slug: "computer-science" },
+    { slug: "health-informatics" },
+    { slug: "public-health" },
+  ];
+}
+
 // Information Technology Major Data
 const itMajorData: MajorData = {
   id: "information-technology",
