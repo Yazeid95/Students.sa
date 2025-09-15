@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
+    "export": "next export -o docs",
+    "deploy": "npm run build && npm run export && echo.> docs\\.nojekyll",
     "start": "next start",
     "lint": "eslint"
   },
