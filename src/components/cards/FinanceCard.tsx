@@ -134,7 +134,7 @@ export const FinanceCardTailwind: React.FC<FinanceCardProps> = ({ onSelect, clas
             onClick={onSelect}>
         <CardHeader className="pb-6">
           {/* Using Tailwind dir-specific classes */}
-          <div className="flex items-start gap-4 [dir='rtl']:flex-row-reverse [dir='rtl']:text-right">
+          <div className="flex items-start gap-4 [dir='rtl']:flex-row-reverse [dir='rtl']:text-right" dir="ltr">
             <div className="p-3 rounded-2xl bg-gradient-primary shrink-0">
               <DollarSign className="w-8 h-8 text-white" />
             </div>

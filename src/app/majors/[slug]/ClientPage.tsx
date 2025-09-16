@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useScheduleStore } from "@/contexts/scheduleStore";
-import type { CourseSchedule } from "@/contexts/scheduleStore";
+import type { CourseSchedule, Day } from "@/contexts/scheduleStore";
 import { SchedulePoster } from "@/components/SchedulePoster";
 
 // Helper function for Arabic pluralization
@@ -565,7 +565,7 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
     } else if (field === 'end') {
       setSchedule(key, { end: value });
     } else if (field === 'day') {
-      setSchedule(key, { day: value });
+      setSchedule(key, { day: value as Day });
     } else if (field === 'crn') {
       setSchedule(key, { crn: value });
     }
@@ -1295,7 +1295,6 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
             totalCredits={customTerm.reduce((sum, c) => sum + c.credits, 0)}
             courses={customTerm}
             schedules={Object.fromEntries(customTerm.map((c) => [c.id, getSchedule(c.id)]))}
-            dayOptions={dayOptions}
           />
         </div>
       </div>
