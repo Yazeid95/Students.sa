@@ -748,8 +748,8 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
     if (!posterRef.current) return;
     const canvas = await html2canvas(posterRef.current, {
       backgroundColor: '#0a0a0f',
-      width: 1000,
-      height: 1400,
+      width: 500,
+      height: 700,
       scale: 1,
       useCORS: true,
     });
@@ -1289,10 +1289,6 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
           <SchedulePoster
             isArabic={isArabic}
             dir={isArabic ? 'rtl' : 'ltr'}
-            majorName={majorData.name}
-            majorNameAr={majorData.nameAr}
-            termName={undefined}
-            totalCredits={customTerm.reduce((sum, c) => sum + c.credits, 0)}
             courses={customTerm}
             schedules={Object.fromEntries(customTerm.map((c) => [c.id, getSchedule(c.id)]))}
           />

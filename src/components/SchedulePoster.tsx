@@ -32,7 +32,6 @@ function CalendarScheduleView({
     { key: 'monday', labelEn: 'Monday', labelAr: 'الاثنين' },
     { key: 'tuesday', labelEn: 'Tuesday', labelAr: 'الثلاثاء' },
     { key: 'wednesday', labelEn: 'Wednesday', labelAr: 'الأربعاء' },
-    { key: 'thursday', labelEn: 'Thursday', labelAr: 'الخميس' },
   ];
 
   // Create a grid to map courses to time slots and days
@@ -73,7 +72,7 @@ function CalendarScheduleView({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '120px repeat(5, 1fr)',
+          gridTemplateColumns: '120px repeat(4, 1fr)',
           background: 'rgba(255,255,255,0.05)',
           padding: '12px 8px',
           fontWeight: 700,
@@ -96,7 +95,7 @@ function CalendarScheduleView({
           key={timeSlot}
           style={{
             display: 'grid',
-            gridTemplateColumns: '120px repeat(5, 1fr)',
+            gridTemplateColumns: '120px repeat(4, 1fr)',
             minHeight: 80,
             background: idx % 2 ? 'rgba(255,255,255,0.02)' : 'transparent',
             borderTop: idx > 0 ? '1px solid rgba(255,255,255,0.05)' : 'none',
@@ -172,62 +171,29 @@ function CalendarScheduleView({
 export function SchedulePoster({
   isArabic,
   dir,
-  majorName,
-  majorNameAr,
-  termName,
-  totalCredits,
   courses,
   schedules,
 }: Readonly<{
   isArabic: boolean;
   dir: 'ltr' | 'rtl';
-  majorName: string;
-  majorNameAr: string;
-  termName?: string;
-  totalCredits: number;
   courses: Course[];
   schedules: Record<string, CourseSchedule>;
 }>) {
-  const now = new Date();
-  const pad = (n: number) => String(n).padStart(2, '0');
-  const timestamp = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-
   return (
     <div
       style={{
-        width: 1000,
-        height: 1400,
+        width: 500,
+        height: 700,
         background: '#0a0a0f',
         color: '#fff',
-        padding: 40,
+        padding: 20,
         display: 'flex',
         flexDirection: 'column',
         fontFamily: 'Inter, Arial, sans-serif',
       }}
       dir={dir}
     >
-      <div style={{ textAlign: 'center', marginBottom: 16 }}>
-        <div style={{ fontSize: 48, fontWeight: 800, letterSpacing: 0.5, color: '#22c55e' }}>
-          {isArabic ? 'الجدول الدراسي' : 'Class Schedule'}
-        </div>
-        <div style={{ fontSize: 24, color: '#60a5fa', marginTop: 8 }}>
-          {isArabic ? majorNameAr : majorName}
-        </div>
-        {termName ? (
-          <div style={{ fontSize: 18, color: '#d1d5db', marginTop: 6 }}>
-            {termName}
-          </div>
-        ) : null}
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
-        <div style={{ fontSize: 18, color: '#a7f3d0' }}>
-          {isArabic ? 'إجمالي الساعات:' : 'Total Credits:'} {totalCredits}
-        </div>
-        <div style={{ fontSize: 16, color: '#9ca3af' }}>{timestamp}</div>
-      </div>
-
-      {/* Use the new calendar view instead of the table */}
+      {/* Only the calendar view, no additional information */}
       <CalendarScheduleView
         isArabic={isArabic}
         courses={courses}
