@@ -72,18 +72,18 @@ function CalendarScheduleView({
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '120px repeat(4, 1fr)',
+          gridTemplateColumns: '200px repeat(4, 1fr)',
           background: 'rgba(255,255,255,0.05)',
-          padding: '12px 8px',
+          padding: '20px 16px',
           fontWeight: 700,
-          fontSize: 16,
+          fontSize: 24,
         }}
       >
-        <div style={{ textAlign: 'center', color: '#d4af37' }}>
+        <div style={{ textAlign: 'center', color: '#ffffff' }}>
           {isArabic ? 'الوقت' : 'Time'}
         </div>
         {weekDays.map(day => (
-          <div key={day.key} style={{ textAlign: 'center', color: '#d4af37' }}>
+          <div key={day.key} style={{ textAlign: 'center', color: '#ffffff' }}>
             {isArabic ? day.labelAr : day.labelEn}
           </div>
         ))}
@@ -95,8 +95,8 @@ function CalendarScheduleView({
           key={timeSlot}
           style={{
             display: 'grid',
-            gridTemplateColumns: '120px repeat(4, 1fr)',
-            minHeight: 80,
+            gridTemplateColumns: '200px repeat(4, 1fr)',
+            height: 140,
             background: idx % 2 ? 'rgba(255,255,255,0.02)' : 'transparent',
             borderTop: idx > 0 ? '1px solid rgba(255,255,255,0.05)' : 'none',
           }}
@@ -104,13 +104,13 @@ function CalendarScheduleView({
           {/* Time slot column */}
           <div
             style={{
-              padding: '12px 8px',
+              padding: '20px 16px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 600,
-              fontSize: 14,
-              color: '#9ca3af',
+              fontSize: 20,
+              color: '#ffffff',
               borderRight: '1px solid rgba(255,255,255,0.05)',
             }}
           >
@@ -124,10 +124,10 @@ function CalendarScheduleView({
               <div
                 key={day.key}
                 style={{
-                  padding: '8px',
+                  padding: '16px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 4,
+                  gap: 8,
                   borderRight: day.key !== 'wednesday' ? '1px solid rgba(255,255,255,0.05)' : 'none',
                 }}
               >
@@ -137,23 +137,40 @@ function CalendarScheduleView({
                     <div
                       key={course.id}
                       style={{
-                        background: 'linear-gradient(135deg, #d4af37, #f7c843)',
-                        color: '#1a1a1a',
+                        background: 'linear-gradient(135deg, #1e3a8a, #0891b2)',
+                        color: '#ffffff',
                         padding: '8px',
-                        borderRadius: 8,
-                        fontSize: 11,
+                        borderRadius: 12,
+                        fontSize: 16,
                         fontWeight: 600,
                         textAlign: 'center',
-                        border: '1px solid rgba(0,0,0,0.1)',
+                        border: '1px solid rgba(8, 145, 178, 0.3)',
+                        minHeight: 100,
+                        maxHeight: 100,
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        overflow: 'hidden',
                       }}
                     >
-                      <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 2 }}>
+                      <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 2, lineHeight: 1 }}>
                         {course.code}
                       </div>
-                      <div style={{ fontSize: 10, lineHeight: 1.2, marginBottom: 4 }}>
+                      <div style={{ 
+                        fontSize: 12, 
+                        lineHeight: 1.1, 
+                        marginBottom: 4,
+                        flex: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        wordWrap: 'break-word',
+                        overflow: 'hidden'
+                      }}>
                         {isArabic ? course.nameAr : course.name}
                       </div>
-                      <div style={{ fontSize: 10, color: '#4a4a4a' }}>
+                      <div style={{ fontSize: 11, color: '#a7f3d0', lineHeight: 1, marginTop: 2 }}>
                         CRN: {schedule?.crn || '-'}
                       </div>
                     </div>
@@ -182,11 +199,11 @@ export function SchedulePoster({
   return (
     <div
       style={{
-        width: 500,
-        height: 700,
+        width: 1000,
+        height: 1130,
         background: '#0a0a0f',
         color: '#fff',
-        padding: 20,
+        padding: 40,
         display: 'flex',
         flexDirection: 'column',
         fontFamily: 'Inter, Arial, sans-serif',

@@ -42,6 +42,20 @@ const getArabicCoursesPlural = (count: number): string => {
 const startTimes = ["3:00","4:00","5:00","6:00","7:00","8:00","9:00"] as const;
 const endTimeForStart = (start: string) => `${start.split(":")[0]}:50`;
 
+// Prerequisite mapping for shared college courses
+const sharedCoursePrerequisites: Record<string, string[]> = {
+  'ISLM101': [],
+  'ISLM102': [],
+  'ISLM103': ['ISLM101'],
+  'ISLM104': ['ISLM102'],
+  'SCI101': [],
+  'SCI201': ['SCI101'],
+  'MATH150': [],
+  'MATH251': ['MATH150'],
+  'ENG103': [],
+  'STAT101': []
+};
+
 // Validate CRN (4-5 digits)
 const validateCRNInput = (crn: string | undefined | null): boolean => {
   if (!crn) return false;
@@ -546,6 +560,32 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [customTerm, setCustomTerm] = useState<Course[]>([]);
   const [showQuestionnaire, setShowQuestionnaire] = useState(true);
+  
+  // Prerequisite-aware logic functions
+  const isEligible = (courseId: string, completed: string[]): boolean => {
+    const prereqs = sharedCoursePrerequisites[courseId] || [];
+    return prereqs.every(prereq => completed.includes(prereq));
+  };
+  
+  const findDependents = (courseId: string): string[] => {
+    return Object.keys(sharedCoursePrerequisites).filter(id => 
+      sharedCoursePrerequisites[id].includes(courseId)
+    );
+  };
+  
+  const recursivelyDisable = (courseId: string, completed: string[]): string[] => {
+    const newCompleted = completed.filter(id => id !== courseId);
+    const dependents = findDependents(courseId);
+    
+    let result = newCompleted;
+    for (const dependent of dependents) {
+      if (completed.includes(dependent)) {
+        result = recursivelyDisable(dependent, result);
+      }
+    }
+    return result;
+  };
+  
   // Zustand store for schedules persisted in localStorage
   const { schedules: storeSchedules, setSchedule, removeSchedule } = useScheduleStore();
   const getKey = (courseId: string) => `${params.slug}:${courseId}`;
@@ -748,8 +788,8 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
     if (!posterRef.current) return;
     const canvas = await html2canvas(posterRef.current, {
       backgroundColor: '#0a0a0f',
-      width: 500,
-      height: 700,
+      width: 1000,
+      height: 1130,
       scale: 1,
       useCORS: true,
     });
@@ -849,28 +889,66 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                       <div className="text-center mb-4 p-3 bg-green-500/10 rounded-lg">
                         <p className="text-green-400 text-sm">{isArabic ? "متطلبات الكلية المشتركة" : "Shared College Requirements"}</p>
                       </div>
-                      {majorData.sharedFirstYearCourses.map((course) => (
-                        <div key={course.id} className="flex items-center gap-3 p-3 rounded-lg bg-white/5">
-                          <input
-                            type="checkbox"
-                            id={course.id}
-                            checked={completedSharedCourses.includes(course.id)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setCompletedSharedCourses([...completedSharedCourses, course.id]);
-                              } else {
-                                setCompletedSharedCourses(completedSharedCourses.filter((id) => id !== course.id));
-                              }
-                            }}
-                            className="w-4 h-4"
-                          />
-                          <label htmlFor={course.id} className="flex-1 cursor-pointer">
-                            <span className="font-medium text-white">{course.code}</span>
-                            <span className="text-gray-300 ml-2">{isArabic ? course.nameAr : course.name}</span>
-                            <span className="text-cyan-400 ml-2">({course.credits} {isArabic ? getArabicHoursPlural(course.credits) : "credits"})</span>
-                          </label>
-                        </div>
-                      ))}
+                      {majorData.sharedFirstYearCourses.map((course) => {
+                        const isEligibleForCourse = isEligible(course.code, completedSharedCourses.map(id => 
+                          majorData.sharedFirstYearCourses.find(c => c.id === id)?.code || ''
+                        ));
+                        const prerequisites = sharedCoursePrerequisites[course.code] || [];
+                        const isDisabled = !isEligibleForCourse;
+                        
+                        return (
+                          <div 
+                            key={course.id} 
+                            className={`flex items-center gap-3 p-3 rounded-lg ${
+                              isDisabled ? 'bg-white/5 opacity-50' : 'bg-white/5'
+                            } ${isDisabled ? 'cursor-not-allowed' : ''}`}
+                            title={isDisabled && prerequisites.length > 0 ? 
+                              `${isArabic ? 'يتطلب' : 'Requires'}: ${prerequisites.join(', ')}` : 
+                              undefined
+                            }
+                          >
+                            <input
+                              type="checkbox"
+                              id={course.id}
+                              checked={completedSharedCourses.includes(course.id)}
+                              disabled={isDisabled}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setCompletedSharedCourses([...completedSharedCourses, course.id]);
+                                } else {
+                                  // Use recursive disable logic when unchecking
+                                  const newCompleted = recursivelyDisable(course.code, completedSharedCourses.map(id => 
+                                    majorData.sharedFirstYearCourses.find(c => c.id === id)?.code || ''
+                                  ));
+                                  setCompletedSharedCourses(newCompleted.map(code => 
+                                    majorData.sharedFirstYearCourses.find(c => c.code === code)?.id || ''
+                                  ).filter(Boolean));
+                                }
+                              }}
+                              className={`w-4 h-4 ${isDisabled ? 'cursor-not-allowed' : ''}`}
+                            />
+                            <label 
+                              htmlFor={course.id} 
+                              className={`flex-1 ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                            >
+                              <span className={`font-medium ${isDisabled ? 'text-gray-500' : 'text-white'}`}>
+                                {course.code}
+                              </span>
+                              <span className={`ml-2 ${isDisabled ? 'text-gray-600' : 'text-gray-300'}`}>
+                                {isArabic ? course.nameAr : course.name}
+                              </span>
+                              <span className={`ml-2 ${isDisabled ? 'text-gray-600' : 'text-cyan-400'}`}>
+                                ({course.credits} {isArabic ? getArabicHoursPlural(course.credits) : "credits"})
+                              </span>
+                              {prerequisites.length > 0 && (
+                                <span className={`block text-xs mt-1 ${isDisabled ? 'text-red-400' : 'text-gray-400'}`}>
+                                  {isArabic ? 'يتطلب' : 'Requires'}: {prerequisites.join(', ')}
+                                </span>
+                              )}
+                            </label>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
 
