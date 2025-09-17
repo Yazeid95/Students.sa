@@ -59,7 +59,7 @@ export default function SignInPage() {
             </div>
             <div>
               <label htmlFor="studentId" className="block text-sm font-medium mb-2 text-slate-700 dark:text-neutral-200">
-                Student ID
+                Student ID 
               </label>
               <input
                 id="studentId"

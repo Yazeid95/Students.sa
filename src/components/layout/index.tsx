@@ -1,16 +1,17 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/Logo";
 import Link from "next/link";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Menu, X } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const Navbar = () => {
   const { isArabic, toggleLanguage, t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <motion.nav
@@ -25,6 +26,8 @@ const Navbar = () => {
             <Logo size={40} />
             <span className="text-xl font-bold gold-gradient">{t("seuPlans")}</span>
           </div>
+          
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <Link href="/" className="text-gray-300 hover:text-white transition-colors relative group">
               {t("home")}
@@ -53,7 +56,68 @@ const Navbar = () => {
               )}
             </button>
           </div>
+
+          {/* Mobile Navigation */}
+          <div className="flex md:hidden items-center gap-4">
+            {/* Language Toggle - Mobile */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-all duration-300"
+              title={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+            >
+              <span className="text-sm font-semibold">{isArabic ? "E" : "ع"}</span>
+            </button>
+            
+            {/* Theme Toggle - Mobile */}
+            <button
+              onClick={toggleTheme}
+              className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-all duration-300"
+              title={isDark ? t("switchToLightMode") : t("switchToDarkMode")}
+            >
+              {isDark ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-all duration-300"
+              title={isArabic ? "القائمة" : "Menu"}
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-4 h-4" />
+              ) : (
+                <Menu className="w-4 h-4" />
+              )}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden mt-4 pt-4 border-t border-white/10"
+            >
+              <div className="flex flex-col space-y-4">
+                <Link 
+                  href="/" 
+                  className="text-gray-300 hover:text-white transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {t("home")}
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );
