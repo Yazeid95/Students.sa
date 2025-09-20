@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -172,7 +172,7 @@ const itMajorData: MajorData = {
   ]
 };
 
-// Data Science Major Data
+// Data Science Major Data - COMPLETELY REBUILT TO FIX IT COURSE DISPLAY BUG
 const dsMajorData: MajorData = {
   id: "data-science",
   name: "Data Science",
@@ -180,25 +180,25 @@ const dsMajorData: MajorData = {
   totalCredits: 130,
   universityRequirements: [
     // Common First Year - University Requirements (6 courses) - Same as IT
-    { id: "eng001", code: "ENG001", name: "English Skills 1", nameAr: "مهارات اللغة الإنجليزية 1", credits: 8, prerequisites: [], type: "general" },
-    { id: "eng002", code: "ENG002", name: "English Skills 2", nameAr: "مهارات اللغة الإنجليزية 2", credits: 8, prerequisites: [], type: "general" },
-    { id: "cs001", code: "CS001", name: "Computer Essentials", nameAr: "أساسيات الحاسوب", credits: 3, prerequisites: [], type: "general" },
-    { id: "math001", code: "MATH001", name: "Fundamentals of Mathematics", nameAr: "أساسيات الرياضيات", credits: 3, prerequisites: [], type: "general" },
-    { id: "comm001", code: "COMM001", name: "Communication Skills", nameAr: "مهارات التواصل", credits: 2, prerequisites: [], type: "general" },
-    { id: "ci001", code: "CI001", name: "Academic Skills", nameAr: "المهارات الأكاديمية", credits: 2, prerequisites: [], type: "general" }
+    { id: "eng001_ds", code: "ENG001", name: "English Skills 1", nameAr: "مهارات اللغة الإنجليزية 1", credits: 8, prerequisites: [], type: "general" },
+    { id: "eng002_ds", code: "ENG002", name: "English Skills 2", nameAr: "مهارات اللغة الإنجليزية 2", credits: 8, prerequisites: [], type: "general" },
+    { id: "cs001_ds", code: "CS001", name: "Computer Essentials", nameAr: "أساسيات الحاسوب", credits: 3, prerequisites: [], type: "general" },
+    { id: "math001_ds", code: "MATH001", name: "Fundamentals of Mathematics", nameAr: "أساسيات الرياضيات", credits: 3, prerequisites: [], type: "general" },
+    { id: "comm001_ds", code: "COMM001", name: "Communication Skills", nameAr: "مهارات التواصل", credits: 2, prerequisites: [], type: "general" },
+    { id: "ci001_ds", code: "CI001", name: "Academic Skills", nameAr: "المهارات الأكاديمية", credits: 2, prerequisites: [], type: "general" }
   ],
   sharedFirstYearCourses: [
     // Shared College Requirements - Same foundation with STAT201 instead of STAT101
-    { id: "islm101", code: "ISLM101", name: "Islamic Course 1", nameAr: "المقرر الإسلامي 1", credits: 2, prerequisites: [], type: "general" },
-    { id: "islm102", code: "ISLM102", name: "Islamic Course 2", nameAr: "المقرر الإسلامي 2", credits: 2, prerequisites: [], type: "general" },
-    { id: "islm103", code: "ISLM103", name: "Islamic Course 3", nameAr: "المقرر الإسلامي 3", credits: 2, prerequisites: ["islm101"], type: "general" },
-    { id: "islm104", code: "ISLM104", name: "Islamic Course 4", nameAr: "المقرر الإسلامي 4", credits: 2, prerequisites: ["islm102"], type: "general" },
-    { id: "sci101", code: "SCI101", name: "General Physics 1", nameAr: "الفيزياء العامة 1", credits: 3, prerequisites: [], type: "core" },
-    { id: "sci201", code: "SCI201", name: "General Physics 2", nameAr: "الفيزياء العامة 2", credits: 3, prerequisites: ["sci101"], type: "core" },
-    { id: "math150", code: "MATH150", name: "Discrete Mathematics", nameAr: "الرياضيات المتقطعة", credits: 3, prerequisites: [], type: "core" },
-    { id: "math251", code: "MATH251", name: "Linear Algebra", nameAr: "الجبر الخطي", credits: 3, prerequisites: ["math150"], type: "core" },
-    { id: "eng103", code: "ENG103", name: "Technical Writing", nameAr: "الكتابة التقنية", credits: 3, prerequisites: [], type: "core" },
-    { id: "stat201", code: "STAT201", name: "Introduction to Statistics and Probabilities", nameAr: "مقدمة في الإحصاء والاحتماليات", credits: 3, prerequisites: ["math150"], type: "core" }
+    { id: "islm101_ds", code: "ISLM101", name: "Islamic Course 1", nameAr: "المقرر الإسلامي 1", credits: 2, prerequisites: [], type: "general" },
+    { id: "islm102_ds", code: "ISLM102", name: "Islamic Course 2", nameAr: "المقرر الإسلامي 2", credits: 2, prerequisites: [], type: "general" },
+    { id: "islm103_ds", code: "ISLM103", name: "Islamic Course 3", nameAr: "المقرر الإسلامي 3", credits: 2, prerequisites: ["islm101_ds"], type: "general" },
+    { id: "islm104_ds", code: "ISLM104", name: "Islamic Course 4", nameAr: "المقرر الإسلامي 4", credits: 2, prerequisites: ["islm102_ds"], type: "general" },
+    { id: "sci101_ds", code: "SCI101", name: "General Physics 1", nameAr: "الفيزياء العامة 1", credits: 3, prerequisites: [], type: "core" },
+    { id: "sci201_ds", code: "SCI201", name: "General Physics 2", nameAr: "الفيزياء العامة 2", credits: 3, prerequisites: ["sci101_ds"], type: "core" },
+    { id: "math150_ds", code: "MATH150", name: "Discrete Mathematics", nameAr: "الرياضيات المتقطعة", credits: 3, prerequisites: [], type: "core" },
+    { id: "math251_ds", code: "MATH251", name: "Linear Algebra", nameAr: "الجبر الخطي", credits: 3, prerequisites: ["math150_ds"], type: "core" },
+    { id: "eng103_ds", code: "ENG103", name: "Technical Writing", nameAr: "الكتابة التقنية", credits: 3, prerequisites: [], type: "core" },
+    { id: "stat201_ds", code: "STAT201", name: "Introduction to Statistics and Probabilities", nameAr: "مقدمة في الإحصاء والاحتماليات", credits: 3, prerequisites: ["math150_ds"], type: "core" }
   ],
   courses: [
     // Major Core Courses - 3rd Semester
@@ -549,7 +549,34 @@ const mgmtMajorData: MajorData = {
   ]
 };
 
-export default function ClientMajorPage({ params }: Readonly<{ params: { slug: string } }>) {
+const MAJORS_MAP: Record<string, MajorData> = {
+  'information-technology': itMajorData,
+  'computer-science': csMajorData,
+  'data-science': dsMajorData,
+  'health-informatics': hiMajorData,
+  'public-health': phMajorData,
+  'management': mgmtMajorData,
+  // Temporary placeholders (map to IT) – replace when real data ready
+  'e-commerce': itMajorData,
+  'accounting': itMajorData,
+  'finance': itMajorData,
+  'law': itMajorData,
+  'digital-media': itMajorData,
+  'english-language-and-translation': itMajorData,
+};
+
+interface ClientMajorPageProps {
+  params: { slug?: string };
+}
+
+// تأكد أن هذا هو توقيع الكمبوننت
+export default function ClientMajorPage({ params }: Readonly<ClientMajorPageProps>) {
+  const routeParams = useParams();
+  const slug = (params.slug || (typeof routeParams?.slug === 'string' ? routeParams.slug : undefined) || 'information-technology') as string;
+  const rawSlug = slug;
+  const normalizedSlug = typeof rawSlug === 'string' ? rawSlug.trim().toLowerCase() : rawSlug;
+  const majorData = MAJORS_MAP[normalizedSlug] || itMajorData;
+  const isFallback = !MAJORS_MAP[normalizedSlug];
   const router = useRouter();
   const { isArabic } = useLanguage();
   const [currentStep, setCurrentStep] = useState(0);
@@ -614,27 +641,10 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
   // Keep track of schedule updates for debugging
   console.log('Current course schedules:', Object.keys(storeSchedules).length);
 
-  // Get major data based on slug
-  const getMajorData = (slug: string): MajorData => {
-    switch (slug) {
-      case 'information-technology':
-        return itMajorData;
-      case 'data-science':
-        return dsMajorData;
-      case 'computer-science':
-        return csMajorData;
-      case 'health-informatics':
-        return hiMajorData;
-      case 'public-health':
-        return phMajorData;
-      case 'management':
-        return mgmtMajorData;
-      default:
-        return itMajorData; // fallback
-    }
-  };
+  // (majorData already resolved above)
 
-  const majorData = getMajorData(params.slug);
+  // Temporary debug instrumentation to diagnose incorrect major mapping issue
+  // (Removed debug overlay and logging)
 
   // Function to auto-complete courses based on completed semesters
   const getCompletedCoursesBySemester = (semesterCount: number) => {
@@ -701,7 +711,8 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
       return prerequisitesMet;
     });
     
-    return [...availableSharedCourses, ...availableMajorCourses];
+    const result = [...availableSharedCourses, ...availableMajorCourses];
+    return result;
   };
 
   const questionnaire = [
@@ -828,9 +839,20 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
   if (showQuestionnaire) {
     return (
       <div className="min-h-screen bg-gradient-dark pt-20">
+        {/* DEBUG OVERLAY (temporary) */}
+        <div style={{position:'fixed',top:4,right:4,zIndex:9999,fontSize:11,background:'rgba(0,0,0,0.6)',padding:'6px 8px',border:'1px solid #333',borderRadius:6,fontFamily:'monospace',maxWidth:260,whiteSpace:'pre-wrap'}}>
+          <div><strong>DEBUG</strong></div>
+          <div>rawSlug: {String(rawSlug)}</div>
+            <div>normalized: {String(normalizedSlug)}</div>
+          <div>keys: {Object.keys(MAJORS_MAP).join('|')}</div>
+          <div>selected: {majorData.id}</div>
+          <div style={{color:isFallback?'#f87171':'#4ade80'}}>fallback: {String(isFallback)}</div>
+        </div>
         <div className="max-w-4xl mx-auto px-6 py-12">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-white mb-4">{isArabic ? majorData.nameAr : majorData.name}</h1>
+            <h1 className="text-4xl font-bold">
+              {majorData.name}
+            </h1>
             <p className="text-gray-400 text-lg">
               {isArabic ? "أجب على الأسئلة التالية لتخصيص خطتك الدراسية" : "Answer the following questions to customize your study plan"}
             </p>
@@ -887,7 +909,12 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
                   {currentStep === 1 && hasCompletedFirstYear === true && (
                     <div className="grid gap-3">
                       <div className="text-center mb-4 p-3 bg-green-500/10 rounded-lg">
-                        <p className="text-green-400 text-sm">{isArabic ? "متطلبات الكلية المشتركة" : "Shared College Requirements"}</p>
+                        <p className="text-green-400 text-sm mb-2">{isArabic ? "متطلبات الكلية المشتركة" : "Shared College Requirements"}</p>
+                        <p className="text-gray-300 text-xs">
+                          {isArabic 
+                            ? "المتطلبات التي أكملتها ستظهر باللون الأخضر" 
+                            : "Requirements you completed will be highlighted in green"}
+                        </p>
                       </div>
                       {majorData.sharedFirstYearCourses.map((course) => {
                         const isEligibleForCourse = isEligible(course.code, completedSharedCourses.map(id => 
@@ -1038,6 +1065,15 @@ export default function ClientMajorPage({ params }: Readonly<{ params: { slug: s
 
   return (
     <div className="min-h-screen bg-gradient-dark pt-20">
+      {/* DEBUG OVERLAY (temporary) */}
+      <div style={{position:'fixed',top:4,right:4,zIndex:9999,fontSize:11,background:'rgba(0,0,0,0.6)',padding:'6px 8px',border:'1px solid #333',borderRadius:6,fontFamily:'monospace',maxWidth:260,whiteSpace:'pre-wrap'}}>
+        <div><strong>DEBUG</strong></div>
+        <div>rawSlug: {String(rawSlug)}</div>
+        <div>normalized: {String(normalizedSlug)}</div>
+        <div>keys: {Object.keys(MAJORS_MAP).join('|')}</div>
+        <div>selected: {majorData.id}</div>
+        <div style={{color:isFallback?'#f87171':'#4ade80'}}>fallback: {String(isFallback)}</div>
+      </div>
       {/* Upper Stats Bar */}
       <div className="bg-black/30 border-b border-white/10 py-6">
         <div className="max-w-7xl mx-auto px-6">

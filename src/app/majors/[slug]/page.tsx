@@ -1,18 +1,21 @@
 import ClientMajorPage from "./ClientPage";
 
-// Pre-render all known slugs for static export (server component wrapper)
+// احذف السطر السابق أو جعله false (لأن عندك static export)
+// export const dynamicParams = true;
 export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return [
-    { slug: "information-technology" },
-    { slug: "data-science" },
-    { slug: "computer-science" },
-    { slug: "health-informatics" },
-    { slug: "public-health" },
-    { slug: "management" },
+  const slugs = [
+    "information-technology",
+    "computer-science",
+    "data-science",
+    "health-informatics",
+    "public-health",
+    "management",
   ];
+  return slugs.map((slug) => ({ slug }));
 }
 
-export default function Page({ params }: Readonly<{ params: { slug: string } }>) {
+export default function MajorPage({ params }: { params: { slug: string } }) {
   return <ClientMajorPage params={params} />;
 }
