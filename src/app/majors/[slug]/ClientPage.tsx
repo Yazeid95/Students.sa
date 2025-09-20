@@ -576,7 +576,6 @@ export default function ClientMajorPage({ params }: Readonly<ClientMajorPageProp
   const rawSlug = slug;
   const normalizedSlug = typeof rawSlug === 'string' ? rawSlug.trim().toLowerCase() : rawSlug;
   const majorData = MAJORS_MAP[normalizedSlug] || itMajorData;
-  const isFallback = !MAJORS_MAP[normalizedSlug];
   const router = useRouter();
   const { isArabic } = useLanguage();
   const [currentStep, setCurrentStep] = useState(0);
@@ -839,15 +838,6 @@ export default function ClientMajorPage({ params }: Readonly<ClientMajorPageProp
   if (showQuestionnaire) {
     return (
       <div className="min-h-screen bg-gradient-dark pt-20">
-        {/* DEBUG OVERLAY (temporary) */}
-        <div style={{position:'fixed',top:4,right:4,zIndex:9999,fontSize:11,background:'rgba(0,0,0,0.6)',padding:'6px 8px',border:'1px solid #333',borderRadius:6,fontFamily:'monospace',maxWidth:260,whiteSpace:'pre-wrap'}}>
-          <div><strong>DEBUG</strong></div>
-          <div>rawSlug: {String(rawSlug)}</div>
-            <div>normalized: {String(normalizedSlug)}</div>
-          <div>keys: {Object.keys(MAJORS_MAP).join('|')}</div>
-          <div>selected: {majorData.id}</div>
-          <div style={{color:isFallback?'#f87171':'#4ade80'}}>fallback: {String(isFallback)}</div>
-        </div>
         <div className="max-w-4xl mx-auto px-6 py-12">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
             <h1 className="text-4xl font-bold">
@@ -1065,15 +1055,6 @@ export default function ClientMajorPage({ params }: Readonly<ClientMajorPageProp
 
   return (
     <div className="min-h-screen bg-gradient-dark pt-20">
-      {/* DEBUG OVERLAY (temporary) */}
-      <div style={{position:'fixed',top:4,right:4,zIndex:9999,fontSize:11,background:'rgba(0,0,0,0.6)',padding:'6px 8px',border:'1px solid #333',borderRadius:6,fontFamily:'monospace',maxWidth:260,whiteSpace:'pre-wrap'}}>
-        <div><strong>DEBUG</strong></div>
-        <div>rawSlug: {String(rawSlug)}</div>
-        <div>normalized: {String(normalizedSlug)}</div>
-        <div>keys: {Object.keys(MAJORS_MAP).join('|')}</div>
-        <div>selected: {majorData.id}</div>
-        <div style={{color:isFallback?'#f87171':'#4ade80'}}>fallback: {String(isFallback)}</div>
-      </div>
       {/* Upper Stats Bar */}
       <div className="bg-black/30 border-b border-white/10 py-6">
         <div className="max-w-7xl mx-auto px-6">
